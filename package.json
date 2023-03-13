@@ -1,0 +1,26 @@
+{
+  "name": "@pulchritude-cli/repo",
+  "license": "MIT",
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*",
+    "configs/*",
+    "cli/*"
+  ],
+  "scripts": {
+    "lint": "turbo run lint",
+    "build": "turbo run build",
+    "release": "changeset publish",
+    "changeset": "changeset",
+    "pre-publish": "node ./.github/scripts/pre-publish.js",
+    "publish-packages": "changeset version && changeset publish"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@pulchritude-cli/config.tsconfig": "workspace:*",
+    "tsup": "6.6.3",
+    "@changesets/cli": "2.26.0",
+    "turbo": "1.8.3",
+    "typescript": "4.9.5"
+  }
+}
