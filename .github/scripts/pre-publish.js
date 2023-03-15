@@ -33,7 +33,7 @@ function reviseNpmPackages({ packagesFolder }) {
   const folders = fs.readdirSync(packagesFolder);
 
   folders.forEach((folder) => {
-    const folderPath = path.resolve(PACKAGE_FOLDER, folder);
+    const folderPath = path.resolve(packagesFolder, folder);
 
     const packageJsonPath = path.join(folderPath, `package.json`);
     revisePackageJsonFile({ filePath: packageJsonPath });
