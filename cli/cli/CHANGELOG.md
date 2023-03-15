@@ -1,5 +1,11 @@
 # @pulchritude-cli/cli
 
+## 0.0.2
+
+### Patch Changes
+
+- 53929f6: Bumb version
+
 ## 0.0.1
 
 ### Patch Changes
