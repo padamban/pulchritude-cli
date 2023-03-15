@@ -1,5 +1,11 @@
 # @pulchritude-cli/cli
 
+## 0.0.4
+
+### Patch Changes
+
+- b5a418a: Add bin command
+
 ## 0.0.3
 
 ### Patch Changes
