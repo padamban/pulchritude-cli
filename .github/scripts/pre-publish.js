@@ -43,6 +43,7 @@ function reviseNpmPackages({ packagesFolder }) {
     revisePackageJsonFile({ filePath: packageJsonPath });
 
     const npmIgnorePath = path.join(folderPath, `.npmignore`);
+
     addNpmIgnore({ filePath: npmIgnorePath });
   });
 }
