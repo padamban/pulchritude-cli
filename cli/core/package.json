@@ -2,7 +2,7 @@
   "name": "@pulchritude-cli/core",
   "version": "0.0.2",
   "private": false,
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "types": "src/index.ts",
   "module": "none",
   "publishConfig": {
@@ -12,6 +12,9 @@
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc"
   },
-  "dependencies": {},
+  "dependencies": {
+    "joycon": "3.1.1",
+    "bundle-require": "4.0.1"
+  },
   "devDependencies": {}
 }
