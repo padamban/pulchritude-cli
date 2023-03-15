@@ -1,5 +1,5 @@
-import { RUN } from './run';
+import { RUN } from './run'
 
-RUN();
+RUN()
 
-export {};
+export {}
