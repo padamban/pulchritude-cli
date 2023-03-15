@@ -1,7 +1,3 @@
-reviseNpmPackages({ packagesFolder: './cli' });
-
-// Code
-
 const fs = require('fs');
 const path = require('path');
 
@@ -47,3 +43,9 @@ function reviseNpmPackages({ packagesFolder }) {
     addNpmIgnore({ filePath: npmIgnorePath });
   });
 }
+
+function RUN() {
+  reviseNpmPackages({ packagesFolder: './cli' });
+}
+
+RUN();
