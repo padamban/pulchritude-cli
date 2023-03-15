@@ -1,5 +1,11 @@
 # @pulchritude-cli/cli
 
+## 0.0.5
+
+### Patch Changes
+
+- 966af9a: Add cli RUN from dist to bin
+
 ## 0.0.4
 
 ### Patch Changes
