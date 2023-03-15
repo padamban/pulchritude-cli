@@ -19,6 +19,7 @@
   "dependencies": {},
   "devDependencies": {
     "@pulchritude-cli/config.tsconfig": "workspace:*",
+    "@pulchritude-cli/config.eslint": "workspace:*",
     "@types/node": "18.15.0",
     "tsup": "6.6.3",
     "tsx": "3.12.3",
