@@ -1,1 +1,3 @@
-console.log('DEV CLI');
+const { RUN } = require('../dist');
+
+RUN();
