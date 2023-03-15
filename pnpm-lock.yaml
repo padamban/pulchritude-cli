@@ -16,6 +16,14 @@ importers:
       turbo: 1.8.3
       typescript: 4.9.5
 
+  cli/cli:
+    specifiers:
+      '@pulchritude-cli/core': workspace:*
+      '@pulchritude-cli/utils': workspace:*
+    dependencies:
+      '@pulchritude-cli/core': link:../core
+      '@pulchritude-cli/utils': link:../utils
+
   cli/core:
     specifiers: {}
 

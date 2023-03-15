@@ -1,0 +1,20 @@
+{
+  "name": "@pulchritude-cli/cli",
+  "version": "0.0.0",
+  "private": false,
+  "main": "src/index.js",
+  "types": "src/index.ts",
+  "module": "none",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "lint": "tsc"
+  },
+  "dependencies": {
+    "@pulchritude-cli/core": "workspace:*",
+    "@pulchritude-cli/utils": "workspace:*"
+  },
+  "devDependencies": {}
+}
