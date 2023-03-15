@@ -8,6 +8,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "bin": {
+    "dev-cli": "bin/dev-cli.js"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc"
