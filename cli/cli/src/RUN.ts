@@ -1,35 +1,33 @@
-import { delay, loadConfig, PROGRESS } from '@pulchritude-cli/core'
+import { delay, loadConfig, REPORTER } from '@pulchritude-cli/core'
 
 import { displayBanner } from './display/banner'
 
 const RUN = async () => {
   displayBanner()
 
-  const p = PROGRESS({ barSize: 49 })
-  p.setSectionCount(3)
+  const reporter = REPORTER({
+    progressBarArgs: {
+      barSize: 49,
+    },
+  })
 
   await delay(1000)
-  p.nextActiveSection()
-
-  // p.disable()
-  p.setSectionTitle('Hohij lkjl')
-  p.setSubSectionCount(4)
-  await delay(1000)
-  p.nextActiveSubSection()
-  await delay(1000)
-  p.nextActiveSubSection()
-  await delay(1000)
-  p.nextActiveSubSection()
-
-  await delay(1000)
-  p.nextActiveSection()
-
-  await delay(1000)
-  p.nextActiveSection()
+  reporter.progress?.setSectionCount(3)
 
   await delay(1000)
 
-  p.finish()
+  reporter.initSection({
+    id: 'ad',
+    arguments: 'anu',
+    description: 'ewe',
+    title: 'eqwe  weqw qwe eqew',
+  })
+
+  await delay(1000)
+
+  reporter.endSection()
+
+  await delay(1000)
 
   const config = await loadConfig({
     defaultConfig: {},
