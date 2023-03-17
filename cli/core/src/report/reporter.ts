@@ -126,7 +126,11 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
       content()?.push({ type: 'problem-line', text })
       return log
     },
-    labeledLine: (label: string, text: string, status: ReportStatus = 'NONE') => {
+    labeledLine: (
+      label: string,
+      text: string,
+      status: ReportStatus = 'NONE',
+    ) => {
       if (finished) return log
       content()?.push({ type: 'labeled-line', label, text, status })
       return log

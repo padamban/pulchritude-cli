@@ -117,7 +117,11 @@ export interface CliReportLogger {
   line: (text: string, status?: ReportStatus) => CliReportLogger
   problemLine: (text: string) => CliReportLogger
   solutionLine: (text: string) => CliReportLogger
-  labeledLine: (label: string, text: string, status?: ReportStatus) => CliReportLogger
+  labeledLine: (
+    label: string,
+    text: string,
+    status?: ReportStatus,
+  ) => CliReportLogger
   list: (data: string[]) => CliReportLogger
   codeList: (data: string[]) => CliReportLogger
   list2: (...items: [string, string][]) => CliReportLogger
@@ -178,7 +182,10 @@ export interface CliReporter {
 }
 
 export type SectionProgress = Partial<
-  Pick<CliProgress, 'nextActiveSubSection' | 'setSubSectionCount' | 'setSectionTitle'>
+  Pick<
+    CliProgress,
+    'nextActiveSubSection' | 'setSubSectionCount' | 'setSectionTitle'
+  >
 >
 
 export interface ReporterArgs {

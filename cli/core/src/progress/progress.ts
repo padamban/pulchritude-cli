@@ -44,7 +44,9 @@ export const PROGRESS = (args?: CliProgressArgs): CliProgress => {
     const sectionPC = currentSectionIdx / sectionCount
     const subSectionPC = currentSubSectionIdx / subSectionCount
     const subSectionSize = 100 / sectionCount
-    const PC = +(sectionPC * 100 + subSectionSize * subSectionPC || 0).toFixed(0)
+    const PC = +(sectionPC * 100 + subSectionSize * subSectionPC || 0).toFixed(
+      0,
+    )
 
     if (finished) {
       progressBar.update(100, { pc: '', title: '' })
@@ -66,7 +68,8 @@ export const PROGRESS = (args?: CliProgressArgs): CliProgress => {
       initProgressBar()
       sectionCount = count || 1
     },
-    setSubSectionCount: (count: number | undefined) => (subSectionCount = count || 1),
+    setSubSectionCount: (count: number | undefined) =>
+      (subSectionCount = count || 1),
     setSectionTitle: (title: string) => {
       currentSectionTitle = title
       render()
