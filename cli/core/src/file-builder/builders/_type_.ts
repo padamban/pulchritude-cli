@@ -1,11 +1,9 @@
-export interface FileBuilderLogger {
-  error: (text: string) => void
-}
+import { LogError } from '../../error'
 
-export interface FileBuilderFactoryProps {
-  logger?: FileBuilderLogger
+export interface FileBuilderFactoryArgs {
+  onError?: LogError
 }
 
 export type FileBuilderFactory<Builder> = (
-  props?: FileBuilderFactoryProps,
+  args?: FileBuilderFactoryArgs,
 ) => Builder

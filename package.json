@@ -8,7 +8,7 @@
     "cli/*"
   ],
   "scripts": {
-    "cli": "tsx ./cli/cli/src/run-now.ts",
+    "cli": "tsx ./cli/cli/src/run/run-now.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "turbo run lint",

@@ -1,5 +1,6 @@
 import { BuiltInParserName } from 'prettier'
 
+import { LogError } from '../error'
 import { RawFileContentBuilderFactory } from './builders/raw/_type_'
 import { TsFileContentBuilderFactory } from './builders/ts/_type_'
 
@@ -9,6 +10,7 @@ export interface CliFileBuilderLogger {
 
 export interface CliFileBuilderFactoryProps {
   logger?: CliFileBuilderLogger
+  onError?: LogError
 }
 
 export interface CliFileBuilderProps {

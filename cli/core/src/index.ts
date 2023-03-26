@@ -1,4 +1,6 @@
+export * from './command'
 export * from './config'
+export * from './error'
 export * from './file-builder'
 export * from './file-manager'
 export * from './prettier'

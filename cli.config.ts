@@ -1,3 +1,5 @@
-export default {
-  hello: 34,
+const config = {
+  cliName: 'CLI',
 }
+
+export default config

@@ -14,8 +14,10 @@
   },
   "peerDependencies": {},
   "dependencies": {
+    "prompts": "2.4.2",
     "@types/prettier": "2.7.2",
     "prettier": "2.8.4",
+    "commander": "10.0.0",
     "@types/cli-progress": "3.11.0",
     "@types/glob": "8.1.0",
     "chalk": "5.2.0",
@@ -23,5 +25,7 @@
     "joycon": "3.1.1",
     "bundle-require": "4.0.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/prompts": "2.4.2"
+  }
 }

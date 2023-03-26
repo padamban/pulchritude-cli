@@ -22,7 +22,7 @@ export const createRawFile: RawFileContentBuilderFactory = props => () => {
         return await tryToFormatWithPrettier({
           input: content,
           parser,
-          onError: props?.logger?.error,
+          onError: props?.onError,
         })
       }
       return content

@@ -16,8 +16,7 @@
     "lint": "tsc"
   },
   "dependencies": {
-    "@pulchritude-cli/core": "workspace:*",
-    "@pulchritude-cli/utils": "workspace:*"
+    "@pulchritude-cli/core": "workspace:*"
   },
   "devDependencies": {}
 }

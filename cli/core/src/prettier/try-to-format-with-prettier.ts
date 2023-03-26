@@ -1,9 +1,11 @@
 import prettier, { BuiltInParserName } from 'prettier'
 
+import { LogError } from '../error'
+
 interface Args {
   input: string
   parser: BuiltInParserName
-  onError?: (err: string) => void
+  onError?: LogError
 }
 
 /**
@@ -19,9 +21,14 @@ export const tryToFormatWithPrettier = async (args: Args) => {
 
     return prettier.format(input, { ...config, parser })
   } catch (error) {
-    onError?.(
-      `ERROR in tryToFormatWithPrettier:\n\n${error}\n\nInput:\n${input}`,
-    )
+    onError?.({
+      type: 'error',
+      issue: 'Failed to format with prettier.',
+      location: 'tryToFormatWithPrettier',
+      error: String(error),
+      payload: input,
+      recommendation: 'Check if the content is syntactically correct.',
+    })
   }
 
   return input

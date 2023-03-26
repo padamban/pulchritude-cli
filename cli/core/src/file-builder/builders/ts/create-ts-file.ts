@@ -11,7 +11,9 @@ import {
 /**
  * Has chainable utility functions for creating typescript file content.
  */
-export const createTsFile: TsFileContentBuilderFactory = () => () => {
+export const createTsFile: TsFileContentBuilderFactory = args => () => {
+  const { onError } = args ?? {}
+
   const lines: string[] = []
 
   const options: TsFileContentBuilder = {
@@ -24,12 +26,17 @@ export const createTsFile: TsFileContentBuilderFactory = () => () => {
         const formattedContent = await tryToFormatWithPrettier({
           input: text,
           parser: 'typescript',
-          onError: console.log,
+          onError,
         })
 
         return formattedContent
       } catch (error) {
-        console.log('ERROR in createTsFile\n', error)
+        onError?.({
+          type: 'error',
+          location: 'createTsFile',
+          issue: 'Failed to create TS file.',
+          error: String(error),
+        })
       }
 
       return ''
