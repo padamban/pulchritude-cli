@@ -19,6 +19,7 @@ export interface ProgramDetails {
 
 export interface CommandDetails {
   variableName: string
+  title: string
   description: string
   name: string
   alias: string
@@ -28,13 +29,11 @@ export interface CommandDetails {
 
 export interface OptionDetails {
   variableName: string
+  title: string
   description: string
   type: 'boolean' | 'string' | 'string-array'
   showUsageExample?: boolean
-  values?: {
-    name: string
-    value: string
-  }[]
+  choices?: ChoiceDetails[]
   name?: `--${string}`
   alias?: `-${string}`
 }
@@ -42,11 +41,18 @@ export interface OptionDetails {
 export interface ArgumentDetails {
   variableName: string
   description: string
-  type: 'string'
+  title: string
+  type: 'string' | 'number'
   name?: string
   required?: boolean
   variadic?: boolean
   showUsageExample?: boolean
+  choices?: ChoiceDetails[]
+}
+
+export interface ChoiceDetails {
+  name: string
+  value: string
 }
 
 export interface CommandContext {
@@ -60,3 +66,8 @@ export type FlagOptionAlias = `-${string}`
 export type ResolvedArgumentDetails = RequireSome<ArgumentDetails, 'name'>
 
 export type ResolvedOptionDetails = RequireSome<OptionDetails, 'name' | 'alias'>
+
+export interface GlobalOptions {
+  help: OptionDetails
+  noPrompt: OptionDetails
+}

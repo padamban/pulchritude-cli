@@ -13,7 +13,7 @@ interface Args {
 }
 
 function addAvailableFeaturesDocumentation({ cmd, addLine: _ }: Args) {
-  _('\n\nAVAILABLE\n')
+  _('\n\nPROGRAMS\n')
 
   cmd.programs.forEach(p => {
     const programNameWithAlias = getNameWithAlias({
@@ -35,19 +35,7 @@ function addAvailableFeaturesDocumentation({ cmd, addLine: _ }: Args) {
 
       _(`    ${commandNameWithAlias} ${c.description}`)
 
-      c.arguments?.forEach((arg, i, arr) => {
-        const isLast = i === arr.length - 1
-
-        const isInvalidVariadic = !isLast && arg.variadic
-
-        if (isInvalidVariadic) {
-          throw new Error(
-            Color.error(
-              `Invalid variadic argument (${arg.name}) - only the last argument can be variadic\n`,
-            ),
-          )
-        }
-
+      c.arguments?.forEach(arg => {
         const argTag = CommanderTag.getArgumentTag(resolveArgument(arg))
         const argDesc = CommanderDescription.getArgumentDescription(arg)
 
@@ -66,12 +54,12 @@ function addAvailableFeaturesDocumentation({ cmd, addLine: _ }: Args) {
         _(`      ${optNameWithAlias} ${opt.description} ${type}`)
 
         const longestValue =
-          opt.values?.reduce<number>((longest, v) => {
+          opt.choices?.reduce<number>((longest, v) => {
             if (v.value.length > longest) longest = v.value.length
             return longest
           }, 0) ?? 0
 
-        opt.values?.forEach(val => {
+        opt.choices?.forEach(val => {
           const rawValue = `"${val.value}"`
           const value = rawValue
             .padEnd(longestValue + 2)

@@ -1,34 +1,28 @@
 import commander from 'commander'
 
-import { CommanderSetup } from '../../_type_'
+import { CommanderSetup, GlobalOptions } from '../../_type_'
+import { globalOptions } from '../../global-options'
 import { CommanderTag } from '../utils/get-commander-tag'
 import { resolveOption } from '../utils/resolve-option'
-import { Color } from './formatters/colors'
 import { addAvailableFeaturesDocumentation } from './sections/available-features-doc'
 import { addCommonDocumentation } from './sections/common-doc'
+import { addGlobalOptionsDoc } from './sections/global-options-doc'
 import { addQuickHelpDocumentation } from './sections/quick-help'
 
-export const addCmdDocumentationFactory =
-  (commanderSetup: CommanderSetup) => (cmd: commander.Command) => {
-    const cmdName = cmd.name()
-    const description = `Display help information for the current (${Color.command(
-      cmdName,
-    )}) command.`
+interface Args {
+  setup: CommanderSetup
+  globalOptions: GlobalOptions
+}
 
+export const addCmdDocumentationFactory =
+  ({ setup, globalOptions }: Args) =>
+  (cmd: commander.Command) => {
     cmd
       .helpOption(
-        CommanderTag.getOptionTag(
-          resolveOption({
-            variableName: 'help',
-            name: '--help',
-            alias: '-h',
-            type: 'boolean',
-            description: '',
-          }),
-        ),
-        description,
+        CommanderTag.getOptionTag(resolveOption(globalOptions.help)),
+        globalOptions.help.description,
       )
-      .addHelpText('before', createDocumentation(commanderSetup))
+      .addHelpText('before', createDocumentation(setup))
       .showHelpAfterError()
   }
 
@@ -39,6 +33,11 @@ function createDocumentation(cmd: CommanderSetup) {
   addCommonDocumentation({
     cmd,
     addLine: _,
+  })
+
+  addGlobalOptionsDoc({
+    addLine: _,
+    globalOptions: [globalOptions.noPrompt, globalOptions.help],
   })
 
   addAvailableFeaturesDocumentation({

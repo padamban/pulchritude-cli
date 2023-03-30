@@ -1,11 +1,11 @@
 import { Command } from 'commander'
 
-interface GetPositionalArgs {
+interface Args {
   rawArgs: any[]
   cmd: Command
 }
 
-function getPositionalArgs({ cmd, rawArgs }: GetPositionalArgs) {
+function getPositionalArgs({ cmd, rawArgs }: Args) {
   const [, , ...positional] = [...rawArgs].reverse()
 
   const positionalArgs = ([...positional].reverse() as any[]).reduce(

@@ -1,0 +1,77 @@
+import { ErrorInfo } from '../../../../error'
+import { ArgumentDetails } from '../../../_type_'
+
+interface Args {
+  parentChain: string[]
+  arguments?: ArgumentDetails[]
+}
+interface Retval {
+  errorInfo: ErrorInfo[]
+}
+
+function validateArgumentConfig(args: Args): Retval {
+  const errorInfo: ErrorInfo[] = []
+
+  const requiredOrder = args.arguments?.map(a => !!a.required) ?? []
+
+  let brokenRequiredOrder = false
+  let prevRequired = true
+
+  requiredOrder?.forEach(r => {
+    brokenRequiredOrder = prevRequired === false && r === true
+    prevRequired = r
+  })
+
+  if (brokenRequiredOrder) {
+    errorInfo.push({
+      issue: 'Invalid config: the required arguments must be at the front.',
+      type: 'error',
+      recommendation: 'Put the required arguments to the top.',
+      payload: JSON.stringify(
+        {
+          chain: args.parentChain,
+          argumentList: args.arguments?.map(({ variableName, required }) => ({
+            variableName,
+            required: !!required,
+          })),
+        },
+        null,
+        2,
+      ),
+    })
+  }
+
+  const variadicOrder = args.arguments?.map(a => !!a.variadic) ?? []
+
+  const isLastVariadic = variadicOrder.at(-1)
+  const variadicCount = variadicOrder.filter(Boolean).length
+
+  const hasVariadic = isLastVariadic && variadicCount === 1
+  const noVariadic = !isLastVariadic && variadicCount === 0
+  const brokenVariadic = !(hasVariadic || noVariadic)
+
+  if (brokenVariadic) {
+    errorInfo.push({
+      issue: 'Invalid config: only the last argument can be variadic.',
+      type: 'error',
+      recommendation: 'Set only the last argument to variadic.',
+      payload: JSON.stringify(
+        {
+          chain: args.parentChain,
+          argumentList: args.arguments?.map(({ variableName, variadic }) => ({
+            variableName,
+            variadic: !!variadic,
+          })),
+        },
+        null,
+        2,
+      ),
+    })
+  }
+
+  return {
+    errorInfo,
+  }
+}
+
+export { validateArgumentConfig }

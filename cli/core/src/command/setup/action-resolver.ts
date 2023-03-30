@@ -1,12 +1,14 @@
 import { Command } from 'commander'
 
+import { CommanderSetup } from '../_type_'
 import { PROMPT } from '../prompt/PROMPT'
 import { getCommandChain } from './utils/get-command-chain'
 import { getOptions } from './utils/get-options'
 import { getPositionalArgs } from './utils/get-positional-args'
+import { resolveCommandChain } from './utils/resolve-command-chain'
 
 interface Args {
-  setup: any
+  setup: CommanderSetup
   cmd: Command
   ctx: any
 }
@@ -15,21 +17,28 @@ export const ACTION_RESOLVER = (args: Args) => {
   const { cmd, setup, ctx } = args
 
   cmd.action(async (...rawArgs) => {
-    const positionalArgs = getPositionalArgs({ cmd, rawArgs })
+    const argumentValues = getPositionalArgs({ cmd, rawArgs })
 
-    const options = getOptions({ rawArgs })
+    const optionValues = getOptions({ rawArgs })
 
     const commandChain = getCommandChain(cmd)
 
-    const { program } = await PROMPT({ setup })
+    const chain = resolveCommandChain({ cmd, setup })
 
-    console.log('HELLO', cmd.name(), {
+    const response = await PROMPT({
+      setup,
+      argumentValues,
+      optionValues,
+      ...chain,
+    })
+
+    console.log('HELLO 2', cmd.name(), {
       ctx,
       setup,
-      options,
-      positionalArgs,
+      argumentValues,
+      optionValues,
       commandChain,
-      program,
+      response,
     })
   })
 }

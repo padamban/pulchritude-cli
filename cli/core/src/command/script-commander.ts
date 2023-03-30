@@ -1,9 +1,11 @@
 import { Command, Option } from 'commander'
 
 import { CommandContext, CommanderSetup } from './_type_'
+import { globalOptions } from './global-options'
 import { ACTION_RESOLVER } from './setup/action-resolver'
 import { addCmdDocumentationFactory } from './setup/documentation/add-documentation'
 import { CommanderDescription } from './setup/documentation/formatters/get-description'
+import { VALIDATE_SETUP } from './setup/documentation/validators/validate-setup'
 import { CommanderTag } from './setup/utils/get-commander-tag'
 import { resolveArgument } from './setup/utils/resolve-argument'
 import { resolveOption } from './setup/utils/resolve-option'
@@ -14,7 +16,9 @@ export const SCRIPT_COMMANDER =
   async (argv: string[]) => {
     const commander = new Command()
 
-    const addDocs = addCmdDocumentationFactory(setup)
+    VALIDATE_SETUP({ setup })
+
+    const addDocs = addCmdDocumentationFactory({ setup, globalOptions })
 
     commander
       .name(setup.name)
@@ -47,7 +51,9 @@ export const SCRIPT_COMMANDER =
           programCommandCmd.argument(`${argTag}`, argDesc)
         })
 
-        c.options?.forEach(opt => {
+        const options = [...(c.options ?? []), globalOptions.noPrompt]
+
+        options.forEach(opt => {
           const optTag = CommanderTag.getOptionTag(resolveOption(opt))
           const optDesc = CommanderDescription.getOptionDescription(opt)
 

@@ -24,7 +24,9 @@ function getArgumentTag(args: ResolvedArgumentDetails) {
   return argument
 }
 
-function getOptionTag(args: ResolvedOptionDetails) {
+function getOptionTag(
+  args: Pick<ResolvedOptionDetails, 'name' | 'alias' | 'type'>,
+) {
   const { name, alias, type } = args
 
   let tag = `${alias},`.padEnd(6) + name + getOptionTagSlot({ type })

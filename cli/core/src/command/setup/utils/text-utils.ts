@@ -15,8 +15,7 @@ function createOptionName(variableName: string) {
   const alias: FlagOptionAlias = `-${kebab
     .split('-')
     .map(v => v[0])
-    .join('')
-    .padEnd(6)}`
+    .join('')}`
 
   return {
     name,

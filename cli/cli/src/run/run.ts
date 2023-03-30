@@ -1,6 +1,6 @@
 import {
   CommanderSetup,
-  loadConfig,
+  // loadConfig,
   REPORTER,
   SCRIPT_COMMANDER,
 } from '@pulchritude-cli/core'
@@ -22,12 +22,14 @@ const RUN = async () => {
         commands: [
           {
             variableName: 'comAa',
+            title: 'Command A',
             name: 'com-aa',
             alias: 'ca',
             description: 'Command A',
             arguments: [],
             options: [
               {
+                title: 'Option A',
                 name: '--opt-a',
                 alias: '-oa',
                 variableName: 'optA',
@@ -35,13 +37,14 @@ const RUN = async () => {
                 type: 'boolean',
               },
               {
+                title: 'Option B',
                 name: '--opt-b',
                 alias: '-ob',
                 variableName: 'optB',
                 description: 'Option B',
                 type: 'string-array',
                 showUsageExample: true,
-                values: [
+                choices: [
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },
                 ],
@@ -59,18 +62,20 @@ const RUN = async () => {
         commands: [
           {
             variableName: 'comAa',
+            title: 'Command A',
             name: 'com-aa',
             alias: 'ca',
             description: 'Command A',
             arguments: [],
             options: [
               {
+                title: 'Option A',
                 name: '--opt-a',
                 alias: '-oa',
                 variableName: 'optA',
                 description: 'Option A',
                 type: 'string-array',
-                values: [
+                choices: [
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },
                 ],
@@ -80,18 +85,42 @@ const RUN = async () => {
           {
             variableName: 'comBb',
             name: 'com-bb',
+            title: 'Command B',
             alias: 'cb',
             description: 'Command B',
-            arguments: [],
+            arguments: [
+              {
+                name: 'arg-one',
+                variableName: 'argOne',
+                description: 'Argument One',
+                title: 'Argument One',
+                type: 'number',
+                required: true,
+              },
+              {
+                name: 'arg-two',
+                variableName: 'argTwo',
+                description: 'Argument Two',
+                title: 'Argument Two',
+                type: 'string',
+                required: true,
+                // variadic: true,
+                choices: [
+                  { name: 'Spanish', value: 'es' },
+                  { name: 'English', value: 'en' },
+                ],
+              },
+            ],
             options: [
               {
+                title: 'Option A',
                 name: '--opt-a',
                 alias: '-oa',
                 variableName: 'optA',
                 description: 'Option A',
                 type: 'string-array',
                 showUsageExample: true,
-                values: [
+                choices: [
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },
                 ],
@@ -109,6 +138,7 @@ const RUN = async () => {
         commands: [
           {
             variableName: 'comAa',
+            title: 'Command A',
             name: 'com-aa',
             alias: 'ca',
             description: 'Command A',
@@ -117,43 +147,55 @@ const RUN = async () => {
                 name: 'arg-one',
                 variableName: 'argOne',
                 description: 'Argument One',
-                type: 'string',
-                required: true,
-              },
-              {
-                name: 'arg-two',
-                variableName: 'argTwo',
-                description: 'Argument Two',
-                type: 'string',
-              },
-              {
-                name: 'arg-three',
-                variableName: 'argThree',
-                description: 'Argument Three',
+                title: 'Argument One',
+                type: 'number',
                 variadic: true,
-                required: true,
-                type: 'string',
+                // required: true,
               },
+              // {
+              //   name: 'arg-two',
+              //   variableName: 'argTwo',
+              //   description: 'Argument Two',
+              //   title: 'Argument Two',
+              //   type: 'string',
+              //   // required: true,
+              //   // variadic: true,
+              //   choices: [
+              //     { name: 'Spanish', value: 'es' },
+              //     { name: 'English', value: 'en' },
+              //   ],
+              // },
+              // {
+              //   name: 'arg-three',
+              //   variableName: 'argThree',
+              //   description: 'Argument Three',
+              //   title: 'Argument Three',
+              //   variadic: true,
+              //   // required: true,
+              //   type: 'string',
+              // },
             ],
             options: [
               {
+                title: 'Option A',
                 name: '--opt-a',
                 alias: '-oa',
                 variableName: 'optA',
                 description: 'Option A',
                 type: 'string-array',
                 showUsageExample: true,
-                values: [
+                choices: [
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },
                 ],
               },
               {
+                title: 'Option B',
                 name: '--opt-b',
                 alias: '-ob',
                 variableName: 'optB',
                 description: 'Option B',
-                type: 'string',
+                type: 'boolean',
               },
             ],
           },
@@ -170,10 +212,10 @@ const RUN = async () => {
     },
   })
 
-  const config = await loadConfig({
-    defaultConfig: {},
-    validConfigFilePaths: ['cli.config.ts', 'dev-cli.config.ts'],
-  })
+  // const config = await loadConfig({
+  //   defaultConfig: {},
+  //   validConfigFilePaths: ['cli.config.ts', 'dev-cli.config.ts'],
+  // })
 
   await SCRIPT_COMMANDER(setup)({ reporter })(process.argv)
 

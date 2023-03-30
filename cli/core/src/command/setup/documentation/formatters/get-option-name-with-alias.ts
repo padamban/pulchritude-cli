@@ -10,10 +10,10 @@ function getOptionNameWithAlias(args: {
 
   const nameWithSlot = `${name}${CommanderTag.getOptionTagSlot({ type })}`
 
-  const optionNameWithAlias = `${nameWithSlot} ${alias}`
+  const optionNameWithAlias = `${nameWithSlot} ${alias} `
     .padEnd(30)
     .replace(nameWithSlot, Color.option(nameWithSlot))
-    .replace(alias, Color.gray(alias))
+    .replace(alias + ' ', Color.gray(alias))
 
   return optionNameWithAlias
 }

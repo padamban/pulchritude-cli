@@ -4,7 +4,7 @@ function getCommandChain(cmd: Command): string[] {
   let names: string[] = [cmd.name()]
 
   if (cmd.parent?.name) {
-    names.push(...getCommandChain(cmd.parent))
+    names = [...getCommandChain(cmd.parent), ...names]
   }
 
   return names
