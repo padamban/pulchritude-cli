@@ -7,19 +7,13 @@ export const CommanderTag = {
 }
 
 function getArgumentTag(args: ResolvedArgumentDetails) {
-  const { name, required, variadic } = args
+  const { name, variadic } = args
 
   let argument = name
 
-  if (variadic) {
-    argument = `${argument}...`
-  }
+  if (variadic) argument = `${argument}...`
 
-  if (required) {
-    argument = `<${argument}>`
-  } else {
-    argument = `[${argument}]`
-  }
+  argument = `[${argument}]`
 
   return argument
 }

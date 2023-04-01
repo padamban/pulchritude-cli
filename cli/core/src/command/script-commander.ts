@@ -1,14 +1,14 @@
 import { Command, Option } from 'commander'
 
 import { CommandContext, CommanderSetup } from './_type_'
+import { ACTION_RESOLVER } from './cli/action-resolver'
+import { addCmdDocumentationFactory } from './cli/documentation/add-documentation'
+import { CommanderDescription } from './cli/documentation/formatters/get-description'
+import { VALIDATE_SETUP } from './cli/documentation/validators/validate-setup'
+import { CommanderTag } from './cli/utils/get-commander-tag'
+import { resolveArgument } from './cli/utils/resolve-argument'
+import { resolveOption } from './cli/utils/resolve-option'
 import { globalOptions } from './global-options'
-import { ACTION_RESOLVER } from './setup/action-resolver'
-import { addCmdDocumentationFactory } from './setup/documentation/add-documentation'
-import { CommanderDescription } from './setup/documentation/formatters/get-description'
-import { VALIDATE_SETUP } from './setup/documentation/validators/validate-setup'
-import { CommanderTag } from './setup/utils/get-commander-tag'
-import { resolveArgument } from './setup/utils/resolve-argument'
-import { resolveOption } from './setup/utils/resolve-option'
 
 export const SCRIPT_COMMANDER =
   (setup: CommanderSetup) =>

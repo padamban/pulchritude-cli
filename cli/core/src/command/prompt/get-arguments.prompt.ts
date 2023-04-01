@@ -3,7 +3,7 @@ import prompt, { PromptObject } from 'prompts'
 
 import { Obj } from '../../utils'
 import { ArgumentDetails } from '../_type_'
-import { resolveArgument } from '../setup/utils/resolve-argument'
+import { resolveArgument } from '../cli/utils/resolve-argument'
 
 interface Args {
   values: Obj | undefined
@@ -45,7 +45,7 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
             message,
             type: arg.variadic ? 'text' : 'number',
             validate: value => {
-              const notNumberList = value
+              const notNumberList = String(value)
                 .split(',')
                 .map(Number)
                 .some(Number.isNaN)
@@ -58,7 +58,7 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
             },
             format: value => {
               if (arg.variadic) {
-                return value.split(',').map(Number).map(String)
+                return String(value).split(',').map(Number).map(String)
               }
               return value
             },

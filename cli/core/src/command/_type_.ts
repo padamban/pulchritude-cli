@@ -25,6 +25,7 @@ export interface CommandDetails {
   alias: string
   arguments?: ArgumentDetails[]
   options?: OptionDetails[]
+  script?: CliScript
 }
 
 export interface OptionDetails {
@@ -58,6 +59,20 @@ export interface ChoiceDetails {
 export interface CommandContext {
   reporter: CliReporter
 }
+
+export type CliScriptExe = () => Promise<void>
+
+export type CliScript<A extends object = any> = (props: {
+  // log: CliReportLogger
+  // progress: Pick<
+  //   CliReportProgress,
+  //   'setSubSectionCount' | 'nextActiveSubSection'
+  // >
+  // fileBuilder: ReturnType<CliFileBuilders>
+  // fileManager: ReturnType<CliFileManager>
+  args: A
+  cwd: string
+}) => CliScriptExe
 
 export type FlagOption = `--${string}`
 

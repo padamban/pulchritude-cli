@@ -26,6 +26,9 @@ const RUN = async () => {
             name: 'com-aa',
             alias: 'ca',
             description: 'Command A',
+            script: props => async () => {
+              console.log('HELLO comAa', { props })
+            },
             arguments: [],
             options: [
               {
@@ -66,6 +69,9 @@ const RUN = async () => {
             name: 'com-aa',
             alias: 'ca',
             description: 'Command A',
+            script: props => async () => {
+              console.log('HELLO pb comAa', { props })
+            },
             arguments: [],
             options: [
               {
@@ -88,6 +94,9 @@ const RUN = async () => {
             title: 'Command B',
             alias: 'cb',
             description: 'Command B',
+            script: props => async () => {
+              console.log('HELLO comBb', { props })
+            },
             arguments: [
               {
                 name: 'arg-one',
@@ -142,6 +151,9 @@ const RUN = async () => {
             name: 'com-aa',
             alias: 'ca',
             description: 'Command A',
+            script: props => async () => {
+              console.log('HELLO com-aa', { props })
+            },
             arguments: [
               {
                 name: 'arg-one',
@@ -149,31 +161,31 @@ const RUN = async () => {
                 description: 'Argument One',
                 title: 'Argument One',
                 type: 'number',
+                // variadic: true,
+                required: true,
+              },
+              {
+                name: 'arg-two',
+                variableName: 'argTwo',
+                description: 'Argument Two',
+                title: 'Argument Two',
+                type: 'string',
+                // required: true,
+                // variadic: true,
+                choices: [
+                  { name: 'Spanish', value: 'es' },
+                  { name: 'English', value: 'en' },
+                ],
+              },
+              {
+                name: 'arg-three',
+                variableName: 'argThree',
+                description: 'Argument Three',
+                title: 'Argument Three',
                 variadic: true,
                 // required: true,
+                type: 'string',
               },
-              // {
-              //   name: 'arg-two',
-              //   variableName: 'argTwo',
-              //   description: 'Argument Two',
-              //   title: 'Argument Two',
-              //   type: 'string',
-              //   // required: true,
-              //   // variadic: true,
-              //   choices: [
-              //     { name: 'Spanish', value: 'es' },
-              //     { name: 'English', value: 'en' },
-              //   ],
-              // },
-              // {
-              //   name: 'arg-three',
-              //   variableName: 'argThree',
-              //   description: 'Argument Three',
-              //   title: 'Argument Three',
-              //   variadic: true,
-              //   // required: true,
-              //   type: 'string',
-              // },
             ],
             options: [
               {
