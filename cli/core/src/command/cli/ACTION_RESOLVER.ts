@@ -2,6 +2,7 @@ import { Command } from 'commander'
 
 import { CommanderSetup } from '../_type_'
 import { PROMPT } from '../prompt/PROMPT'
+import { RUN_SCRIPT } from '../script/RUN_SCRIPT'
 import { getCommandChain } from './utils/get-command-chain'
 import { getOptions } from './utils/get-options'
 import { getPositionalArgs } from './utils/get-positional-args'
@@ -38,7 +39,10 @@ export const ACTION_RESOLVER = (args: Args) => {
       argumentValues,
       optionValues,
       commandChain,
+      chain,
       response,
     })
+
+    RUN_SCRIPT({})
   })
 }

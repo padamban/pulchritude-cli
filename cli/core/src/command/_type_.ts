@@ -9,7 +9,7 @@ export interface CommanderSetup {
 }
 
 export interface ProgramDetails {
-  variableName: string
+  id: string
   title: string
   description: string
   name: string
@@ -18,7 +18,7 @@ export interface ProgramDetails {
 }
 
 export interface CommandDetails {
-  variableName: string
+  id: string
   title: string
   description: string
   name: string
@@ -29,7 +29,7 @@ export interface CommandDetails {
 }
 
 export interface OptionDetails {
-  variableName: string
+  id: string
   title: string
   description: string
   type: 'boolean' | 'string' | 'string-array'
@@ -40,7 +40,7 @@ export interface OptionDetails {
 }
 
 export interface ArgumentDetails {
-  variableName: string
+  id: string
   description: string
   title: string
   type: 'string' | 'number'

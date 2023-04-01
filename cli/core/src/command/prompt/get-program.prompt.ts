@@ -11,19 +11,19 @@ async function getProgramPrompt(
 ): Promise<ProgramDetails | undefined> {
   const { programs } = args
 
-  const { programName } = await prompt({
-    name: 'programName',
+  const { programId } = await prompt({
+    name: 'programId',
     message: 'Select a program!',
     type: 'select',
     instructions: false,
     choices: programs?.map(p => ({
       title: p.title,
-      description: p.description,
-      value: p.variableName,
+      description: `(${p.alias}) ${p.description}`,
+      value: p.id,
     })),
   })
 
-  const program = programs?.find(p => p.variableName === programName)
+  const program = programs?.find(p => p.id === programId)
 
   return program
 }

@@ -30,8 +30,8 @@ function validateArgumentConfig(args: Args): Retval {
       payload: JSON.stringify(
         {
           chain: args.parentChain,
-          argumentList: args.arguments?.map(({ variableName, required }) => ({
-            variableName,
+          argumentList: args.arguments?.map(({ id, required }) => ({
+            id,
             required: !!required,
           })),
         },
@@ -58,8 +58,8 @@ function validateArgumentConfig(args: Args): Retval {
       payload: JSON.stringify(
         {
           chain: args.parentChain,
-          argumentList: args.arguments?.map(({ variableName, variadic }) => ({
-            variableName,
+          argumentList: args.arguments?.map(({ id, variadic }) => ({
+            id,
             variadic: !!variadic,
           })),
         },

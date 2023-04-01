@@ -14,14 +14,14 @@ const RUN = async () => {
     version: '0.0.2',
     programs: [
       {
-        variableName: 'prog-aa',
+        id: 'prog-aa',
         title: 'Program AA',
         name: 'prog-aa',
         alias: 'pa',
         description: 'AA program',
         commands: [
           {
-            variableName: 'comAa',
+            id: 'comAa',
             title: 'Command A',
             name: 'com-aa',
             alias: 'ca',
@@ -32,18 +32,18 @@ const RUN = async () => {
             arguments: [],
             options: [
               {
+                id: 'optA',
                 title: 'Option A',
                 name: '--opt-a',
                 alias: '-oa',
-                variableName: 'optA',
                 description: 'Option A',
                 type: 'boolean',
               },
               {
+                id: 'optB',
                 title: 'Option B',
                 name: '--opt-b',
                 alias: '-ob',
-                variableName: 'optB',
                 description: 'Option B',
                 type: 'string-array',
                 showUsageExample: true,
@@ -57,14 +57,14 @@ const RUN = async () => {
         ],
       },
       {
-        variableName: 'progBb',
+        id: 'progBb',
         title: 'Program BB',
         name: 'program-bb',
         alias: 'pb',
         description: 'BB program',
         commands: [
           {
-            variableName: 'comAa',
+            id: 'comAa',
             title: 'Command A',
             name: 'com-aa',
             alias: 'ca',
@@ -75,10 +75,10 @@ const RUN = async () => {
             arguments: [],
             options: [
               {
+                id: 'optA',
                 title: 'Option A',
                 name: '--opt-a',
                 alias: '-oa',
-                variableName: 'optA',
                 description: 'Option A',
                 type: 'string-array',
                 choices: [
@@ -89,7 +89,7 @@ const RUN = async () => {
             ],
           },
           {
-            variableName: 'comBb',
+            id: 'comBb',
             name: 'com-bb',
             title: 'Command B',
             alias: 'cb',
@@ -99,16 +99,16 @@ const RUN = async () => {
             },
             arguments: [
               {
+                id: 'argOne',
                 name: 'arg-one',
-                variableName: 'argOne',
                 description: 'Argument One',
                 title: 'Argument One',
                 type: 'number',
                 required: true,
               },
               {
+                id: 'argTwo',
                 name: 'arg-two',
-                variableName: 'argTwo',
                 description: 'Argument Two',
                 title: 'Argument Two',
                 type: 'string',
@@ -122,10 +122,10 @@ const RUN = async () => {
             ],
             options: [
               {
+                id: 'optA',
                 title: 'Option A',
                 name: '--opt-a',
                 alias: '-oa',
-                variableName: 'optA',
                 description: 'Option A',
                 type: 'string-array',
                 showUsageExample: true,
@@ -139,14 +139,14 @@ const RUN = async () => {
         ],
       },
       {
-        variableName: 'someProgram',
+        id: 'someProgram',
         title: 'Some Program',
         name: 'some-program',
         alias: 'sp',
         description: 'BB program',
         commands: [
           {
-            variableName: 'comAa',
+            id: 'comAa',
             title: 'Command A',
             name: 'com-aa',
             alias: 'ca',
@@ -156,8 +156,8 @@ const RUN = async () => {
             },
             arguments: [
               {
+                id: 'argOne',
                 name: 'arg-one',
-                variableName: 'argOne',
                 description: 'Argument One',
                 title: 'Argument One',
                 type: 'number',
@@ -165,8 +165,8 @@ const RUN = async () => {
                 required: true,
               },
               {
+                id: 'argTwo',
                 name: 'arg-two',
-                variableName: 'argTwo',
                 description: 'Argument Two',
                 title: 'Argument Two',
                 type: 'string',
@@ -178,8 +178,8 @@ const RUN = async () => {
                 ],
               },
               {
+                id: 'argThree',
                 name: 'arg-three',
-                variableName: 'argThree',
                 description: 'Argument Three',
                 title: 'Argument Three',
                 variadic: true,
@@ -189,10 +189,10 @@ const RUN = async () => {
             ],
             options: [
               {
+                id: 'optA',
                 title: 'Option A',
                 name: '--opt-a',
                 alias: '-oa',
-                variableName: 'optA',
                 description: 'Option A',
                 type: 'string-array',
                 showUsageExample: true,
@@ -202,10 +202,10 @@ const RUN = async () => {
                 ],
               },
               {
+                id: 'optB',
                 title: 'Option B',
                 name: '--opt-b',
                 alias: '-ob',
-                variableName: 'optB',
                 description: 'Option B',
                 type: 'boolean',
               },

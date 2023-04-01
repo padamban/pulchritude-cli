@@ -14,8 +14,9 @@ interface Args {
 }
 
 interface Retval {
-  program: any
-  command: any
+  // commandChain: [programId: string, commandId: string]
+  program: ProgramDetails | undefined
+  command: CommandDetails | undefined
   argumentResponse: any
   optionResponse: any
 }

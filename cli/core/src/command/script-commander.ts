@@ -1,7 +1,7 @@
 import { Command, Option } from 'commander'
 
 import { CommandContext, CommanderSetup } from './_type_'
-import { ACTION_RESOLVER } from './cli/action-resolver'
+import { ACTION_RESOLVER } from './cli/ACTION_RESOLVER'
 import { addCmdDocumentationFactory } from './cli/documentation/add-documentation'
 import { CommanderDescription } from './cli/documentation/formatters/get-description'
 import { VALIDATE_SETUP } from './cli/documentation/validators/validate-setup'

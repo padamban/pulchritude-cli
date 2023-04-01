@@ -11,7 +11,11 @@ interface Args {
 }
 
 async function getArgumentsPrompt(args: Args): Promise<Obj> {
+  console.log('getArgumentsPrompt', { args })
+
   if (!args.arguments) return { argumentResponse: {} }
+
+  console.log('getArgumentsPrompt 2')
 
   const argumentResponse = await prompt(
     args.arguments
@@ -41,7 +45,7 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
 
         if (arg.type === 'number') {
           return {
-            name: arg.variableName,
+            name: arg.id,
             message,
             type: arg.variadic ? 'text' : 'number',
             validate: value => {
@@ -82,7 +86,7 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
         }
 
         return {
-          name: arg.variableName,
+          name: arg.id,
           message,
           type,
           choices: arg.choices?.map(c => ({

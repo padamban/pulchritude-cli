@@ -2,9 +2,9 @@ import { OptionDetails, ResolvedOptionDetails } from '../../_type_'
 import { TextUtils } from './text-utils'
 
 function resolveOption(option: OptionDetails): ResolvedOptionDetails {
-  const { variableName } = option
+  const { id } = option
 
-  const { name, alias } = TextUtils.createOptionName(variableName)
+  const { name, alias } = TextUtils.createOptionName(id)
 
   return {
     name,

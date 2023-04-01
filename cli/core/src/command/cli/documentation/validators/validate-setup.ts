@@ -13,7 +13,7 @@ function VALIDATE_SETUP({ setup }: Args) {
     p.commands.forEach(c => {
       const result = validateArgumentConfig({
         arguments: c.arguments,
-        parentChain: [p.variableName, c.variableName],
+        parentChain: [p.id, c.id],
       })
       errorInfo.push(...result.errorInfo)
     })
