@@ -1,14 +1,16 @@
+import { ResolvedOptionDetails } from '../../../_type_'
+import { Color } from '../../colors'
 import { CommanderTag } from '../../utils/get-commander-tag'
-import { Color } from './colors'
 
-function getOptionNameWithAlias(args: {
-  name: string
-  alias: string
-  type: 'boolean' | 'string' | 'string-array'
-}) {
-  const { name, alias, type } = args
+function getOptionNameWithAlias(
+  args: Pick<ResolvedOptionDetails, 'name' | 'alias' | 'type' | 'variadic'>,
+) {
+  const { name, alias, type, variadic } = args
 
-  const nameWithSlot = `${name}${CommanderTag.getOptionTagSlot({ type })}`
+  const nameWithSlot = `${name}${CommanderTag.getOptionTagSlot({
+    type,
+    variadic,
+  })}`
 
   const optionNameWithAlias = `${nameWithSlot} ${alias} `
     .padEnd(30)

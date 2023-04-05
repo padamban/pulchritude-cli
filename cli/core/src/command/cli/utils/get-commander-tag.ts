@@ -19,27 +19,26 @@ function getArgumentTag(args: ResolvedArgumentDetails) {
 }
 
 function getOptionTag(
-  args: Pick<ResolvedOptionDetails, 'name' | 'alias' | 'type'>,
+  args: Pick<ResolvedOptionDetails, 'name' | 'alias' | 'type' | 'variadic'>,
 ) {
-  const { name, alias, type } = args
+  const { name, alias, type, variadic } = args
 
-  let tag = `${alias},`.padEnd(6) + name + getOptionTagSlot({ type })
+  let tag = `${alias},`.padEnd(6) + name + getOptionTagSlot({ type, variadic })
 
   return tag
 }
 
 function getOptionTagSlot(args: {
-  type: 'boolean' | 'string' | 'string-array'
+  type: 'boolean' | 'string'
+  variadic: boolean | undefined
 }) {
-  const { type } = args
+  const { type, variadic } = args
 
-  let slot = ''
+  let slot: string = type
 
-  if (type === 'string-array') {
-    slot += ` <list>`
-  } else if (type === 'string') {
-    slot += ` <value>`
-  }
+  if (variadic) slot += `-list`
+
+  slot = ` <${slot}>`
 
   return slot
 }

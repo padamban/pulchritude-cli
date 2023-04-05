@@ -45,7 +45,7 @@ const RUN = async () => {
                 name: '--opt-b',
                 alias: '-ob',
                 description: 'Option B',
-                type: 'string-array',
+                type: 'string',
                 showUsageExample: true,
                 choices: [
                   { name: 'Spanish', value: 'es' },
@@ -62,6 +62,7 @@ const RUN = async () => {
         name: 'program-bb',
         alias: 'pb',
         description: 'BB program',
+        multiCommand: true,
         commands: [
           {
             id: 'comAa',
@@ -72,7 +73,16 @@ const RUN = async () => {
             script: props => async () => {
               console.log('HELLO pb comAa', { props })
             },
-            arguments: [],
+            arguments: [
+              {
+                id: 'argOneA',
+                name: 'arg-oneA',
+                description: 'Argument One A',
+                title: 'Argument One A',
+                type: 'number',
+                required: true,
+              },
+            ],
             options: [
               {
                 id: 'optA',
@@ -80,7 +90,8 @@ const RUN = async () => {
                 name: '--opt-a',
                 alias: '-oa',
                 description: 'Option A',
-                type: 'string-array',
+                type: 'string',
+                variadic: true,
                 choices: [
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },
@@ -127,7 +138,7 @@ const RUN = async () => {
                 name: '--opt-a',
                 alias: '-oa',
                 description: 'Option A',
-                type: 'string-array',
+                type: 'string',
                 showUsageExample: true,
                 choices: [
                   { name: 'Spanish', value: 'es' },
@@ -144,6 +155,8 @@ const RUN = async () => {
         name: 'some-program',
         alias: 'sp',
         description: 'BB program',
+        multiCommand: true,
+        commandGroupName: { singular: 'script' },
         commands: [
           {
             id: 'comAa',
@@ -194,7 +207,7 @@ const RUN = async () => {
                 name: '--opt-a',
                 alias: '-oa',
                 description: 'Option A',
-                type: 'string-array',
+                type: 'string',
                 showUsageExample: true,
                 choices: [
                   { name: 'Spanish', value: 'es' },
@@ -208,6 +221,55 @@ const RUN = async () => {
                 alias: '-ob',
                 description: 'Option B',
                 type: 'boolean',
+              },
+            ],
+          },
+          {
+            id: 'comBb',
+            name: 'com-bb',
+            title: 'Command B',
+            alias: 'cb',
+            description: 'Command B',
+            script: props => async () => {
+              console.log('HELLO comBb', { props })
+            },
+            arguments: [
+              {
+                id: 'argOne',
+                name: 'arg-one',
+                description: 'Argument One',
+                title: 'Argument One',
+                type: 'number',
+                required: true,
+              },
+              {
+                id: 'argTwo',
+                name: 'arg-two',
+                description: 'Argument Two',
+                title: 'Argument Two',
+                type: 'string',
+                required: true,
+                // variadic: true,
+                choices: [
+                  { name: 'Spanish', value: 'es' },
+                  { name: 'English', value: 'en' },
+                ],
+              },
+            ],
+            options: [
+              {
+                id: 'optA',
+                title: 'Option A',
+                name: '--opt-a',
+                alias: '-oa',
+                description: 'Option A',
+                type: 'string',
+                variadic: true,
+                showUsageExample: true,
+                choices: [
+                  { name: 'Spanish', value: 'es' },
+                  { name: 'English', value: 'en' },
+                ],
               },
             ],
           },

@@ -1,7 +1,6 @@
 import { OptionDetails } from '../../../_type_'
-import { resolveOption } from '../../utils/resolve-option'
-import { Color } from '../formatters/colors'
-import { getOptionNameWithAlias } from '../formatters/get-option-name-with-alias'
+import { Color } from '../../colors'
+import { ComposeTag } from './utils/compose-tag'
 
 interface Args {
   addLine: (str: string) => void
@@ -9,10 +8,13 @@ interface Args {
 }
 
 function addGlobalOptionsDoc({ addLine: _, globalOptions }: Args) {
-  _('\nGLOBAL OPTIONS\n')
+  _(`\n${Color.subtitle('GLOBAL OPTIONS')}\n`)
 
   globalOptions?.forEach(opt => {
-    const optNameWithAlias = getOptionNameWithAlias(resolveOption(opt))
+    const optNameWithAlias = ComposeTag.forOption(opt, {
+      cellLength: 33,
+      noIndent: true,
+    }).coloredCellText
 
     const type = Color.gray(`(${opt.type})`)
 

@@ -31,7 +31,7 @@ function createDocumentation(cmd: CommanderSetup) {
   const _ = (line: string) => content.push(line)
 
   addCommonDocumentation({
-    cmd,
+    setup: cmd,
     addLine: _,
   })
 
@@ -41,7 +41,7 @@ function createDocumentation(cmd: CommanderSetup) {
   })
 
   addAvailableFeaturesDocumentation({
-    cmd,
+    setup: cmd,
     addLine: _,
   })
 

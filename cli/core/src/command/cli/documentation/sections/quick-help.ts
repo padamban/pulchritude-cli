@@ -1,13 +1,11 @@
-import { Color } from '../formatters/colors'
+import { Color } from '../../colors'
 
 interface Args {
   addLine: (str: string) => void
 }
 
 function addQuickHelpDocumentation({ addLine: _ }: Args) {
-  _('\n---------------------------------------------------------------\n\n')
-
-  _(Color.title(' QUICK HELP ') + '\n')
+  _('\n' + Color.title(' QUICK HELP ') + '\n')
 }
 
 export { addQuickHelpDocumentation }

@@ -1,34 +1,38 @@
 import prompt, { PromptObject } from 'prompts'
 
 import { Obj } from '../../utils'
-import { OptionDetails } from '../_type_'
+import { CommandDetails } from '../_type_'
+import { Color } from '../cli/colors'
 
 interface Args {
-  options?: OptionDetails[] | undefined
+  command: CommandDetails | undefined
 }
 
 async function getOptionsPrompt(args: Args): Promise<Obj> {
-  const { options } = args
+  const { command } = args
 
   const { selectedOptionIds } = await prompt({
     name: 'selectedOptionIds',
-    message: ' - Select options that need specifying!',
+    message: ` - Select ${Color.option('options')} that need specifying!`,
     type: 'multiselect',
     instructions: false,
     choices:
-      options?.map(opt => ({
-        title: opt.title,
+      command?.options?.map(opt => ({
+        title: Color.option(opt.title),
         value: opt.id,
       })) ?? [],
   })
 
-  const targetOptions = options?.filter(opt =>
+  const targetOptions = command?.options?.filter(opt =>
     (selectedOptionIds as string[]).includes(opt.id),
   )
 
   const optionResponse = await prompt(
     targetOptions?.map<PromptObject>(opt => {
-      const message = ' - option - ' + opt.title
+      const message =
+        Color.gray(' - option - ') +
+        Color.option(opt.title) +
+        Color.gray(` (${opt.type})`)
 
       return {
         name: opt.id,

@@ -1,5 +1,10 @@
 import { Obj } from '../../utils'
-import { CommandDetails, CommanderSetup, ProgramDetails } from '../_type_'
+import {
+  CommandDetails,
+  CommanderSetup,
+  CommandsToRun,
+  ProgramDetails,
+} from '../_type_'
 import { getArgumentsPrompt } from './get-arguments.prompt'
 import { getCommandPrompt } from './get-command.prompt'
 import { getOptionsPrompt } from './get-options.prompt'
@@ -14,11 +19,8 @@ interface Args {
 }
 
 interface Retval {
-  // commandChain: [programId: string, commandId: string]
   program: ProgramDetails | undefined
-  command: CommandDetails | undefined
-  argumentResponse: any
-  optionResponse: any
+  commandsToRun: CommandsToRun
 }
 
 async function PROMPT(args: Args): Promise<Retval> {
@@ -28,29 +30,34 @@ async function PROMPT(args: Args): Promise<Retval> {
   const program =
     args.program ?? (await getProgramPrompt({ programs: args.setup.programs }))
 
-  const command =
-    args.command ?? (await getCommandPrompt({ commands: program?.commands }))
+  const commands = args.command
+    ? [args.command]
+    : await getCommandPrompt({ program })
 
   const noPrompt = args.optionValues.prompt === false
 
-  const argumentResponse = noPrompt
-    ? args.argumentValues
-    : await getArgumentsPrompt({
-        values: args.argumentValues,
-        arguments: command?.arguments,
-      })
+  const commandsToRun: CommandsToRun = new Map()
 
-  const optionResponse = noPrompt
-    ? {}
-    : await getOptionsPrompt({
-        options: command?.options,
-      })
+  for (const command of commands) {
+    const argumentResponse = noPrompt
+      ? args.argumentValues
+      : await getArgumentsPrompt({
+          values: args.argumentValues,
+          command,
+        })
+
+    const optionResponse = noPrompt
+      ? {}
+      : await getOptionsPrompt({
+          command,
+        })
+
+    commandsToRun.set(command.id, { command, argumentResponse, optionResponse })
+  }
 
   return {
     program,
-    command,
-    argumentResponse,
-    optionResponse,
+    commandsToRun,
   }
 }
 

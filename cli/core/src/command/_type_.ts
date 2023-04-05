@@ -1,5 +1,5 @@
 import { CliReporter } from '../report'
-import { RequireSome } from '../utils'
+import { Obj, RequireSome } from '../utils'
 
 export interface CommanderSetup {
   name: string
@@ -14,7 +14,9 @@ export interface ProgramDetails {
   description: string
   name: string
   alias: string
+  commandGroupName?: { singular: string }
   commands: CommandDetails[]
+  multiCommand?: boolean
 }
 
 export interface CommandDetails {
@@ -32,7 +34,8 @@ export interface OptionDetails {
   id: string
   title: string
   description: string
-  type: 'boolean' | 'string' | 'string-array'
+  type: 'boolean' | 'string'
+  variadic?: boolean
   showUsageExample?: boolean
   choices?: ChoiceDetails[]
   name?: `--${string}`
@@ -86,3 +89,12 @@ export interface GlobalOptions {
   help: OptionDetails
   noPrompt: OptionDetails
 }
+
+export type CommandsToRun = Map<
+  string,
+  {
+    command: CommandDetails
+    argumentResponse: Obj
+    optionResponse: Obj
+  }
+>

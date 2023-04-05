@@ -2,8 +2,7 @@ import { Command } from 'commander'
 
 import { CommanderSetup } from '../_type_'
 import { PROMPT } from '../prompt/PROMPT'
-import { RUN_SCRIPT } from '../script/RUN_SCRIPT'
-import { getCommandChain } from './utils/get-command-chain'
+import { EXECUTE } from './execute'
 import { getOptions } from './utils/get-options'
 import { getPositionalArgs } from './utils/get-positional-args'
 import { resolveCommandChain } from './utils/resolve-command-chain'
@@ -22,27 +21,16 @@ export const ACTION_RESOLVER = (args: Args) => {
 
     const optionValues = getOptions({ rawArgs })
 
-    const commandChain = getCommandChain(cmd)
+    const { program, command } = resolveCommandChain({ cmd, setup })
 
-    const chain = resolveCommandChain({ cmd, setup })
-
-    const response = await PROMPT({
+    const promptResponse = await PROMPT({
       setup,
+      program,
+      command,
       argumentValues,
       optionValues,
-      ...chain,
     })
 
-    console.log('HELLO 2', cmd.name(), {
-      ctx,
-      setup,
-      argumentValues,
-      optionValues,
-      commandChain,
-      chain,
-      response,
-    })
-
-    RUN_SCRIPT({})
+    EXECUTE({ setup, ctx, ...promptResponse })
   })
 }

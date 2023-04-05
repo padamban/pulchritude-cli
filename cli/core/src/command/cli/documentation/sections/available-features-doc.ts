@@ -1,57 +1,53 @@
 import { CommanderSetup } from '../../../_type_'
-import { CommanderTag } from '../../utils/get-commander-tag'
-import { resolveArgument } from '../../utils/resolve-argument'
-import { resolveOption } from '../../utils/resolve-option'
-import { Color } from '../formatters/colors'
+import { Color } from '../../colors'
 import { CommanderDescription } from '../formatters/get-description'
-import { getNameWithAlias } from '../formatters/get-name-with-alias'
-import { getOptionNameWithAlias } from '../formatters/get-option-name-with-alias'
+import { ComposeTag } from './utils/compose-tag'
+import { getFeatureColumnDetails } from './utils/get-feature-column-details'
 
 interface Args {
   addLine: (str: string) => void
-  cmd: CommanderSetup
+  setup: CommanderSetup
 }
 
-function addAvailableFeaturesDocumentation({ cmd, addLine: _ }: Args) {
-  _('\n\nPROGRAMS\n')
+function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
+  const { firstColumnWidth: cellLength } = getFeatureColumnDetails({ setup })
 
-  cmd.programs.forEach(p => {
-    const programNameWithAlias = getNameWithAlias({
-      name: p.name,
-      alias: p.alias,
-      color: Color.program,
-    })
+  _(`\n\n${Color.subtitle('CONFIGURED PROGRAMS')}\n`)
 
-    _(`  ${programNameWithAlias} ${p.description}`)
+  setup.programs.forEach(p => {
+    _(
+      `${ComposeTag.forProgram(p, { cellLength }).coloredCellText}${
+        p.description
+      }`,
+    )
+
+    if (p.multiCommand) _(`    ${Color.gray('multi run')}`)
 
     p.commands.forEach(c => {
       _('')
 
-      const commandNameWithAlias = getNameWithAlias({
-        name: c.name,
-        alias: c.alias,
-        color: Color.command,
-      })
-
-      _(`    ${commandNameWithAlias} ${c.description}`)
+      _(
+        `${ComposeTag.forCommand(c, { cellLength }).coloredCellText}- ${
+          c.description
+        }`,
+      )
 
       c.arguments?.forEach(arg => {
-        const argTag = CommanderTag.getArgumentTag(resolveArgument(arg))
         const argDesc = CommanderDescription.getArgumentDescription(arg)
 
-        const argNameWithAlias = argTag
-          .padEnd(30)
-          .replace(argTag, Color.argument(argTag))
-
-        _(`      ${argNameWithAlias} ${argDesc}`)
+        _(
+          `${
+            ComposeTag.forArgument(arg, { cellLength }).coloredCellText
+          }  - ${argDesc}`,
+        )
       })
 
       c.options?.forEach(opt => {
-        const optNameWithAlias = getOptionNameWithAlias(resolveOption(opt))
-
-        const type = Color.gray(`(${opt.type})`)
-
-        _(`      ${optNameWithAlias} ${opt.description} ${type}`)
+        _(
+          `${ComposeTag.forOption(opt, { cellLength }).coloredCellText}  - ${
+            opt.description
+          }`,
+        )
 
         const longestValue =
           opt.choices?.reduce<number>((longest, v) => {
@@ -65,7 +61,7 @@ function addAvailableFeaturesDocumentation({ cmd, addLine: _ }: Args) {
             .padEnd(longestValue + 2)
             .replace(rawValue, Color.important(rawValue))
 
-          _(`  ${' '.repeat(38)}${value}  ${val.name}`)
+          _(`${' '.repeat(cellLength + 6)}${value}  ${val.name}`)
         })
       })
     })

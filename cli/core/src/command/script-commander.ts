@@ -59,7 +59,7 @@ export const SCRIPT_COMMANDER =
 
           const cmdOpt = new Option(optTag, optDesc)
 
-          if (opt.type === 'string-array') {
+          if (opt.variadic) {
             cmdOpt.argParser(value => value.split(','))
           }
 

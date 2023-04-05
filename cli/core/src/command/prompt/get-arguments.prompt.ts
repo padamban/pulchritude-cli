@@ -1,24 +1,25 @@
-import chalk from 'chalk'
 import prompt, { PromptObject } from 'prompts'
 
 import { Obj } from '../../utils'
-import { ArgumentDetails } from '../_type_'
+import { CommandDetails } from '../_type_'
+import { Color } from '../cli/colors'
 import { resolveArgument } from '../cli/utils/resolve-argument'
 
 interface Args {
+  command: CommandDetails | undefined
   values: Obj | undefined
-  arguments: ArgumentDetails[] | undefined
 }
 
 async function getArgumentsPrompt(args: Args): Promise<Obj> {
-  console.log('getArgumentsPrompt', { args })
+  const { command } = args
 
-  if (!args.arguments) return { argumentResponse: {} }
+  if (!command?.arguments) return { argumentResponse: {} }
 
-  console.log('getArgumentsPrompt 2')
+  // eslint-disable-next-line no-console
+  console.log(`\nParameters for ${Color.command(command.title)}:`)
 
   const argumentResponse = await prompt(
-    args.arguments
+    command.arguments
       .filter(arg => {
         const resolvedArg = resolveArgument(arg)
         const argValue = args.values?.[resolvedArg.name]
@@ -38,10 +39,10 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
       })
       .map<PromptObject>(arg => {
         const message =
-          ' - argument - ' +
-          arg.title +
+          Color.gray(' - argument - ') +
+          Color.argument(arg.title) +
           ' ' +
-          chalk.gray(`(${arg.type}${arg.variadic ? ' list' : ''})`)
+          Color.gray(`(${arg.type}${arg.variadic ? ' list' : ''})`)
 
         if (arg.type === 'number') {
           return {

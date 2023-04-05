@@ -1,31 +1,35 @@
 import prompt from 'prompts'
 
-import { CommandDetails } from '../_type_'
+import { asArray } from '../../utils/as-array'
+import { CommandDetails, ProgramDetails } from '../_type_'
+import { Color } from '../cli/colors'
 
 interface Args {
-  commands: CommandDetails[] | undefined
+  program?: ProgramDetails
 }
 
-async function getCommandPrompt(
-  args: Args,
-): Promise<CommandDetails | undefined> {
-  const { commands } = args
+async function getCommandPrompt(args: Args = {}): Promise<CommandDetails[]> {
+  const { commands, multiCommand, commandGroupName, title } = args.program ?? {}
 
   const { commandId } = await prompt({
     name: 'commandId',
-    message: 'Select a command!',
-    type: 'select',
+    message: `Select a ${Color.program(title)} ${Color.command(
+      commandGroupName?.singular ?? 'command',
+    )}!`,
+    type: multiCommand ? 'multiselect' : 'select',
     instructions: false,
     choices: commands?.map(c => ({
-      title: c.title,
+      title: Color.command(c.title),
       description: `(${c.alias}) ${c.description}`,
       value: c.id,
     })),
   })
 
-  const command = commands?.find(c => c.id === commandId)
+  const commandIds = asArray(commandId as string[])
 
-  return command
+  const selectedCommands = commands?.filter(c => commandIds.includes(c.id))
+
+  return selectedCommands ?? []
 }
 
 export { getCommandPrompt }

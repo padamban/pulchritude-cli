@@ -1,6 +1,6 @@
 import { ChalkInstance } from 'chalk'
 
-import { Color } from './colors'
+import { Color } from '../../colors'
 
 function getNameWithAlias(args: {
   name: string
