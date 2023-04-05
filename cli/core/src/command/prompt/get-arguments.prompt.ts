@@ -1,7 +1,8 @@
+/* eslint-disable no-console */
 import prompt, { PromptObject } from 'prompts'
 
 import { Obj } from '../../utils'
-import { CommandDetails } from '../_type_'
+import { CommandDetails, ResolvedArgumentDetails } from '../_type_'
 import { Color } from '../cli/colors'
 import { resolveArgument } from '../cli/utils/resolve-argument'
 
@@ -22,17 +23,18 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
     command.arguments
       .filter(arg => {
         const resolvedArg = resolveArgument(arg)
-        const argValue = args.values?.[resolvedArg.name]
-        let ask = true
+        const argValue = args.values?.[resolvedArg.id]
+
+        let ask = false
 
         if (resolvedArg.variadic) {
-          if (Array.isArray(argValue) && resolvedArg.type === 'number') {
-            ask = !argValue.length || argValue.map(Number).some(Number.isNaN)
+          if (Array.isArray(argValue)) {
+            argValue.forEach(v => {
+              ask ||= checkArgumentValue({ argValue: v, argument: resolvedArg })
+            })
           }
-        } else {
-          if (argValue !== undefined && resolvedArg.type === 'number') {
-            ask = Number.isNaN(argValue)
-          }
+        } else if (argValue !== undefined) {
+          ask ||= checkArgumentValue({ argValue, argument: resolvedArg })
         }
 
         return ask
@@ -90,6 +92,7 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
           name: arg.id,
           message,
           type,
+          instructions: false,
           choices: arg.choices?.map(c => ({
             title: c.name,
             value: c.value,
@@ -104,7 +107,55 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
       }),
   )
 
-  return argumentResponse
+  return { ...args.values, ...argumentResponse }
+}
+
+function checkArgumentValue(args: {
+  argument: ResolvedArgumentDetails
+  argValue: any
+}) {
+  const { argument, argValue } = args
+
+  let ok = false
+
+  if (argument.choices) {
+    const validChoice = !!argument.choices.find(c => c.value === argValue)
+
+    ok ||= !validChoice
+
+    if (!validChoice) {
+      console.log(
+        Color.warning(
+          `\nWARN - The ${Color.argument(
+            argument.title,
+          )} cannot be ${Color.error.bold(argValue)}.`,
+        ),
+      )
+      console.log(
+        Color.gray(
+          ` - Use: ${argument.choices.map(c => c.value).join(',')}.\n`,
+        ),
+      )
+    }
+  } else if (argument.type === 'number') {
+    const isNumber = !Number.isNaN(+argValue)
+    if (!isNumber) {
+      console.log(
+        Color.warning(
+          `\nWARN - The ${Color.argument(
+            argument.title,
+          )} cannot be ${Color.error.bold(argValue)}.`,
+        ),
+      )
+      console.log(Color.gray(` - It must be a number!\n`))
+    }
+
+    ok ||= !isNumber
+  } else if (argument.type === 'string') {
+    ok ||= typeof argValue !== 'string'
+  }
+
+  return ok
 }
 
 export { getArgumentsPrompt }

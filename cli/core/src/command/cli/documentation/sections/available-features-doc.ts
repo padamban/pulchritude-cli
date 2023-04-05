@@ -1,4 +1,4 @@
-import { CommanderSetup } from '../../../_type_'
+import { ChoiceDetails, CommanderSetup } from '../../../_type_'
 import { Color } from '../../colors'
 import { CommanderDescription } from '../formatters/get-description'
 import { ComposeTag } from './utils/compose-tag'
@@ -40,6 +40,8 @@ function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
             ComposeTag.forArgument(arg, { cellLength }).coloredCellText
           }  - ${argDesc}`,
         )
+
+        addChoices({ addLine: _, choices: arg.choices, indent: cellLength + 6 })
       })
 
       c.options?.forEach(opt => {
@@ -49,24 +51,32 @@ function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
           }`,
         )
 
-        const longestValue =
-          opt.choices?.reduce<number>((longest, v) => {
-            if (v.value.length > longest) longest = v.value.length
-            return longest
-          }, 0) ?? 0
-
-        opt.choices?.forEach(val => {
-          const rawValue = `"${val.value}"`
-          const value = rawValue
-            .padEnd(longestValue + 2)
-            .replace(rawValue, Color.important(rawValue))
-
-          _(`${' '.repeat(cellLength + 6)}${value}  ${val.name}`)
-        })
+        addChoices({ addLine: _, choices: opt.choices, indent: cellLength + 6 })
       })
     })
 
     _('')
+  })
+}
+
+function addChoices(args: {
+  choices?: ChoiceDetails[]
+  indent: number
+  addLine: (str: string) => void
+}) {
+  const longestValue =
+    args.choices?.reduce<number>((longest, v) => {
+      if (v.value.length > longest) longest = v.value.length
+      return longest
+    }, 0) ?? 0
+
+  args.choices?.forEach(val => {
+    const rawValue = `"${val.value}"`
+    const value = rawValue
+      .padEnd(longestValue + 2)
+      .replace(rawValue, Color.important(rawValue))
+
+    args.addLine(`${' '.repeat(args.indent)}${value}  ${val.name}`)
   })
 }
 

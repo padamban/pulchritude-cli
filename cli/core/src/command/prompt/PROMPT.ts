@@ -49,6 +49,7 @@ async function PROMPT(args: Args): Promise<Retval> {
     const optionResponse = noPrompt
       ? {}
       : await getOptionsPrompt({
+          values: args.optionValues,
           command,
         })
 

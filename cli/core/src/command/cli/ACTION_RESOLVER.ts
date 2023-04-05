@@ -17,11 +17,11 @@ export const ACTION_RESOLVER = (args: Args) => {
   const { cmd, setup, ctx } = args
 
   cmd.action(async (...rawArgs) => {
-    const argumentValues = getPositionalArgs({ cmd, rawArgs })
+    const { program, command } = resolveCommandChain({ cmd, setup })
+
+    const argumentValues = getPositionalArgs({ cmd, command, rawArgs })
 
     const optionValues = getOptions({ rawArgs })
-
-    const { program, command } = resolveCommandChain({ cmd, setup })
 
     const promptResponse = await PROMPT({
       setup,
@@ -31,6 +31,21 @@ export const ACTION_RESOLVER = (args: Args) => {
       optionValues,
     })
 
-    EXECUTE({ setup, ctx, ...promptResponse })
+    await EXECUTE({ setup, ctx, ...promptResponse })
+
+    // const watch = false
+
+    // if (!watch) {
+    //   setTimeout(() => {
+    //     console.log('KKK', ctx.reporter.getReport())
+
+    //     // renderReport({
+    //     //   config,
+    //     //   report: ctx.reporter.getReport(),
+    //     //   fileManager: ctx.fileManager,
+    //     // })
+    //     process.exit()
+    //   }, 100)
+    // }
   })
 }

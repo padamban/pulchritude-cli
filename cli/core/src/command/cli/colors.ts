@@ -10,6 +10,7 @@ const Color = {
   option: chalk.blueBright.italic.bold,
   gray: chalk.gray,
   error: chalk.redBright,
+  warning: chalk.yellow,
   important: chalk.yellow,
 }
 

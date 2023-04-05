@@ -1,16 +1,15 @@
 import chalk from 'chalk'
 
+import { ArgumentDetails, ChoiceDetails, OptionDetails } from '../../../_type_'
+import { Color } from '../../colors'
+
 export const CommanderDescription = {
   getArgumentDescription,
   getOptionDescription,
 }
 
-function getArgumentDescription(args: {
-  description: string
-  required?: boolean
-  variadic?: boolean
-}) {
-  const { description, required, variadic } = args
+function getArgumentDescription(args: ArgumentDetails) {
+  const { description, required, variadic, choices } = args
 
   const details: string[] = []
 
@@ -28,25 +27,27 @@ function getArgumentDescription(args: {
     detailsText = chalk.gray(`(${details.join('|')})`)
   }
 
-  let choicesText = ''
+  let choicesText = getInlineChoiceDescription(choices)
 
   return `${description} ${detailsText}${choicesText}`
 }
 
-function getOptionDescription(args: {
-  description: string
-  values?: {
-    name: string
-    value: string
-  }[]
-}) {
-  const { description, values } = args
+function getOptionDescription(args: OptionDetails) {
+  const { description, choices } = args
 
-  let choicesText = ''
-
-  if (values?.length) {
-    choicesText = ` (choices: ${values.map(v => v.value).join(',')})`
-  }
+  let choicesText = getInlineChoiceDescription(choices)
 
   return `${description}${choicesText}`
+}
+
+function getInlineChoiceDescription(choices?: ChoiceDetails[]) {
+  let choicesText = ''
+
+  if (choices?.length) {
+    choicesText = Color.gray(
+      ` (choices: ${choices.map(c => c.value).join(',')})`,
+    )
+  }
+
+  return choicesText
 }

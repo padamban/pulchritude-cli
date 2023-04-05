@@ -6,10 +6,11 @@ import { Color } from '../cli/colors'
 
 interface Args {
   command: CommandDetails | undefined
+  values: Obj | undefined
 }
 
 async function getOptionsPrompt(args: Args): Promise<Obj> {
-  const { command } = args
+  const { command, values } = args
 
   const { selectedOptionIds } = await prompt({
     name: 'selectedOptionIds',

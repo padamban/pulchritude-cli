@@ -7,14 +7,30 @@ interface Args {
   ctx: CommandContext
 }
 
-function EXECUTE(args: Args) {
+async function EXECUTE(args: Args): Promise<void> {
   const { program, commandsToRun, ctx } = args
 
-  commandsToRun.forEach(({ command, argumentResponse, optionResponse }) => {
-    console.log('commandsToRun', { command, argumentResponse, optionResponse })
-  })
+  for (const [cmdId, commandToRun] of commandsToRun) {
+    const { command, argumentResponse, optionResponse } = commandToRun
 
-  console.log('RUN_SCRIPT', { program, commandsToRun, ctx })
+    // ctx.reporter.initSection({
+    //   id: command.id,
+    //   title: command.title,
+    //   description: command.title,
+    //   arguments: argumentResponse,
+    //   options: optionResponse,
+    // })
+
+    console.log('commandsToRun', cmdId, {
+      command,
+      argumentResponse,
+      optionResponse,
+    })
+
+    // ctx.reporter.endSection()
+  }
+
+  // ctx.reporter.finish()
 }
 
 export { EXECUTE }

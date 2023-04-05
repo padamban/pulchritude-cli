@@ -34,6 +34,8 @@ function getOptionTagSlot(args: {
 }) {
   const { type, variadic } = args
 
+  if (type === 'boolean') return ''
+
   let slot: string = type
 
   if (variadic) slot += `-list`

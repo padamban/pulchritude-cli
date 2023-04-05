@@ -249,7 +249,7 @@ const RUN = async () => {
                 title: 'Argument Two',
                 type: 'string',
                 required: true,
-                // variadic: true,
+                variadic: true,
                 choices: [
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },

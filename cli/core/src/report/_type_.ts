@@ -145,7 +145,8 @@ export interface CliReporter {
     id: string
     title: string
     description: string
-    arguments: any
+    arguments?: Obj
+    options?: Obj
   }) => void
 
   /**
