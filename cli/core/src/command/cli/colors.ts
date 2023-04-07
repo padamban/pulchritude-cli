@@ -9,6 +9,7 @@ const Color = {
   argument: chalk.magentaBright.italic.bold,
   option: chalk.blueBright.italic.bold,
   gray: chalk.gray,
+  success: chalk.green.italic,
   error: chalk.redBright,
   warning: chalk.yellow,
   important: chalk.yellow,

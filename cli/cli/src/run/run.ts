@@ -247,13 +247,13 @@ const RUN = async () => {
                 name: 'arg-two',
                 description: 'Argument Two',
                 title: 'Argument Two',
-                type: 'string',
+                type: 'number',
                 required: true,
                 variadic: true,
-                choices: [
-                  { name: 'Spanish', value: 'es' },
-                  { name: 'English', value: 'en' },
-                ],
+                // choices: [
+                //   { name: 'Spanish', value: 'es' },
+                //   { name: 'English', value: 'en' },
+                // ],
               },
             ],
             options: [
@@ -270,6 +270,14 @@ const RUN = async () => {
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },
                 ],
+              },
+              {
+                id: 'optB',
+                title: 'Option B',
+                name: '--opt-b',
+                alias: '-ob',
+                description: 'Option B',
+                type: 'boolean',
               },
             ],
           },

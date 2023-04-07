@@ -9,6 +9,8 @@ interface Args {
   setup: CommanderSetup
 }
 
+const dash = Color.gray('- ')
+
 function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
   const { firstColumnWidth: cellLength } = getFeatureColumnDetails({ setup })
 
@@ -27,7 +29,7 @@ function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
       _('')
 
       _(
-        `${ComposeTag.forCommand(c, { cellLength }).coloredCellText}- ${
+        `${ComposeTag.forCommand(c, { cellLength }).coloredCellText}${dash}${
           c.description
         }`,
       )
@@ -38,7 +40,7 @@ function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
         _(
           `${
             ComposeTag.forArgument(arg, { cellLength }).coloredCellText
-          }  - ${argDesc}`,
+          }  ${dash}${argDesc}`,
         )
 
         addChoices({ addLine: _, choices: arg.choices, indent: cellLength + 6 })
@@ -46,9 +48,9 @@ function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
 
       c.options?.forEach(opt => {
         _(
-          `${ComposeTag.forOption(opt, { cellLength }).coloredCellText}  - ${
-            opt.description
-          }`,
+          `${
+            ComposeTag.forOption(opt, { cellLength }).coloredCellText
+          }  ${dash}${opt.description}`,
         )
 
         addChoices({ addLine: _, choices: opt.choices, indent: cellLength + 6 })
@@ -76,7 +78,7 @@ function addChoices(args: {
       .padEnd(longestValue + 2)
       .replace(rawValue, Color.important(rawValue))
 
-    args.addLine(`${' '.repeat(args.indent)}${value}  ${val.name}`)
+    args.addLine(`${' '.repeat(args.indent)}${value}  ${Color.gray(val.name)}`)
   })
 }
 

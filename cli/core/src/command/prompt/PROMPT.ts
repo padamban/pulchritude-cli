@@ -9,6 +9,7 @@ import { getArgumentsPrompt } from './get-arguments.prompt'
 import { getCommandPrompt } from './get-command.prompt'
 import { getOptionsPrompt } from './get-options.prompt'
 import { getProgramPrompt } from './get-program.prompt'
+import { fixParameterValues } from './utils/fix-parameter-values'
 
 interface Args {
   setup: CommanderSetup
@@ -39,21 +40,35 @@ async function PROMPT(args: Args): Promise<Retval> {
   const commandsToRun: CommandsToRun = new Map()
 
   for (const command of commands) {
-    const argumentResponse = noPrompt
-      ? args.argumentValues
-      : await getArgumentsPrompt({
-          values: args.argumentValues,
-          command,
-        })
+    let argumentResponse: Obj = {}
+    let optionResponse: Obj = {}
 
-    const optionResponse = noPrompt
-      ? {}
-      : await getOptionsPrompt({
-          values: args.optionValues,
-          command,
-        })
+    if (noPrompt) {
+      argumentResponse = args.argumentValues
+      optionResponse = args.optionValues
+    } else {
+      argumentResponse = await getArgumentsPrompt({
+        values: args.argumentValues,
+        command,
+      })
 
-    commandsToRun.set(command.id, { command, argumentResponse, optionResponse })
+      optionResponse = await getOptionsPrompt({
+        values: args.optionValues,
+        command,
+      })
+    }
+
+    fixParameterValues({
+      command,
+      argumentValues: argumentResponse,
+      optionValues: optionResponse,
+    })
+
+    commandsToRun.set(command.id, {
+      command,
+      argumentResponse,
+      optionResponse,
+    })
   }
 
   return {

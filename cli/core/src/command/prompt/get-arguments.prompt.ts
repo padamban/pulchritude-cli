@@ -2,9 +2,11 @@
 import prompt, { PromptObject } from 'prompts'
 
 import { Obj } from '../../utils'
-import { CommandDetails, ResolvedArgumentDetails } from '../_type_'
+import { CommandDetails } from '../_type_'
 import { Color } from '../cli/colors'
 import { resolveArgument } from '../cli/utils/resolve-argument'
+import { checkArgumentValue } from './utils/check-argument-value'
+import { getParameterPrompt } from './utils/get-parameter-prompt'
 
 interface Args {
   command: CommandDetails | undefined
@@ -17,7 +19,6 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
   if (!command?.arguments) return { argumentResponse: {} }
 
   // eslint-disable-next-line no-console
-  console.log(`\nParameters for ${Color.command(command.title)}:`)
 
   const argumentResponse = await prompt(
     command.arguments
@@ -25,19 +26,14 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
         const resolvedArg = resolveArgument(arg)
         const argValue = args.values?.[resolvedArg.id]
 
-        let ask = false
+        const { ok, messages } = checkArgumentValue({
+          argValue,
+          argument: resolvedArg,
+        })
 
-        if (resolvedArg.variadic) {
-          if (Array.isArray(argValue)) {
-            argValue.forEach(v => {
-              ask ||= checkArgumentValue({ argValue: v, argument: resolvedArg })
-            })
-          }
-        } else if (argValue !== undefined) {
-          ask ||= checkArgumentValue({ argValue, argument: resolvedArg })
-        }
+        messages.forEach(m => console.log(m))
 
-        return ask
+        return !ok
       })
       .map<PromptObject>(arg => {
         const message =
@@ -72,90 +68,11 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
           }
         }
 
-        let type: PromptObject['type'] = 'text'
-
-        if (arg.choices?.length) {
-          if (arg.variadic) {
-            type = 'multiselect'
-          } else {
-            type = 'select'
-          }
-        } else {
-          if (arg.variadic) {
-            type = 'list'
-          } else {
-            type = 'text'
-          }
-        }
-
-        return {
-          name: arg.id,
-          message,
-          type,
-          instructions: false,
-          choices: arg.choices?.map(c => ({
-            title: c.name,
-            value: c.value,
-          })),
-          format: value => {
-            if (arg.variadic && typeof value === 'string') {
-              return value.split(',')
-            }
-            return value
-          },
-        }
+        return getParameterPrompt({ parameter: resolveArgument(arg), message })
       }),
   )
 
   return { ...args.values, ...argumentResponse }
-}
-
-function checkArgumentValue(args: {
-  argument: ResolvedArgumentDetails
-  argValue: any
-}) {
-  const { argument, argValue } = args
-
-  let ok = false
-
-  if (argument.choices) {
-    const validChoice = !!argument.choices.find(c => c.value === argValue)
-
-    ok ||= !validChoice
-
-    if (!validChoice) {
-      console.log(
-        Color.warning(
-          `\nWARN - The ${Color.argument(
-            argument.title,
-          )} cannot be ${Color.error.bold(argValue)}.`,
-        ),
-      )
-      console.log(
-        Color.gray(
-          ` - Use: ${argument.choices.map(c => c.value).join(',')}.\n`,
-        ),
-      )
-    }
-  } else if (argument.type === 'number') {
-    const isNumber = !Number.isNaN(+argValue)
-    if (!isNumber) {
-      console.log(
-        Color.warning(
-          `\nWARN - The ${Color.argument(
-            argument.title,
-          )} cannot be ${Color.error.bold(argValue)}.`,
-        ),
-      )
-      console.log(Color.gray(` - It must be a number!\n`))
-    }
-
-    ok ||= !isNumber
-  } else if (argument.type === 'string') {
-    ok ||= typeof argValue !== 'string'
-  }
-
-  return ok
 }
 
 export { getArgumentsPrompt }

@@ -30,11 +30,15 @@ export interface CommandDetails {
   script?: CliScript
 }
 
+export type ArgumentType = 'string' | 'number'
+
+export type OptionType = 'boolean' | 'string' | 'number'
+
 export interface OptionDetails {
   id: string
   title: string
   description: string
-  type: 'boolean' | 'string'
+  type: OptionType
   variadic?: boolean
   showUsageExample?: boolean
   choices?: ChoiceDetails[]
@@ -46,7 +50,7 @@ export interface ArgumentDetails {
   id: string
   description: string
   title: string
-  type: 'string' | 'number'
+  type: ArgumentType
   name?: string
   required?: boolean
   variadic?: boolean
