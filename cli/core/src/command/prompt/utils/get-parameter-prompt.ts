@@ -19,13 +19,15 @@ function getParameterPrompt({ parameter, message }: Args): PromptObject {
     })),
     instructions: false,
     validate: value => {
-      const notNumberList = String(value)
-        .split(',')
-        .map(Number)
-        .some(Number.isNaN)
+      if (parameter.variadic && parameter.type === 'number') {
+        const notNumberList = String(value)
+          .split(',')
+          .map(Number)
+          .some(Number.isNaN)
 
-      if (notNumberList) {
-        return 'Not a comma separated number list. (e.g: 123, 456)'
+        if (notNumberList) {
+          return 'Not a comma separated number list. (e.g: 123, 456)'
+        }
       }
 
       return true

@@ -42,33 +42,7 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
           ' ' +
           Color.gray(`(${arg.type}${arg.variadic ? ' list' : ''})`)
 
-        if (arg.type === 'number') {
-          return {
-            name: arg.id,
-            message,
-            type: arg.variadic ? 'text' : 'number',
-            validate: value => {
-              const notNumberList = String(value)
-                .split(',')
-                .map(Number)
-                .some(Number.isNaN)
-
-              if (notNumberList) {
-                return 'Not a comma separated number list. (e.g: 123, 456)'
-              }
-
-              return true
-            },
-            format: value => {
-              if (arg.variadic) {
-                return String(value).split(',').map(Number).map(String)
-              }
-              return value
-            },
-          }
-        }
-
-        return getParameterPrompt({ parameter: resolveArgument(arg), message })
+        return getParameterPrompt({ message, parameter: resolveArgument(arg) })
       }),
   )
 

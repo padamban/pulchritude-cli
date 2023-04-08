@@ -171,7 +171,7 @@ const RUN = async () => {
                 id: 'argOne',
                 name: 'arg-one',
                 description: 'Argument One',
-                title: 'Argument One',
+                title: 'Argument One 1',
                 type: 'number',
                 // variadic: true,
                 required: true,
@@ -180,9 +180,9 @@ const RUN = async () => {
                 id: 'argTwo',
                 name: 'arg-two',
                 description: 'Argument Two',
-                title: 'Argument Two',
+                title: 'Argument Two 2',
                 type: 'string',
-                // required: true,
+                required: true,
                 // variadic: true,
                 choices: [
                   { name: 'Spanish', value: 'es' },
@@ -192,11 +192,11 @@ const RUN = async () => {
               {
                 id: 'argThree',
                 name: 'arg-three',
-                description: 'Argument Three',
+                description: 'Argument Three 3',
                 title: 'Argument Three',
                 variadic: true,
-                // required: true,
-                type: 'string',
+                required: true,
+                type: 'number',
               },
             ],
             options: [
@@ -304,7 +304,7 @@ const RUN = async () => {
     ],
   }
 
-  const width = 49 + 10
+  const width = 70
 
   displayBanner({ width })
 
@@ -320,10 +320,6 @@ const RUN = async () => {
   // })
 
   await SCRIPT_COMMANDER(setup)({ reporter })(process.argv)
-
-  setTimeout(() => {
-    // process.exit()
-  })
 }
 
 export { RUN }

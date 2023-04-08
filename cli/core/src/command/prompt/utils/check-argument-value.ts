@@ -16,6 +16,8 @@ function checkArgumentValue(args: Args): Retval {
   const { argument, argValue } = args
 
   if (argValue === undefined) return { ok: false, messages: [] }
+  if (Array.isArray(argValue) && !argValue.length)
+    return { ok: false, messages: [] }
 
   let ok = true
   const messages: string[] = []

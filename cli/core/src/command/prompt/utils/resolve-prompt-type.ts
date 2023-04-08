@@ -15,6 +15,8 @@ function resolvePromptType({ type, variadic, choices }: Args): PromptType {
     promptType = 'multiselect'
   } else if (!variadic && choices?.length) {
     promptType = 'select'
+  } else if (variadic) {
+    promptType = 'text'
   } else if (type === 'boolean') {
     promptType = 'toggle'
   } else if (type === 'number') {
