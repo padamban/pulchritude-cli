@@ -1,6 +1,5 @@
 import {
   CommanderSetup,
-  // loadConfig,
   REPORTER,
   SCRIPT_COMMANDER,
 } from '@pulchritude-cli/core'
@@ -27,7 +26,7 @@ const RUN = async () => {
             alias: 'ca',
             description: 'Command A',
             script: props => async () => {
-              console.log('HELLO comAa', { props })
+              // console.log('HELLO comAa', { props })
             },
             arguments: [],
             options: [
@@ -71,7 +70,7 @@ const RUN = async () => {
             alias: 'ca',
             description: 'Command A',
             script: props => async () => {
-              console.log('HELLO pb comAa', { props })
+              // console.log('HELLO pb comAa', { props })
             },
             arguments: [
               {
@@ -106,7 +105,7 @@ const RUN = async () => {
             alias: 'cb',
             description: 'Command B',
             script: props => async () => {
-              console.log('HELLO comBb', { props })
+              // console.log('HELLO comBb', { props })
             },
             arguments: [
               {
@@ -165,7 +164,7 @@ const RUN = async () => {
             alias: 'ca',
             description: 'Command A',
             script: props => async () => {
-              console.log('HELLO com-aa', { props })
+              // console.log('HELLO com-aa', { props })
             },
             arguments: [
               {
@@ -222,6 +221,15 @@ const RUN = async () => {
                 description: 'Option B',
                 type: 'boolean',
               },
+              {
+                id: 'watch',
+                title: 'Watch',
+                name: '--watch',
+                alias: '-w',
+                description: 'Turn on watch mode',
+                type: 'boolean',
+                watchMode: true,
+              },
             ],
           },
           {
@@ -231,7 +239,8 @@ const RUN = async () => {
             alias: 'cb',
             description: 'Command B',
             script: props => async () => {
-              console.log('HELLO comBb', { props })
+              throw new Error('HEKK')
+              // console.log('HELLO comBb', { props })
             },
             arguments: [
               {
@@ -279,6 +288,15 @@ const RUN = async () => {
                 description: 'Option B',
                 type: 'boolean',
               },
+              {
+                id: 'watch',
+                title: 'Watch',
+                name: '--watch',
+                alias: '-w',
+                description: 'Turn on watch mode',
+                type: 'boolean',
+                watchMode: true,
+              },
             ],
           },
         ],
@@ -286,12 +304,14 @@ const RUN = async () => {
     ],
   }
 
-  displayBanner()
+  const width = 49 + 10
+
+  displayBanner({ width })
 
   const reporter = REPORTER({
-    progressBarArgs: {
-      barSize: 49,
-    },
+    width,
+    outputFolderPath: '.cli-report',
+    output: ['console', 'json', 'md'],
   })
 
   // const config = await loadConfig({

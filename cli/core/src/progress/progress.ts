@@ -63,9 +63,10 @@ export const PROGRESS = (args?: CliProgressArgs): CliProgress => {
     }
   }
 
+  initProgressBar()
+
   return {
     setSectionCount: (count: number | undefined) => {
-      initProgressBar()
       sectionCount = count || 1
     },
     setSubSectionCount: (count: number | undefined) =>

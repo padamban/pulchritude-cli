@@ -1,3 +1,7 @@
+/* eslint-disable no-console */
+import chalk from 'chalk'
+
+import { logErrorToConsole } from '../../error/log-error-to-console'
 import { Obj } from '../../utils'
 import {
   CommandDetails,
@@ -5,11 +9,13 @@ import {
   CommandsToRun,
   ProgramDetails,
 } from '../_type_'
+import { Color } from '../cli/colors'
 import { getArgumentsPrompt } from './get-arguments.prompt'
 import { getCommandPrompt } from './get-command.prompt'
 import { getOptionsPrompt } from './get-options.prompt'
 import { getProgramPrompt } from './get-program.prompt'
 import { fixParameterValues } from './utils/fix-parameter-values'
+import { isWatchMode } from './utils/is-watch-mode'
 
 interface Args {
   setup: CommanderSetup
@@ -22,6 +28,7 @@ interface Args {
 interface Retval {
   program: ProgramDetails | undefined
   commandsToRun: CommandsToRun
+  watch: boolean
 }
 
 async function PROMPT(args: Args): Promise<Retval> {
@@ -47,6 +54,8 @@ async function PROMPT(args: Args): Promise<Retval> {
       argumentResponse = args.argumentValues
       optionResponse = args.optionValues
     } else {
+      console.log(chalk.bold(`\n${Color.command(command.title)} parameters`))
+
       argumentResponse = await getArgumentsPrompt({
         values: args.argumentValues,
         command,
@@ -56,6 +65,8 @@ async function PROMPT(args: Args): Promise<Retval> {
         values: args.optionValues,
         command,
       })
+
+      console.log('')
     }
 
     fixParameterValues({
@@ -68,12 +79,45 @@ async function PROMPT(args: Args): Promise<Retval> {
       command,
       argumentResponse,
       optionResponse,
+      watchMode: isWatchMode({ command, options: optionResponse }),
     })
   }
+
+  let watch = false
+
+  Array.from(commandsToRun).forEach(
+    ([commandId, { watchMode }], index, arr) => {
+      const isLast = arr.length - 1 === index
+
+      if (watchMode && !isLast) {
+        logErrorToConsole({
+          issue: 'Only the last command can be in watch mode!',
+          type: 'error',
+          location: 'Config / Command selection by the user',
+          recommendation:
+            'If you select multiple commands only the last one can be in watch mode.',
+          payload: JSON.stringify(
+            {
+              commandId,
+              isLast,
+              numberOfCommands: arr.length,
+              commandIndex: index,
+            },
+            null,
+            2,
+          ),
+        })
+        process.exit()
+      } else if (watchMode && isLast) {
+        watch = true
+      }
+    },
+  )
 
   return {
     program,
     commandsToRun,
+    watch,
   }
 }
 

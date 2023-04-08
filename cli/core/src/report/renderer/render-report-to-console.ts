@@ -1,24 +1,30 @@
 import chalk from 'chalk'
 
-import { RendererProps } from './_type_'
+import { Report } from '../_type_'
 import { statusRenderer } from './status-renderer'
 
 // eslint-disable-next-line no-console
 const log = console.log
 
-export const renderReportToConsole = ({ report, config }: RendererProps) => {
-  if (!config.reporter.reports?.includes('console')) {
-    log('\n')
-    return
-  }
+type Args = {
+  report: Report
+  width: number | undefined
+}
 
-  const tab = ' '.repeat(7)
+export const renderReportToConsole = ({ report, width = 50 }: Args) => {
+  const tab = ' '.repeat(0)
+
+  const bar = '░'.repeat(width)
+
+  const title = ' REPORT '
+
+  const surplus = width - title.length
 
   log(
-    `\n${tab}${'░'.repeat(49)}\n${tab}${
-      '░'.repeat(20) +
-      chalk.bold.black.bgWhiteBright(' REPORT ') +
-      '░'.repeat(21)
+    `\n${tab}${bar}\n${tab}${
+      '░'.repeat(Math.floor(surplus / 2)) +
+      chalk.bold.black.bgWhiteBright(title) +
+      '░'.repeat(Math.ceil(surplus / 2))
     }\n`,
   )
 
@@ -36,7 +42,7 @@ export const renderReportToConsole = ({ report, config }: RendererProps) => {
     let duration = ((s.timer.duration / 1000).toFixed(3) + 's').padStart(10)
     if (s.timer.duration > 5000) duration = chalk.redBright(duration)
     else if (s.timer.duration > 1500) duration = chalk.yellow(duration)
-    log(`\n${tab}${status} ${title} ${duration}`)
+    log(`\n${tab} ${status} ${title.padEnd(width - 15)} ${duration}`)
     s.content.forEach(c => {
       switch (c.type) {
         case 'header':
@@ -64,11 +70,5 @@ export const renderReportToConsole = ({ report, config }: RendererProps) => {
   })
   log(`\n\n`)
 
-  if (config.reporter.reports.includes('md')) {
-    log(`\n${tab}${'░'.repeat(49)}\n`)
-
-    log(`${tab}Report file: ${config.reporter.path?.md}`)
-  }
-
-  log(`\n${tab}${'░'.repeat(49)}\n`)
+  log(`\n${tab}${bar}\n`)
 }

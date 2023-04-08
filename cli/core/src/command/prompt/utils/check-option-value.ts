@@ -15,6 +15,8 @@ interface Retval {
 function checkOptionValue(args: Args): Retval {
   const { option, optValue } = args
 
+  if (optValue === undefined) return { ok: false, messages: [] }
+
   let ok = true
   const messages: string[] = []
 

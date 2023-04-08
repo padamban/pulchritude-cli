@@ -1,14 +1,12 @@
-import { RendererProps } from './_type_'
+import { CliFileManager } from '../../file-manager'
+import { Report } from '../_type_'
 
-export const renderReportAsJson = ({
-  config,
-  report,
-  fileManager,
-}: RendererProps) => {
-  if (!config.reporter.reports?.includes('json')) return
+export interface Args {
+  filePath: string
+  report: Report
+  fileManager: ReturnType<CliFileManager>
+}
 
-  fileManager.writeFile(
-    config.reporter.path?.json,
-    JSON.stringify(report, null, 2),
-  )
+export const renderReportAsJson = ({ filePath, report, fileManager }: Args) => {
+  fileManager.writeFile(filePath, JSON.stringify(report, null, 2))
 }

@@ -82,6 +82,7 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
         .map(opt => ({
           title: Color.option(opt.title),
           value: opt.id,
+          description: opt.description,
         })) ?? [],
   })
 

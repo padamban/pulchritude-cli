@@ -1,4 +1,8 @@
-import { ResolvedArgumentDetails, ResolvedOptionDetails } from '../../_type_'
+import {
+  OptionDetails,
+  ResolvedArgumentDetails,
+  ResolvedOptionDetails,
+} from '../../_type_'
 
 export const CommanderTag = {
   getArgumentTag,
@@ -28,12 +32,10 @@ function getOptionTag(
   return tag
 }
 
-function getOptionTagSlot(args: {
-  type: 'boolean' | 'string'
-  variadic: boolean | undefined
-}) {
+function getOptionTagSlot(args: Partial<OptionDetails>) {
   const { type, variadic } = args
 
+  if (type === undefined) return ''
   if (type === 'boolean') return ''
 
   let slot: string = type

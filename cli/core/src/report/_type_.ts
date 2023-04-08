@@ -1,4 +1,4 @@
-import { CliProgress, CliProgressArgs } from '../progress'
+import { CliProgress } from '../progress'
 import { Obj } from '../utils'
 
 export type ReportStatus = 'ERROR' | 'WARNING' | 'OK' | 'SKIPPED' | 'NONE'
@@ -76,6 +76,7 @@ export interface ReportSection {
     duration: number
   }
   arguments: Obj | undefined
+  options: Obj | undefined
   content: ReportEntry[]
 }
 
@@ -88,6 +89,8 @@ export interface ReportSetupSection {
   }
 }
 export interface Report {
+  detail: CliReportDetail
+
   /**
    * Information about the execution context and arguments.
    */
@@ -131,6 +134,12 @@ export interface CliReportLogger {
   consoleOutput: (output: unknown) => CliReportLogger
 }
 
+export interface CliReportDetail {
+  initAt: number
+  startedAt?: number
+  finishedAt?: number
+}
+
 export interface CliReporter {
   /**
    * Add setup information.
@@ -162,6 +171,11 @@ export interface CliReporter {
   disable: () => void
 
   /**
+   * Turns on the reporter.
+   */
+  start: () => void
+
+  /**
    * Turns off the reporter functions.
    */
   finish: () => void
@@ -180,6 +194,8 @@ export interface CliReporter {
    * Update the progress bar.
    */
   progress?: CliProgress
+
+  args?: ReporterArgs
 }
 
 export type SectionProgress = Partial<
@@ -189,14 +205,22 @@ export type SectionProgress = Partial<
   >
 >
 
+export type ReportOutput = 'console' | 'md' | 'json'
+
 export interface ReporterArgs {
   /**
    * Disable the progress bar.
    */
   disableProgressBar?: boolean
 
-  /**
-   * Progress bar arguments.
-   */
-  progressBarArgs?: CliProgressArgs
+  // /**
+  //  * Progress bar arguments.
+  //  */
+  // progressBarArgs?: CliProgressArgs
+
+  output: ReportOutput[]
+
+  outputFolderPath: string
+
+  width: number
 }

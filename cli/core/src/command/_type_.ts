@@ -1,4 +1,5 @@
-import { CliReporter } from '../report'
+import { CliProgress } from '../progress'
+import { CliReporter, CliReportLogger } from '../report'
 import { Obj, RequireSome } from '../utils'
 
 export interface CommanderSetup {
@@ -27,7 +28,7 @@ export interface CommandDetails {
   alias: string
   arguments?: ArgumentDetails[]
   options?: OptionDetails[]
-  script?: CliScript
+  script: CliScript
 }
 
 export type ArgumentType = 'string' | 'number'
@@ -39,6 +40,7 @@ export interface OptionDetails {
   title: string
   description: string
   type: OptionType
+  watchMode?: boolean
   variadic?: boolean
   showUsageExample?: boolean
   choices?: ChoiceDetails[]
@@ -64,12 +66,16 @@ export interface ChoiceDetails {
 }
 
 export interface CommandContext {
+  cwd?: string
   reporter: CliReporter
 }
 
 export type CliScriptExe = () => Promise<void>
 
-export type CliScript<A extends object = any> = (props: {
+export type CliScript<
+  Args extends object = any,
+  Opts extends object = any,
+> = (props: {
   // log: CliReportLogger
   // progress: Pick<
   //   CliReportProgress,
@@ -77,8 +83,11 @@ export type CliScript<A extends object = any> = (props: {
   // >
   // fileBuilder: ReturnType<CliFileBuilders>
   // fileManager: ReturnType<CliFileManager>
-  args: A
+  arguments: Args
+  options: Opts
   cwd: string
+  log: CliReportLogger
+  progress?: CliProgress
 }) => CliScriptExe
 
 export type FlagOption = `--${string}`
@@ -100,5 +109,6 @@ export type CommandsToRun = Map<
     command: CommandDetails
     argumentResponse: Obj
     optionResponse: Obj
+    watchMode: boolean
   }
 >

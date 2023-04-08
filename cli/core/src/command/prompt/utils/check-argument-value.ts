@@ -15,6 +15,8 @@ interface Retval {
 function checkArgumentValue(args: Args): Retval {
   const { argument, argValue } = args
 
+  if (argValue === undefined) return { ok: false, messages: [] }
+
   let ok = true
   const messages: string[] = []
 

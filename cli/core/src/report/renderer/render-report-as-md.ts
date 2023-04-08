@@ -1,14 +1,19 @@
+import { CliFileManager } from '../../file-manager'
 import { Obj } from '../../utils'
-import { RendererProps } from './_type_'
+import { Report } from '../_type_'
+import { formatDate } from './format-date'
 import { statusRenderer } from './status-renderer'
 
+export interface Args {
+  filePath: string
+  report: Report
+  fileManager: ReturnType<CliFileManager>
+}
 export const renderReportAsMarkdown = ({
-  config,
+  filePath,
   report,
   fileManager,
-}: RendererProps) => {
-  if (!config.reporter.reports?.includes('md')) return
-
+}: Args) => {
   let content = ''
 
   const add = (str: string) => {
@@ -26,9 +31,32 @@ export const renderReportAsMarkdown = ({
     }
   }
 
-  add(`# ${config.cliName} - execution report`)
+  const renderOpts = (opts: Obj | undefined) => {
+    const a = Object.entries(opts ?? {})
+    if (a.length) {
+      add(`- options:`)
+      a.forEach(([k, v]) => {
+        add(`  - __${k}__:`.padEnd(16) + `\`${v}\``)
+      })
+    }
+  }
+
+  // add(`# ${config.cliName} - execution report`)
 
   add(`## Quick overview`)
+
+  add(`\n| | |`)
+  add(`| --- | --- |`)
+  add(`| Date |  ${formatDate(report.detail.initAt, 'yyyy:mm:dd')} |`)
+  add(`| Init at | ${formatDate(report.detail.initAt, 'hh:mm:ss')} |`)
+  add(`| Start at | ${formatDate(report.detail.startedAt, 'hh:mm:ss')} |`)
+  add(`| Finished at | ${formatDate(report.detail.finishedAt, 'hh:mm:ss')} |`)
+
+  const duration =
+    ((report.detail.finishedAt ?? 0) - (report.detail.startedAt ?? 0)) * 0.001 +
+    's'
+
+  add(`| Duration | __${duration}__ |`)
 
   add(`\n| Script | Status | Duration |`)
   add(`| --- | --- | --- |`)
@@ -61,6 +89,8 @@ export const renderReportAsMarkdown = ({
       .add(`- status: __${s.status}__`)
 
     renderArgs(s.arguments)
+
+    renderOpts(s.options)
 
     s.content.forEach(c => {
       switch (c.type) {
@@ -117,5 +147,5 @@ export const renderReportAsMarkdown = ({
     add('---')
   })
 
-  fileManager.writeFile(config.reporter.path?.md, content)
+  fileManager.writeFile(filePath, content)
 }

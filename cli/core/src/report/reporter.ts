@@ -5,11 +5,17 @@ import { CliReporter, Report, ReporterArgs, ReportStatus } from './_type_'
  * Creates a reporter utility that collects execution data into sections.
  */
 export const REPORTER = (args?: ReporterArgs): CliReporter => {
-  const { disableProgressBar, progressBarArgs } = args ?? {}
+  const { disableProgressBar, width } = args ?? {}
 
-  const report: Report = { setup: {}, sections: [] }
+  const initAt = Date.now()
 
-  const progress = disableProgressBar ? undefined : PROGRESS(progressBarArgs)
+  const report: Report = {
+    detail: { initAt: Date.now() },
+    setup: {},
+    sections: [],
+  }
+
+  const progress = disableProgressBar ? undefined : PROGRESS({ barSize: width })
 
   let finished = false
 
@@ -17,12 +23,7 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
     report.setup = setup
   }
 
-  const initSection = (params: {
-    id: string
-    title: string
-    description: string
-    arguments: any
-  }) => {
+  const initSection: CliReporter['initSection'] = params => {
     if (finished) return
 
     report.sections.push({
@@ -36,6 +37,7 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
         duration: -1,
       },
       arguments: params.arguments,
+      options: params.options,
       content: [],
     })
     progress?.setSectionTitle(params.title)
@@ -54,9 +56,14 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
     progress?.nextActiveSection()
   }
 
+  const start = () => {
+    report.detail.startedAt = Date.now()
+  }
+
   const finish = () => {
     finished = true
     progress?.finish()
+    report.detail.finishedAt = Date.now()
   }
 
   const disable = () => {
@@ -178,12 +185,12 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
     initSection,
     endSection,
     disable,
+    start,
     finish,
-    getReport: () => {
-      return report
-    },
+    getReport: () => report,
     log,
     progress,
+    args,
   }
 }
 

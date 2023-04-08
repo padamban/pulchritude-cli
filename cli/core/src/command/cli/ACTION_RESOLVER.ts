@@ -1,6 +1,12 @@
+/* eslint-disable no-console */
 import { Command } from 'commander'
+import path from 'path'
 
-import { CommanderSetup } from '../_type_'
+import { FILE_MANAGER } from '../../file-manager'
+import { renderReportAsJson } from '../../report/renderer/render-report-as-json'
+import { renderReportAsMarkdown } from '../../report/renderer/render-report-as-md'
+import { renderReportToConsole } from '../../report/renderer/render-report-to-console'
+import { CommandContext, CommanderSetup } from '../_type_'
 import { PROMPT } from '../prompt/PROMPT'
 import { EXECUTE } from './execute'
 import { getOptions } from './utils/get-options'
@@ -10,11 +16,13 @@ import { resolveCommandChain } from './utils/resolve-command-chain'
 interface Args {
   setup: CommanderSetup
   cmd: Command
-  ctx: any
+  ctx: CommandContext
 }
 
 export const ACTION_RESOLVER = (args: Args) => {
   const { cmd, setup, ctx } = args
+
+  const fileManager = FILE_MANAGER({ cwd: ctx.cwd ?? process.cwd() })
 
   cmd.action(async (...rawArgs) => {
     const { program, command } = resolveCommandChain({ cmd, setup })
@@ -33,19 +41,39 @@ export const ACTION_RESOLVER = (args: Args) => {
 
     await EXECUTE({ setup, ctx, ...promptResponse })
 
-    // const watch = false
+    if (!promptResponse.watch) {
+      setTimeout(() => {
+        if (ctx.reporter.args?.output.includes('console')) {
+          renderReportToConsole({
+            width: ctx.reporter.args?.width,
+            report: ctx.reporter.getReport(),
+          })
+        }
 
-    // if (!watch) {
-    //   setTimeout(() => {
-    //     console.log('KKK', ctx.reporter.getReport())
+        if (ctx.reporter.args?.output.includes('json')) {
+          renderReportAsJson({
+            filePath: path.join(
+              ctx.reporter.args.outputFolderPath,
+              'report.json',
+            ),
+            report: ctx.reporter.getReport(),
+            fileManager,
+          })
+        }
 
-    //     // renderReport({
-    //     //   config,
-    //     //   report: ctx.reporter.getReport(),
-    //     //   fileManager: ctx.fileManager,
-    //     // })
-    //     process.exit()
-    //   }, 100)
-    // }
+        if (ctx.reporter.args?.output.includes('md')) {
+          renderReportAsMarkdown({
+            filePath: path.join(
+              ctx.reporter.args.outputFolderPath,
+              'report.md',
+            ),
+            report: ctx.reporter.getReport(),
+            fileManager,
+          })
+        }
+
+        process.exit()
+      }, 100)
+    }
   })
 }
