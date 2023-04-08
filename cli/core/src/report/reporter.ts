@@ -7,8 +7,6 @@ import { CliReporter, Report, ReporterArgs, ReportStatus } from './_type_'
 export const REPORTER = (args?: ReporterArgs): CliReporter => {
   const { disableProgressBar, width } = args ?? {}
 
-  const initAt = Date.now()
-
   const report: Report = {
     detail: { initAt: Date.now() },
     setup: {},
