@@ -9,6 +9,9 @@ interface Retval {
   value: unknown
 }
 
+/**
+ * Ensure that the parameter (argument or option) value is of the correct type.
+ */
 function fixParameterValue(args: Args): Retval {
   const { parameterDetails, value } = args
   const { type, choices } = parameterDetails

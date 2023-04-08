@@ -12,6 +12,9 @@ interface Retval {
   messages: string[]
 }
 
+/**
+ * Check the validity of the options specified inside the terminal.
+ */
 function checkOptionValue(args: Args): Retval {
   const { option, optValue } = args
 

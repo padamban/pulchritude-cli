@@ -8,6 +8,9 @@ interface Args {
   message: string
 }
 
+/**
+ * Create an input prompt for a parameter (argument or option).
+ */
 function getParameterPrompt({ parameter, message }: Args): PromptObject {
   return {
     name: parameter.id,

@@ -12,6 +12,9 @@ interface Retval {
   messages: string[]
 }
 
+/**
+ * Check the validity of the arguments specified inside the terminal.
+ */
 function checkArgumentValue(args: Args): Retval {
   const { argument, argValue } = args
 

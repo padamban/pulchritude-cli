@@ -10,6 +10,9 @@ interface Args {
   watch: boolean
 }
 
+/**
+ * Execute the scripts of the selected commands.
+ */
 async function EXECUTE(args: Args): Promise<void> {
   const { commandsToRun, ctx, watch } = args
   ctx.reporter.start()

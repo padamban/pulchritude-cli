@@ -4,12 +4,19 @@ import {
   ResolvedOptionDetails,
 } from '../../_type_'
 
+/**
+ * Create commander parameter tags.
+ */
 export const CommanderTag = {
   getArgumentTag,
   getOptionTag,
   getOptionTagSlot,
 }
 
+/**
+ * Get argument tag.
+ * @example [argument]
+ */
 function getArgumentTag(args: ResolvedArgumentDetails) {
   const { name, variadic } = args
 
@@ -22,6 +29,10 @@ function getArgumentTag(args: ResolvedArgumentDetails) {
   return argument
 }
 
+/**
+ * Get argument tag.
+ * @example -o, --option
+ */
 function getOptionTag(
   args: Pick<ResolvedOptionDetails, 'name' | 'alias' | 'type' | 'variadic'>,
 ) {
@@ -32,6 +43,10 @@ function getOptionTag(
   return tag
 }
 
+/**
+ * Get argument tag.
+ * @example --option -o <option-value-slot...>
+ */
 function getOptionTagSlot(args: Partial<OptionDetails>) {
   const { type, variadic } = args
 

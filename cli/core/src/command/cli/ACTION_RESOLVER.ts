@@ -19,6 +19,15 @@ interface Args {
   ctx: CommandContext
 }
 
+/**
+ * Resolves the command provided in the terminal.
+ * - Parses the parameters.
+ * - Creates prompt inputs.
+ * - Validates the inputs.
+ * - Executes the commands.
+ * - Creates reports about the execution.
+ */
+
 export const ACTION_RESOLVER = (args: Args) => {
   const { cmd, setup, ctx } = args
 

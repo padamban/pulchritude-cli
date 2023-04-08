@@ -15,6 +15,9 @@ interface Retval {
   command: CommandDetails | undefined
 }
 
+/**
+ * Enrich the option details with extra data.
+ */
 function resolveCommandChain({ setup, cmd }: Args): Retval {
   const commandChain = getCommandChain(cmd)
 
@@ -33,6 +36,11 @@ function resolveCommandChain({ setup, cmd }: Args): Retval {
   }
 }
 
+/**
+ * Get the names of the selected.
+ *
+ * `[app, program, command]`
+ */
 function getCommandChain(cmd: Command): string[] {
   let names: string[] = [cmd.name()]
 

@@ -15,6 +15,9 @@ interface Retval {
   optionValues: Obj
 }
 
+/**
+ * Ensure that the parameter (argument or option) values are of the correct type.
+ */
 function fixParameterValues(args: Args): Retval {
   const { command, argumentValues, optionValues } = args
 

@@ -6,6 +6,9 @@ interface Args {
   options: Obj
 }
 
+/**
+ * Check if the command is in watch mode.
+ */
 export const isWatchMode = (args: Args) => {
   const { command, options } = args
 

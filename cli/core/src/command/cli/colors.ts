@@ -1,5 +1,8 @@
 import chalk from 'chalk'
 
+/**
+ * Console colors and font weights.
+ */
 const Color = {
   title: (str: string) =>
     chalk.bold.underline.bgBlue.whiteBright(str.padEnd(70)),

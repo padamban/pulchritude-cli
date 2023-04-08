@@ -8,6 +8,9 @@ interface Args {
   type?: ArgumentType | OptionType
 }
 
+/**
+ * Decide the prompt type of a parameter.
+ */
 function resolvePromptType({ type, variadic, choices }: Args): PromptType {
   let promptType: PromptType = 'text'
 

@@ -8,6 +8,9 @@ interface Args {
   cmd: Command
 }
 
+/**
+ * Extract positional arguments from the raw arguments.
+ */
 function getPositionalArgs({ cmd, command, rawArgs }: Args) {
   const [, , ...positional] = [...rawArgs].reverse()
 

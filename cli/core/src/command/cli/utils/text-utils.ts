@@ -1,12 +1,19 @@
 import { FlagOption, FlagOptionAlias } from '../../_type_'
 
+/**
+ * Manipulate string values.
+ */
 export const TextUtils = {
   createOptionName,
   createVariableAlias,
-  createCommandText,
   toKebabCase,
 }
 
+/**
+ * Convert the option id to option name.
+ *
+ * `optionId` => `--option-id, -oi`
+ */
 function createOptionName(variableName: string) {
   const kebab = toKebabCase(variableName)
 
@@ -23,6 +30,11 @@ function createOptionName(variableName: string) {
   }
 }
 
+/**
+ * Convert the camelCase to alias.
+ *
+ * `someValue` => `sv`
+ */
 function createVariableAlias(variableName: string) {
   const alias = variableName
     .split(/\.?(?=[A-Z])/)
@@ -33,10 +45,11 @@ function createVariableAlias(variableName: string) {
   return alias
 }
 
-function createCommandText(cmdName?: string) {
-  return `${createVariableAlias(cmdName ?? '')}|${cmdName}`
-}
-
+/**
+ * Convert the camelCase to kebab-case.
+ *
+ * `someValue` => `some-value`
+ */
 function toKebabCase(value: string) {
   const kebab = value
     .split(/\.?(?=[A-Z])/)
