@@ -1,13 +1,23 @@
 import chalk from 'chalk'
 
-import { ArgumentDetails, ChoiceDetails, OptionDetails } from '../../../_type_'
-import { Color } from '../../colors'
+import {
+  ArgumentDetails,
+  ChoiceDetails,
+  OptionDetails,
+} from '../../../../_type_'
+import { Color } from '../../../colors'
 
+/**
+ * Create description texts.
+ */
 export const CommanderDescription = {
   getArgumentDescription,
   getOptionDescription,
 }
 
+/**
+ * Create a description text for the argument.
+ */
 function getArgumentDescription(args: ArgumentDetails) {
   const { description, required, variadic, choices } = args
 
@@ -32,6 +42,9 @@ function getArgumentDescription(args: ArgumentDetails) {
   return `${description} ${detailsText}${choicesText}`
 }
 
+/**
+ * Create a description text for the option.
+ */
 function getOptionDescription(args: OptionDetails) {
   const { description, choices } = args
 
@@ -40,6 +53,9 @@ function getOptionDescription(args: OptionDetails) {
   return `${description}${choicesText}`
 }
 
+/**
+ * Create a description text for the parameter choice.
+ */
 function getInlineChoiceDescription(choices?: ChoiceDetails[]) {
   let choicesText = ''
 

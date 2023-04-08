@@ -14,6 +14,9 @@ interface Args {
   globalOptions: GlobalOptions
 }
 
+/**
+ * Creates a function that attaches the help/documentation to a function.
+ */
 export const addCmdDocumentationFactory =
   ({ setup, globalOptions }: Args) =>
   (cmd: commander.Command) => {
@@ -26,6 +29,9 @@ export const addCmdDocumentationFactory =
       .showHelpAfterError()
   }
 
+/**
+ * Create console documentation.
+ */
 function createDocumentation(cmd: CommanderSetup) {
   const content: string[] = []
   const _ = (line: string) => content.push(line)

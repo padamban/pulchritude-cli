@@ -19,14 +19,14 @@ interface Retval {
   coloredCellText: string
 }
 
-function calculateTrail(textLength: number, cellLength: number | undefined) {
-  const diff = Math.max(textLength, cellLength ?? 0) - textLength
-
-  return ' '.repeat(diff)
-}
-
-function getOptionTagSlot(args: Pick<OptionDetails, 'type' | 'variadic'>) {
+/**
+ * Create value slot text for the option.
+ * - e.g.: `--option <slot>`
+ */
+function getOptionTagSlot(args: Partial<OptionDetails>) {
   const { type, variadic } = args
+
+  if (type === undefined) return ''
   if (type === 'boolean') return ''
 
   let slot: string = type
@@ -38,6 +38,9 @@ function getOptionTagSlot(args: Pick<OptionDetails, 'type' | 'variadic'>) {
   return slot
 }
 
+/**
+ * Create tag for program.
+ */
 function forProgram(program: ProgramDetails, args?: Args): Retval {
   const indent = ' '.repeat(DOC_CONFIG.indent)
 
@@ -53,6 +56,9 @@ function forProgram(program: ProgramDetails, args?: Args): Retval {
   return { length, rawText, coloredCellText }
 }
 
+/**
+ * Create tag for command.
+ */
 function forCommand(command: CommandDetails, args?: Args): Retval {
   const indent = ' '.repeat(DOC_CONFIG.indent * 2)
 
@@ -68,6 +74,9 @@ function forCommand(command: CommandDetails, args?: Args): Retval {
   return { length, rawText, coloredCellText }
 }
 
+/**
+ * Create tag for argument.
+ */
 function forArgument(argument: ArgumentDetails, args?: Args): Retval {
   const indent = ' '.repeat(DOC_CONFIG.indent * 3)
 
@@ -85,6 +94,9 @@ function forArgument(argument: ArgumentDetails, args?: Args): Retval {
   return { length, rawText, coloredCellText }
 }
 
+/**
+ * Create tag for option.
+ */
 function forOption(option: OptionDetails, args?: Args): Retval {
   const indent = ' '.repeat(DOC_CONFIG.indent * 3 * +!args?.noIndent)
 
@@ -107,6 +119,15 @@ function forOption(option: OptionDetails, args?: Args): Retval {
   const length = rawText.length
 
   return { length, rawText, coloredCellText }
+}
+
+/**
+ * Create trailing white spaces.
+ */
+function calculateTrail(textLength: number, cellLength: number | undefined) {
+  const diff = Math.max(textLength, cellLength ?? 0) - textLength
+
+  return ' '.repeat(diff)
 }
 
 export const ComposeTag = {

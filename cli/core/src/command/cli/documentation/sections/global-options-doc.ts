@@ -7,6 +7,9 @@ interface Args {
   globalOptions: OptionDetails[]
 }
 
+/**
+ * Describes the global options.
+ */
 function addGlobalOptionsDoc({ addLine: _, globalOptions }: Args) {
   _(`\n${Color.subtitle('GLOBAL OPTIONS')}\n`)
 

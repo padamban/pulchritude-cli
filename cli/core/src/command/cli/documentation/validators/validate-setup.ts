@@ -6,6 +6,10 @@ import { validateArgumentConfig } from './validate-argument-config'
 interface Args {
   setup: CommanderSetup
 }
+
+/**
+ * Validate CLI setup.
+ */
 function VALIDATE_SETUP({ setup }: Args) {
   const errorInfo: ErrorInfo[] = []
 

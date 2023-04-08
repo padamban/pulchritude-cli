@@ -1,7 +1,7 @@
 import { ChoiceDetails, CommanderSetup } from '../../../_type_'
 import { Color } from '../../colors'
-import { CommanderDescription } from '../formatters/get-description'
 import { ComposeTag } from './utils/compose-tag'
+import { CommanderDescription } from './utils/get-description'
 import { getFeatureColumnDetails } from './utils/get-feature-column-details'
 
 interface Args {
@@ -9,10 +9,13 @@ interface Args {
   setup: CommanderSetup
 }
 
-const dash = Color.gray('- ')
-
+/**
+ * Create documentation section from the CLI setup.
+ */
 function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
   const { firstColumnWidth: cellLength } = getFeatureColumnDetails({ setup })
+
+  const dash = Color.gray('- ')
 
   _(`\n\n${Color.subtitle('CONFIGURED PROGRAMS')}\n`)
 
@@ -61,6 +64,9 @@ function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
   })
 }
 
+/**
+ * List parameter choices.
+ */
 function addChoices(args: {
   choices?: ChoiceDetails[]
   indent: number

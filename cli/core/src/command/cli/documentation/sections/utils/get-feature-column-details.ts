@@ -6,6 +6,9 @@ interface Args {
   setup: CommanderSetup
 }
 
+/**
+ * Analyze the CLI config and calculate global details for the docs.
+ */
 function getFeatureColumnDetails({ setup }: Args) {
   let firstColumnWidth = 0
 

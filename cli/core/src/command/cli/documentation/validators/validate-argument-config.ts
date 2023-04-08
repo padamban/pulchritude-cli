@@ -5,10 +5,14 @@ interface Args {
   parentChain: string[]
   arguments?: ArgumentDetails[]
 }
+
 interface Retval {
   errorInfo: ErrorInfo[]
 }
 
+/**
+ * Validate CLI command arguments.
+ */
 function validateArgumentConfig(args: Args): Retval {
   const errorInfo: ErrorInfo[] = []
 

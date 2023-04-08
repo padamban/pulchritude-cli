@@ -6,6 +6,9 @@ interface Args {
   setup: CommanderSetup
 }
 
+/**
+ * Main documentation section.
+ */
 function addCommonDocumentation({ setup, addLine: _ }: Args) {
   _('\n\n' + Color.title(' DOCUMENTATION ') + '\n')
 
