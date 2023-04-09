@@ -7,10 +7,20 @@ import { statusRenderer } from './status-renderer'
 const log = console.log
 
 type Args = {
+  /**
+   * Report object.
+   */
   report: Report
+
+  /**
+   * Width of the logged report frame.
+   */
   width: number | undefined
 }
 
+/**
+ * Display a summarized version of the report object, inside the terminal.
+ */
 export const renderReportToConsole = ({ report, width = 50 }: Args) => {
   const tab = ' '.repeat(0)
 

@@ -9,6 +9,10 @@ export interface Args {
   report: Report
   fileManager: ReturnType<CliFileManager>
 }
+
+/**
+ * Convert the report object as an MD file content, and save the file.
+ */
 export const renderReportAsMarkdown = ({
   filePath,
   report,

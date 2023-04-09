@@ -1,5 +1,15 @@
+/**
+ * Format date timestamp to date format.
+ */
 function formatDate(
+  /**
+   * Date timestamp.
+   */
   timestamp: number | undefined,
+
+  /**
+   * Output format.
+   */
   format?: 'yyyy:mm:dd hh:mm:ss' | 'hh:mm:ss' | 'yyyy:mm:dd',
 ) {
   if (!timestamp) return ''

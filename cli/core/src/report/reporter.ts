@@ -192,7 +192,13 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
   }
 }
 
-const setStatus = (aStatus: ReportStatus, bStatus: ReportStatus) => {
+/**
+ * Given two statuses, returns of the highest priority.
+ */
+const setStatus = (
+  aStatus: ReportStatus,
+  bStatus: ReportStatus,
+): ReportStatus => {
   const levels: ReportStatus[] = ['NONE', 'OK', 'SKIPPED', 'WARNING', 'ERROR']
 
   const aLevel = levels.indexOf(aStatus)

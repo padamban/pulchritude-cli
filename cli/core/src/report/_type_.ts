@@ -195,6 +195,9 @@ export interface CliReporter {
    */
   progress?: CliProgress
 
+  /**
+   * Arguments of the reporter.
+   */
   args?: ReporterArgs
 }
 
@@ -212,11 +215,6 @@ export interface ReporterArgs {
    * Disable the progress bar.
    */
   disableProgressBar?: boolean
-
-  // /**
-  //  * Progress bar arguments.
-  //  */
-  // progressBarArgs?: CliProgressArgs
 
   output: ReportOutput[]
 
