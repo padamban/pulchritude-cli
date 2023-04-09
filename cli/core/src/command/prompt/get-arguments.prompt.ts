@@ -13,6 +13,9 @@ interface Args {
   values: Obj | undefined
 }
 
+/**
+ * Show a prompt asking for argument.
+ */
 async function getArgumentsPrompt(args: Args): Promise<Obj> {
   const { command } = args
 

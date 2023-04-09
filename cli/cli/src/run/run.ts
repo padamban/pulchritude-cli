@@ -45,7 +45,6 @@ const RUN = async () => {
                 alias: '-ob',
                 description: 'Option B',
                 type: 'string',
-                showUsageExample: true,
                 choices: [
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },
@@ -61,7 +60,7 @@ const RUN = async () => {
         name: 'program-bb',
         alias: 'pb',
         description: 'BB program',
-        multiCommand: true,
+        isMultiCommand: true,
         commands: [
           {
             id: 'comAa',
@@ -138,7 +137,6 @@ const RUN = async () => {
                 alias: '-oa',
                 description: 'Option A',
                 type: 'string',
-                showUsageExample: true,
                 choices: [
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },
@@ -154,8 +152,7 @@ const RUN = async () => {
         name: 'some-program',
         alias: 'sp',
         description: 'BB program',
-        multiCommand: true,
-        commandGroupName: { singular: 'script' },
+        isMultiCommand: true,
         commands: [
           {
             id: 'comAa',
@@ -207,7 +204,6 @@ const RUN = async () => {
                 alias: '-oa',
                 description: 'Option A',
                 type: 'string',
-                showUsageExample: true,
                 choices: [
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },
@@ -274,7 +270,6 @@ const RUN = async () => {
                 description: 'Option A',
                 type: 'string',
                 variadic: true,
-                showUsageExample: true,
                 choices: [
                   { name: 'Spanish', value: 'es' },
                   { name: 'English', value: 'en' },

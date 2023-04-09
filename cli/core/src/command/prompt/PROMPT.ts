@@ -31,6 +31,14 @@ interface Retval {
   watch: boolean
 }
 
+/**
+ * Show prompt inputs.
+ * - Receives the the command and parameters given in the terminal.
+ * - Triggers prompt inputs if needed.
+ * - Validates some of the inputs.
+ * - Packages the commands to run with its parameters.
+ * - Decides whether is in watch mode.
+ */
 async function PROMPT(args: Args): Promise<Retval> {
   // eslint-disable-next-line no-console
   console.log('')

@@ -8,15 +8,16 @@ interface Args {
   program?: ProgramDetails
 }
 
+/**
+ * Show a prompt asking for command(s).
+ */
 async function getCommandPrompt(args: Args = {}): Promise<CommandDetails[]> {
-  const { commands, multiCommand, commandGroupName, title } = args.program ?? {}
+  const { commands, isMultiCommand, title } = args.program ?? {}
 
   const { commandId } = await prompt({
     name: 'commandId',
-    message: `Select a ${Color.program(title)} ${Color.command(
-      commandGroupName?.singular ?? 'command',
-    )}!`,
-    type: multiCommand ? 'multiselect' : 'select',
+    message: `Select a ${Color.program(title)} ${Color.command('command')}!`,
+    type: isMultiCommand ? 'multiselect' : 'select',
     instructions: false,
     choices: commands?.map(c => ({
       title: Color.command(c.title),

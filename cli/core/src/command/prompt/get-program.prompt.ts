@@ -7,6 +7,9 @@ interface Args {
   programs: ProgramDetails[] | undefined
 }
 
+/**
+ * Show a prompt asking for a program.
+ */
 async function getProgramPrompt(
   args: Args,
 ): Promise<ProgramDetails | undefined> {

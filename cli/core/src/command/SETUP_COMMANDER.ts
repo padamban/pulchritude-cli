@@ -8,9 +8,19 @@ import { VALIDATE_SETUP } from './cli/documentation/validators/validate-setup'
 import { CommanderTag } from './cli/utils/get-commander-tag'
 import { resolveArgument } from './cli/utils/resolve-argument'
 import { resolveOption } from './cli/utils/resolve-option'
-import { globalOptions } from './global-options'
+import { GLOBAL_OPTIONS } from './global-options'
 
-export const SCRIPT_COMMANDER =
+/**
+ * Setup the commander.js:
+ * - configure programs, commands, parameters
+ * - terminal help/documentation
+ * - adds action resolver to the commands
+ *   - receives the terminal arguments
+ *   - creates input prompts if needed
+ *   - runs the target scripts
+ *   - creates terminal documentation
+ */
+export const SETUP_COMMANDER =
   (setup: CommanderSetup) =>
   (ctx: CommandContext) =>
   async (argv: string[]) => {
@@ -18,7 +28,10 @@ export const SCRIPT_COMMANDER =
 
     VALIDATE_SETUP({ setup })
 
-    const addDocs = addCmdDocumentationFactory({ setup, globalOptions })
+    const addDocs = addCmdDocumentationFactory({
+      setup,
+      globalOptions: GLOBAL_OPTIONS,
+    })
 
     commander
       .name(setup.name)
@@ -51,7 +64,7 @@ export const SCRIPT_COMMANDER =
           programCommandCmd.argument(`${argTag}`, argDesc)
         })
 
-        const options = [...(c.options ?? []), globalOptions.noPrompt]
+        const options = [...(c.options ?? []), GLOBAL_OPTIONS.noPrompt]
 
         options.forEach(opt => {
           const optTag = CommanderTag.getOptionTag(resolveOption(opt))

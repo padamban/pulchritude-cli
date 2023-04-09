@@ -1,7 +1,7 @@
 import commander from 'commander'
 
 import { CommanderSetup, GlobalOptions } from '../../_type_'
-import { globalOptions } from '../../global-options'
+import { GLOBAL_OPTIONS } from '../../global-options'
 import { CommanderTag } from '../utils/get-commander-tag'
 import { resolveOption } from '../utils/resolve-option'
 import { addAvailableFeaturesDocumentation } from './sections/available-features-doc'
@@ -43,7 +43,7 @@ function createDocumentation(cmd: CommanderSetup) {
 
   addGlobalOptionsDoc({
     addLine: _,
-    globalOptions: [globalOptions.noPrompt, globalOptions.help],
+    globalOptions: [GLOBAL_OPTIONS.noPrompt, GLOBAL_OPTIONS.help],
   })
 
   addAvailableFeaturesDocumentation({

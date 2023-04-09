@@ -45,7 +45,6 @@ async function EXECUTE(args: Args): Promise<void> {
         arguments: argumentResponse,
         options: optionResponse,
         log: ctx.reporter.log,
-        progress: ctx.reporter.progress,
       })()
     } catch (error) {
       ctx.reporter.log.error(error)

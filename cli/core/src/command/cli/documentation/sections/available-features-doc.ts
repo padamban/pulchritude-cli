@@ -26,7 +26,7 @@ function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
       }`,
     )
 
-    if (p.multiCommand) _(`    ${Color.gray('multi run')}`)
+    if (p.isMultiCommand) _(`    ${Color.gray('multi run')}`)
 
     p.commands.forEach(c => {
       _('')
