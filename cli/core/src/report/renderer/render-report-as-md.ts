@@ -2,7 +2,7 @@ import { CliFileManager } from '../../file-manager'
 import { Obj } from '../../utils'
 import { Report } from '../_type_'
 import { formatDate } from './format-date'
-import { statusRenderer } from './status-renderer'
+import { renderStatus } from './render-status'
 
 export interface Args {
   filePath: string
@@ -66,7 +66,7 @@ export const renderReportAsMarkdown = ({
   add(`| --- | --- | --- |`)
   report.sections.forEach((s, i) => {
     add(
-      `| [${s.title}](#${i}) | ${statusRenderer(s.status)} ${s.status} | ${
+      `| [${s.title}](#${i}) | ${renderStatus(s.status)} ${s.status} | ${
         s.timer.duration / 1000
       }s |`,
     )
@@ -86,7 +86,7 @@ export const renderReportAsMarkdown = ({
   add(`## Scripts`)
 
   report.sections.forEach((s, i) => {
-    add(`### ${statusRenderer(s.status)} <span id="${i}">${s.title}</span>`)
+    add(`### ${renderStatus(s.status)} <span id="${i}">${s.title}</span>`)
       .add(`> ${s.description}`)
       .add(`- id: __${s.id}__`)
       .add(`- duration: __${s.timer.duration / 1000}s__`)
@@ -99,10 +99,10 @@ export const renderReportAsMarkdown = ({
     s.content.forEach(c => {
       switch (c.type) {
         case 'header':
-          add(`\n#### ${statusRenderer(c.status, { silent: true })} ${c.text}`)
+          add(`\n#### ${renderStatus(c.status, { silent: true })} ${c.text}`)
           break
         case 'line':
-          add(`\n - ${statusRenderer(c.status, { silent: true })} ${c.text}`)
+          add(`\n - ${renderStatus(c.status, { silent: true })} ${c.text}`)
           break
         case 'problem-line':
           add(`\n - 🧨 **PROBLEM** - ${c.text}`)
@@ -112,7 +112,7 @@ export const renderReportAsMarkdown = ({
           break
         case 'labeled-line':
           add(
-            `${statusRenderer(c.status, { silent: true })} ${c.label} - ${
+            `${renderStatus(c.status, { silent: true })} ${c.label} - ${
               c.text
             } `,
           )

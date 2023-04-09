@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 
 import { Report } from '../_type_'
-import { statusRenderer } from './status-renderer'
+import { renderStatus } from './render-status'
 
 // eslint-disable-next-line no-console
 const log = console.log
@@ -47,7 +47,7 @@ export const renderReportToConsole = ({ report, width = 50 }: Args) => {
   )
 
   report.sections.forEach(s => {
-    const status = statusRenderer(s.status)
+    const status = renderStatus(s.status)
     const title = s.title.padEnd(Math.max(lengths.title + 10, 33))
     let duration = ((s.timer.duration / 1000).toFixed(3) + 's').padStart(10)
     if (s.timer.duration > 5000) duration = chalk.redBright(duration)
