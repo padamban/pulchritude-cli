@@ -3,7 +3,6 @@ import commander from 'commander'
 import { CommanderSetup, GlobalOptions } from '../../_type_'
 import { GLOBAL_OPTIONS } from '../../global-options'
 import { CommanderTag } from '../utils/get-commander-tag'
-import { resolveOption } from '../utils/resolve-option'
 import { addAvailableFeaturesDocumentation } from './sections/available-features-doc'
 import { addCommonDocumentation } from './sections/common-doc'
 import { addGlobalOptionsDoc } from './sections/global-options-doc'
@@ -22,7 +21,7 @@ export const addCmdDocumentationFactory =
   (cmd: commander.Command) => {
     cmd
       .helpOption(
-        CommanderTag.getOptionTag(resolveOption(globalOptions.help)),
+        CommanderTag.getOptionTag(globalOptions.help),
         globalOptions.help.description,
       )
       .addHelpText('before', createDocumentation(setup))

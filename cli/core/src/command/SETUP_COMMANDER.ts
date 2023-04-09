@@ -6,8 +6,6 @@ import { addCmdDocumentationFactory } from './cli/documentation/add-documentatio
 import { CommanderDescription } from './cli/documentation/sections/utils/get-description'
 import { VALIDATE_SETUP } from './cli/documentation/validators/validate-setup'
 import { CommanderTag } from './cli/utils/get-commander-tag'
-import { resolveArgument } from './cli/utils/resolve-argument'
-import { resolveOption } from './cli/utils/resolve-option'
 import { GLOBAL_OPTIONS } from './global-options'
 
 /**
@@ -57,7 +55,7 @@ export const SETUP_COMMANDER =
         commands.push(programCommandCmd)
 
         c.arguments?.forEach(arg => {
-          const argTag = CommanderTag.getArgumentTag(resolveArgument(arg))
+          const argTag = CommanderTag.getArgumentTag(arg)
 
           const argDesc = CommanderDescription.getArgumentDescription(arg)
 
@@ -67,7 +65,7 @@ export const SETUP_COMMANDER =
         const options = [...(c.options ?? []), GLOBAL_OPTIONS.noPrompt]
 
         options.forEach(opt => {
-          const optTag = CommanderTag.getOptionTag(resolveOption(opt))
+          const optTag = CommanderTag.getOptionTag(opt)
           const optDesc = CommanderDescription.getOptionDescription(opt)
 
           const cmdOpt = new Option(optTag, optDesc)

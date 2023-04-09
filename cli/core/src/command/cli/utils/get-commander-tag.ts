@@ -1,8 +1,4 @@
-import {
-  OptionDetails,
-  ResolvedArgumentDetails,
-  ResolvedOptionDetails,
-} from '../../_type_'
+import { ArgumentDetails, OptionDetails } from '../../_type_'
 
 /**
  * Create commander parameter tags.
@@ -17,7 +13,7 @@ export const CommanderTag = {
  * Get argument tag.
  * @example [argument]
  */
-function getArgumentTag(args: ResolvedArgumentDetails) {
+function getArgumentTag(args: ArgumentDetails) {
   const { name, variadic } = args
 
   let argument = name
@@ -34,7 +30,7 @@ function getArgumentTag(args: ResolvedArgumentDetails) {
  * @example -o, --option
  */
 function getOptionTag(
-  args: Pick<ResolvedOptionDetails, 'name' | 'alias' | 'type' | 'variadic'>,
+  args: Pick<OptionDetails, 'name' | 'alias' | 'type' | 'variadic'>,
 ) {
   const { name, alias, type, variadic } = args
 

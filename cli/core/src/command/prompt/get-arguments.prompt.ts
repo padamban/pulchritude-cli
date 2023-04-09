@@ -4,7 +4,6 @@ import prompt, { PromptObject } from 'prompts'
 import { Obj } from '../../utils'
 import { CommandDetails } from '../_type_'
 import { Color } from '../cli/colors'
-import { resolveArgument } from '../cli/utils/resolve-argument'
 import { checkArgumentValue } from './utils/check-argument-value'
 import { getParameterPrompt } from './utils/get-parameter-prompt'
 
@@ -26,12 +25,11 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
   const argumentResponse = await prompt(
     command.arguments
       .filter(arg => {
-        const resolvedArg = resolveArgument(arg)
-        const argValue = args.values?.[resolvedArg.id]
+        const argValue = args.values?.[arg.id]
 
         const { ok, messages } = checkArgumentValue({
           argValue,
-          argument: resolvedArg,
+          argument: arg,
         })
 
         messages.forEach(m => console.log(m))
@@ -45,7 +43,7 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
           ' ' +
           Color.gray(`(${arg.type}${arg.variadic ? ' list' : ''})`)
 
-        return getParameterPrompt({ message, parameter: resolveArgument(arg) })
+        return getParameterPrompt({ message, parameter: arg })
       }),
   )
 

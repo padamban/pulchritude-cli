@@ -1,7 +1,5 @@
 import { Obj } from '../../../utils'
 import { CommandDetails } from '../../_type_'
-import { resolveArgument } from '../../cli/utils/resolve-argument'
-import { resolveOption } from '../../cli/utils/resolve-option'
 import { fixParameterValue } from './fix-parameter-value'
 
 interface Args {
@@ -29,7 +27,7 @@ function fixParameterValues(args: Args): Retval {
 
     if (argument) {
       fixedArgumentValues[id] = fixParameterValue({
-        parameterDetails: resolveArgument(argument),
+        parameter: argument,
         value,
       }).value
     }
@@ -40,7 +38,7 @@ function fixParameterValues(args: Args): Retval {
 
     if (option) {
       fixedOptionValues[id] = fixParameterValue({
-        parameterDetails: resolveOption(option),
+        parameter: option,
         value,
       }).value
     }

@@ -1,5 +1,5 @@
 import { CliReporter, CliReportLogger } from '../report'
-import { Obj, RequireSome } from '../utils'
+import { Obj } from '../utils'
 
 /**
  * Config object for the CLI.
@@ -176,7 +176,7 @@ export interface ArgumentDetails {
    * The commander name for the argument. (kebab-case)
    * @example `number-values`
    */
-  name?: string
+  name: string
 
   /**
    * Is the argument required?
@@ -226,6 +226,18 @@ export interface OptionDetails {
   type: OptionType
 
   /**
+   * The commander name for the option. (--kebab-case)
+   * @example `--some-values`
+   */
+  name: FlagOption
+
+  /**
+   * The commander alias for the option. (-initialism)
+   * @example `-sv`
+   */
+  alias: FlagOptionAlias
+
+  /**
    * Is a watch flag.
    * - this option signals an unending script
    */
@@ -243,18 +255,6 @@ export interface OptionDetails {
    * - if the argument is variadic it can select multiple values
    */
   choices?: ChoiceDetails[]
-
-  /**
-   * The commander name for the option. (--kebab-case)
-   * @example `--some-values`
-   */
-  name?: FlagOption
-
-  /**
-   * The commander alias for the option. (-initialism)
-   * @example `-sv`
-   */
-  alias?: FlagOptionAlias
 }
 
 /**
@@ -317,16 +317,6 @@ export type FlagOption = `--${string}`
  * @example `-sv`
  */
 export type FlagOptionAlias = `-${string}`
-
-/**
- * The argument of the command, with some additional required/derived field.
- */
-export type ResolvedArgumentDetails = RequireSome<ArgumentDetails, 'name'>
-
-/**
- * The option of the command, with some additional required/derived fields.
- */
-export type ResolvedOptionDetails = RequireSome<OptionDetails, 'name' | 'alias'>
 
 /**
  * These options are available for all command.

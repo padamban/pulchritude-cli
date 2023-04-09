@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-import { ResolvedOptionDetails } from '../../_type_'
+import { OptionDetails } from '../../_type_'
 import { Color } from '../../cli/colors'
 
 interface Args {
-  option: ResolvedOptionDetails
+  option: OptionDetails
   optValue: any
 }
 

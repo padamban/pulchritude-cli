@@ -5,7 +5,6 @@ import {
   ProgramDetails,
 } from '../../../../_type_'
 import { Color } from '../../../colors'
-import { resolveOption } from '../../../utils/resolve-option'
 import { DOC_CONFIG } from './config'
 
 interface Args {
@@ -100,21 +99,19 @@ function forArgument(argument: ArgumentDetails, args?: Args): Retval {
 function forOption(option: OptionDetails, args?: Args): Retval {
   const indent = ' '.repeat(DOC_CONFIG.indent * 3 * +!args?.noIndent)
 
-  const opt = resolveOption(option)
-
   const slot = getOptionTagSlot({
-    type: opt.type,
-    variadic: opt.variadic,
+    type: option.type,
+    variadic: option.variadic,
   })
 
-  const nameWithSlot = `${opt.name}${slot}`
-  const rawText = `${indent}${nameWithSlot} ${opt.alias}`
+  const nameWithSlot = `${option.name}${slot}`
+  const rawText = `${indent}${nameWithSlot} ${option.alias}`
   const trail = calculateTrail(rawText.length, args?.cellLength)
 
   const coloredCellText = `${rawText}${trail}`
-    .replace(opt.name, Color.option(opt.name))
+    .replace(option.name, Color.option(option.name))
     .replace(slot, Color.option.dim(slot))
-    .replace(' ' + opt.alias, Color.gray(' ' + opt.alias))
+    .replace(' ' + option.alias, Color.gray(' ' + option.alias))
 
   const length = rawText.length
 

@@ -4,7 +4,6 @@ import prompt, { PromptObject } from 'prompts'
 import { Obj } from '../../utils'
 import { CommandDetails } from '../_type_'
 import { Color } from '../cli/colors'
-import { resolveOption } from '../cli/utils/resolve-option'
 import { checkOptionValue } from './utils/check-option-value'
 import { getParameterPrompt } from './utils/get-parameter-prompt'
 
@@ -26,13 +25,12 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
   const evaluatedOptions = new Map<string, OptionState>()
 
   command?.options?.forEach(opt => {
-    const resolvedOpt = resolveOption(opt)
-    const optValue = args.values?.[resolvedOpt.id]
+    const optValue = args.values?.[opt.id]
 
     let state: OptionState = 'unknown'
 
     const { ok, messages } = checkOptionValue({
-      option: resolvedOpt,
+      option: opt,
       optValue,
     })
 
@@ -64,7 +62,7 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
           Color.option(opt.title) +
           Color.gray(` (${opt.type})`)
 
-        return getParameterPrompt({ parameter: resolveOption(opt), message })
+        return getParameterPrompt({ parameter: opt, message })
       }) ?? [],
   )
 
@@ -100,7 +98,7 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
           Color.option(opt.title) +
           Color.gray(` (${opt.type})`)
 
-        return getParameterPrompt({ parameter: resolveOption(opt), message })
+        return getParameterPrompt({ parameter: opt, message })
       }) ?? [],
   )
 

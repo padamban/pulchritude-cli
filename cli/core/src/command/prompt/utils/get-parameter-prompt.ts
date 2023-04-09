@@ -1,10 +1,10 @@
 import { PromptObject } from 'prompts'
 
-import { ResolvedArgumentDetails, ResolvedOptionDetails } from '../../_type_'
+import { ArgumentDetails, OptionDetails } from '../../_type_'
 import { resolvePromptType } from './resolve-prompt-type'
 
 interface Args {
-  parameter: ResolvedArgumentDetails | ResolvedOptionDetails
+  parameter: ArgumentDetails | OptionDetails
   message: string
 }
 

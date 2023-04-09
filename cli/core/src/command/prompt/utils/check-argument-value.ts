@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-import { ResolvedArgumentDetails } from '../../_type_'
+import { ArgumentDetails } from '../../_type_'
 import { Color } from '../../cli/colors'
 
 interface Args {
-  argument: ResolvedArgumentDetails
+  argument: ArgumentDetails
   argValue: any
 }
 

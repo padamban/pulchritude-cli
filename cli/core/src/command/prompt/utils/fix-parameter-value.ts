@@ -1,7 +1,7 @@
-import { ResolvedArgumentDetails, ResolvedOptionDetails } from '../../_type_'
+import { ArgumentDetails, OptionDetails } from '../../_type_'
 
 interface Args {
-  parameterDetails: ResolvedOptionDetails | ResolvedArgumentDetails
+  parameter: OptionDetails | ArgumentDetails
   value: unknown
 }
 
@@ -13,14 +13,14 @@ interface Retval {
  * Ensure that the parameter (argument or option) value is of the correct type.
  */
 function fixParameterValue(args: Args): Retval {
-  const { parameterDetails, value } = args
-  const { type, choices } = parameterDetails
+  const { parameter, value } = args
+  const { type, choices } = parameter
 
   let newValue = value
 
   if (Array.isArray(value)) {
     newValue = value.map(v => {
-      return fixParameterValue({ parameterDetails, value: v }).value
+      return fixParameterValue({ parameter, value: v }).value
     })
   }
 
