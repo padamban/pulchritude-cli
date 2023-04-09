@@ -1,7 +1,7 @@
 import {
   CommanderSetup,
   REPORTER,
-  SCRIPT_COMMANDER,
+  SETUP_COMMANDER,
 } from '@pulchritude-cli/core'
 
 import { displayBanner } from '../display/banner'
@@ -314,7 +314,7 @@ const RUN = async () => {
   //   validConfigFilePaths: ['cli.config.ts', 'dev-cli.config.ts'],
   // })
 
-  await SCRIPT_COMMANDER(setup)({ reporter })(process.argv)
+  await SETUP_COMMANDER(setup)({ reporter })(process.argv)
 }
 
 export { RUN }

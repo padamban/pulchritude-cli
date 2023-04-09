@@ -1,2 +1,3 @@
 export type { CommanderSetup } from './_type_'
-export { SETUP_COMMANDER as SCRIPT_COMMANDER } from './SETUP_COMMANDER'
+export { COMMAND_FACTORY } from './command-factory/COMMAND_FACTORY'
+export { SETUP_COMMANDER } from './SETUP_COMMANDER'

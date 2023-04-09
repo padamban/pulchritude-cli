@@ -1,5 +1,5 @@
 import { CliReporter, CliReportLogger } from '../report'
-import { Obj } from '../utils'
+import { Obj, StringKeyof } from '../utils'
 
 /**
  * Config object for the CLI.
@@ -75,7 +75,10 @@ export interface ProgramDetails {
   isMultiCommand?: boolean
 }
 
-export interface CommandDetails {
+export interface CommandDetails<
+  Args extends Obj = any,
+  Opts extends Obj = any,
+> {
   /**
    * Id of the command. (camelCase)
    * @example `addNumbers`
@@ -112,7 +115,7 @@ export interface CommandDetails {
    * `$ CLI my-calculator add-numbers <values...>`
    * `$ CLI my-calculator add-numbers 34 43 45`
    */
-  arguments?: ArgumentDetails[]
+  arguments?: ArgumentDetails<Args>[]
 
   /**
    * The options of the cli command.
@@ -120,7 +123,7 @@ export interface CommandDetails {
    * `$ CLI my-calculator add-numbers <arguments...> --option <option-value>`
    * `$ CLI my-calculator add-numbers 34 43 45 --decimals 3`
    */
-  options?: OptionDetails[]
+  options?: OptionDetails<Opts>[]
 
   /**
    * The script that resolves the command. It receives the parameters and executes the operation.
@@ -132,7 +135,7 @@ export interface CommandDetails {
    *    .reduce((sum, v) => sum + v, 0)
    *    .toFixed(opts.decimals)
    */
-  script: CliScript
+  script: CliScript<Args, Opts>
 }
 
 /**
@@ -148,12 +151,12 @@ export type OptionType = 'boolean' | 'string' | 'number'
 /**
  * The argument of the command.
  */
-export interface ArgumentDetails {
+export interface ArgumentDetails<Args extends Obj = any> {
   /**
    * Id of the argument. (camelCase)
    * @example `numberValues`
    */
-  id: string
+  id: StringKeyof<Args>
 
   /**
    * The title name of the argument, that is displayed for the user in the prompt or documentation.
@@ -201,12 +204,12 @@ export interface ArgumentDetails {
 /**
  * The option of the command.
  */
-export interface OptionDetails {
+export interface OptionDetails<Opts extends Obj = any> {
   /**
    * Id of the option. (camelCase)
    * @example `noDecimals`
    */
-  id: string
+  id: StringKeyof<Opts>
 
   /**
    * The title name of the option, that is displayed for the user in the prompt or documentation.
@@ -297,11 +300,11 @@ export interface CommandContext {
  * Thunk function for declaring and executing and  the script.
  */
 export type CliScript<
-  Args extends object = any,
-  Opts extends object = any,
+  Args extends Obj = any,
+  Opts extends Obj = any,
 > = (props: {
-  arguments: Args
-  options: Opts
+  args: Args
+  opts: Opts
   cwd: string
   log: CliReportLogger
 }) => () => Promise<void>

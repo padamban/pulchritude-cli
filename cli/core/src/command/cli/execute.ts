@@ -42,8 +42,8 @@ async function EXECUTE(args: Args): Promise<void> {
     try {
       await command.script({
         cwd: ctx.cwd ?? process.cwd(),
-        arguments: argumentResponse,
-        options: optionResponse,
+        args: argumentResponse,
+        opts: optionResponse,
         log: ctx.reporter.log,
       })()
     } catch (error) {
