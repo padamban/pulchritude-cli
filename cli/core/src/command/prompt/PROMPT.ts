@@ -104,16 +104,12 @@ async function PROMPT(args: Args): Promise<Retval> {
           location: 'Config / Command selection by the user',
           recommendation:
             'If you select multiple commands only the last one can be in watch mode.',
-          payload: JSON.stringify(
-            {
-              commandId,
-              isLast,
-              numberOfCommands: arr.length,
-              commandIndex: index,
-            },
-            null,
-            2,
-          ),
+          payload: {
+            commandId,
+            isLast,
+            numberOfCommands: arr.length,
+            commandIndex: index,
+          },
         })
         process.exit()
       } else if (watchMode && isLast) {

@@ -6,7 +6,10 @@ import { LoadConfigArgs, LoadConfigRetval } from './_types_'
 
 const joycon = new JoyCon()
 
-export async function loadConfig<C extends object>(
+/**
+ * Load config TS file.
+ */
+export async function LOAD_CONFIG<C extends object>(
   args: LoadConfigArgs<C>,
 ): Promise<LoadConfigRetval<C>> {
   const { defaultConfig, validConfigFilePaths } = args

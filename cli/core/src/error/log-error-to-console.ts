@@ -2,6 +2,9 @@ import chalk from 'chalk'
 
 import { LogError } from './_type_'
 
+/**
+ * Log error info to terminal console.
+ */
 const logErrorToConsole: LogError = info => {
   const { issue, type, recommendation, location, error, payload } = info
 
@@ -26,7 +29,10 @@ const logErrorToConsole: LogError = info => {
   if (error?.length) {
     lines.push([`Error details: ${mainColor(error)}`])
   }
-  if (payload?.length) {
+
+  if (typeof payload === 'object') {
+    lines.push([`Additional information: ${JSON.stringify(payload, null, 2)}`])
+  } else if (typeof payload === 'string' && payload?.length) {
     lines.push([`Additional information: ${payload}`])
   }
 

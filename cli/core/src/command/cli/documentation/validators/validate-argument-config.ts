@@ -31,17 +31,13 @@ function validateArgumentConfig(args: Args): Retval {
       issue: 'Invalid config: the required arguments must be at the front.',
       type: 'error',
       recommendation: 'Put the required arguments to the top.',
-      payload: JSON.stringify(
-        {
-          chain: args.parentChain,
-          argumentList: args.arguments?.map(({ id, required }) => ({
-            id,
-            required: !!required,
-          })),
-        },
-        null,
-        2,
-      ),
+      payload: {
+        chain: args.parentChain,
+        argumentList: args.arguments?.map(({ id, required }) => ({
+          id,
+          required: !!required,
+        })),
+      },
     })
   }
 
@@ -59,17 +55,13 @@ function validateArgumentConfig(args: Args): Retval {
       issue: 'Invalid config: only the last argument can be variadic.',
       type: 'error',
       recommendation: 'Set only the last argument to variadic.',
-      payload: JSON.stringify(
-        {
-          chain: args.parentChain,
-          argumentList: args.arguments?.map(({ id, variadic }) => ({
-            id,
-            variadic: !!variadic,
-          })),
-        },
-        null,
-        2,
-      ),
+      payload: {
+        chain: args.parentChain,
+        argumentList: args.arguments?.map(({ id, variadic }) => ({
+          id,
+          variadic: !!variadic,
+        })),
+      },
     })
   }
 

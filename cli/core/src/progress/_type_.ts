@@ -1,3 +1,6 @@
+/**
+ * Cli progress instance object.
+ */
 export interface CliProgress {
   /**
    * Divide the 100% into n sections.
@@ -35,6 +38,9 @@ export interface CliProgress {
   disable: () => void
 }
 
+/**
+ * Arguments of the cli progress bar.
+ */
 export interface CliProgressArgs {
   /**
    * Character length of the progress bar.
