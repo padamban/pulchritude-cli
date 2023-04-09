@@ -2,6 +2,9 @@ import { OptionDetails } from '../../_type_'
 import { TextUtils } from '../../cli/utils/text-utils'
 import { PublicOptionDetails } from '../_type_'
 
+/**
+ * Add required properties.
+ */
 export function resolveOptionDetails(
   config: PublicOptionDetails,
 ): OptionDetails {

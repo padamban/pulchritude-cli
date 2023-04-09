@@ -4,6 +4,9 @@ import { PublicCommandDetails } from '../_type_'
 import { resolveArgumentDetails } from './resolve-argument-details'
 import { resolveOptionDetails } from './resolve-option-details'
 
+/**
+ * Add required properties.
+ */
 export function resolveCommandDetails(
   config: PublicCommandDetails,
 ): CommandDetails {

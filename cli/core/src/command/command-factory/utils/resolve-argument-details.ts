@@ -2,6 +2,9 @@ import { ArgumentDetails } from '../../_type_'
 import { TextUtils } from '../../cli/utils/text-utils'
 import { PublicArgumentDetails } from '../_type_'
 
+/**
+ * Add required properties.
+ */
 export function resolveArgumentDetails(
   config: PublicArgumentDetails,
 ): ArgumentDetails {

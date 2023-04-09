@@ -1,3 +1,3 @@
 export type { CommanderSetup } from './_type_'
-export { COMMAND_FACTORY } from './command-factory/COMMAND_FACTORY'
+export { CREATE_COMMAND } from './command-factory/CREATE_COMMAND'
 export { SETUP_COMMANDER } from './SETUP_COMMANDER'
