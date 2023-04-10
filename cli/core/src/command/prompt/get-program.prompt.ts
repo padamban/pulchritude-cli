@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import prompt from 'prompts'
 
 import { ProgramDetails } from '../_type_'
 import { Color } from '../cli/colors'
 
 interface Args {
+  selectedProgram?: ProgramDetails
   programs: ProgramDetails[] | undefined
 }
 
@@ -13,7 +15,14 @@ interface Args {
 async function getProgramPrompt(
   args: Args,
 ): Promise<ProgramDetails | undefined> {
-  const { programs } = args
+  const { programs, selectedProgram } = args
+
+  if (selectedProgram) {
+    console.log(
+      Color.gray(`\nSelected program: ${Color.program(selectedProgram.title)}`),
+    )
+    return selectedProgram
+  }
 
   const { programId } = await prompt({
     name: 'programId',

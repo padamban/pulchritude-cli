@@ -3,6 +3,7 @@ import chalk from 'chalk'
 
 import { logErrorToConsole } from '../../error/log-error-to-console'
 import { Obj } from '../../utils'
+import { asArray } from '../../utils/as-array'
 import {
   CommandDetails,
   CommanderSetup,
@@ -43,12 +44,15 @@ async function PROMPT(args: Args): Promise<Retval> {
   // eslint-disable-next-line no-console
   console.log('')
 
-  const program =
-    args.program ?? (await getProgramPrompt({ programs: args.setup.programs }))
+  const program = await getProgramPrompt({
+    selectedProgram: args.program,
+    programs: args.setup.programs,
+  })
 
-  const commands = args.command
-    ? [args.command]
-    : await getCommandPrompt({ program })
+  const commands = await getCommandPrompt({
+    selectedCommands: asArray(args.command),
+    program,
+  })
 
   const noPrompt = args.optionValues.prompt === false
 
