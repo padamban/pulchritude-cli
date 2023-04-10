@@ -8,23 +8,26 @@ import { Color } from '../cli/colors'
 interface Args {
   program?: ProgramDetails
   selectedCommands?: CommandDetails[]
+  noPrompt: boolean
 }
 
 /**
  * Show a prompt asking for command(s).
  */
 async function getCommandPrompt(args: Args): Promise<CommandDetails[]> {
-  const { program, selectedCommands } = args
+  const { program, selectedCommands, noPrompt } = args
   const { commands, isMultiCommand, title } = program ?? {}
 
   if (selectedCommands?.length) {
-    console.log(
-      Color.gray(
-        `\nSelected command(s): ${Color.command(
-          selectedCommands.map(c => c.title).join(', '),
-        )}`,
-      ),
-    )
+    if (!noPrompt) {
+      console.log(
+        Color.gray(
+          `\nSelected command(s): ${Color.command(
+            selectedCommands.map(c => c.title).join(', '),
+          )}`,
+        ),
+      )
+    }
     return selectedCommands
   }
 

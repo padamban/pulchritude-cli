@@ -1,19 +1,16 @@
 import { ErrorInfo } from '../../../../error'
 import { ArgumentDetails } from '../../../_type_'
+import { validateChoices } from './validate-choices'
 
 interface Args {
   parentChain: string[]
   arguments?: ArgumentDetails[]
 }
 
-interface Retval {
-  errorInfo: ErrorInfo[]
-}
-
 /**
  * Validate CLI command arguments.
  */
-function validateArgumentConfig(args: Args): Retval {
+function validateArgument(args: Args): ErrorInfo[] {
   const errorInfo: ErrorInfo[] = []
 
   const requiredOrder = args.arguments?.map(a => !!a.required) ?? []
@@ -28,11 +25,12 @@ function validateArgumentConfig(args: Args): Retval {
 
   if (brokenRequiredOrder) {
     errorInfo.push({
-      issue: 'Invalid config: the required arguments must be at the front.',
+      issue: `The required arguments must be at the front.`,
+      location: args.parentChain.join('.'),
       type: 'error',
-      recommendation: 'Put the required arguments to the top.',
+      recommendation:
+        'Put the required arguments to the top of the arguments array.',
       payload: {
-        chain: args.parentChain,
         argumentList: args.arguments?.map(({ id, required }) => ({
           id,
           required: !!required,
@@ -52,11 +50,14 @@ function validateArgumentConfig(args: Args): Retval {
 
   if (brokenVariadic) {
     errorInfo.push({
-      issue: 'Invalid config: only the last argument can be variadic.',
+      issue: 'Only the last argument can be variadic.',
+      location: args.parentChain.join('.'),
       type: 'error',
-      recommendation: 'Set only the last argument to variadic.',
+      recommendation: [
+        'Set only the last argument config item to variadic.',
+        'If you need more variadic inputs use options instead of arguments.',
+      ],
       payload: {
-        chain: args.parentChain,
         argumentList: args.arguments?.map(({ id, variadic }) => ({
           id,
           variadic: !!variadic,
@@ -65,9 +66,16 @@ function validateArgumentConfig(args: Args): Retval {
     })
   }
 
-  return {
-    errorInfo,
-  }
+  args.arguments?.forEach(arg => {
+    errorInfo.push(
+      ...validateChoices({
+        parameter: arg,
+        parentChain: args.parentChain,
+      }),
+    )
+  })
+
+  return errorInfo
 }
 
-export { validateArgumentConfig }
+export { validateArgument }

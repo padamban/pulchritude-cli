@@ -1,9 +1,9 @@
-import { CommanderSetup } from '../../../_type_'
+import { CliSetupDetails } from '../../../_type_'
 import { Color } from '../../colors'
 
 interface Args {
   addLine: (str: string) => void
-  setup: CommanderSetup
+  setup: CliSetupDetails
 }
 
 /**

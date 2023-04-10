@@ -6,7 +6,7 @@ import { FILE_MANAGER } from '../../file-manager'
 import { renderReportAsJson } from '../../report/renderer/render-report-as-json'
 import { renderReportAsMarkdown } from '../../report/renderer/render-report-as-md'
 import { renderReportToConsole } from '../../report/renderer/render-report-to-console'
-import { CommandContext, CommanderSetup } from '../_type_'
+import { CliSetupDetails, CommandContext } from '../_type_'
 import { PROMPT } from '../prompt/PROMPT'
 import { EXECUTE } from './execute'
 import { getOptions } from './utils/get-options'
@@ -14,7 +14,7 @@ import { getPositionalArgs } from './utils/get-positional-args'
 import { resolveCommandChain } from './utils/resolve-command-chain'
 
 interface Args {
-  setup: CommanderSetup
+  setup: CliSetupDetails
   cmd: Command
   ctx: CommandContext
 }

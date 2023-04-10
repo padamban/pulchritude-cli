@@ -1,4 +1,4 @@
-export type { CommanderSetup } from './_type_'
-export { CREATE_COMMAND } from './resolve-config/CREATE_COMMAND'
-export { CREATE_PROGRAM } from './resolve-config/CREATE_PROGRAM'
+export type { CliSetupDetails } from './_type_'
+export type * from './resolve-setup/_type_'
+export { RESOLVE_SETUP } from './resolve-setup/RESOLVE_SETUP'
 export { SETUP_COMMANDER } from './SETUP_COMMANDER'

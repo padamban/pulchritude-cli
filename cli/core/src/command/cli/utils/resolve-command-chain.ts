@@ -1,10 +1,10 @@
 import { Command } from 'commander'
 
-import { CommandDetails, CommanderSetup, ProgramDetails } from '../../_type_'
+import { CliSetupDetails, CommandDetails, ProgramDetails } from '../../_type_'
 
 interface Args {
   cmd: Command
-  setup: CommanderSetup
+  setup: CliSetupDetails
 }
 
 interface Retval {

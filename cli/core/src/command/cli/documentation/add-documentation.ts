@@ -1,6 +1,6 @@
 import commander from 'commander'
 
-import { CommanderSetup, GlobalOptions } from '../../_type_'
+import { CliSetupDetails, GlobalOptions } from '../../_type_'
 import { GLOBAL_OPTIONS } from '../../global-options'
 import { CommanderTag } from '../utils/get-commander-tag'
 import { addAvailableFeaturesDocumentation } from './sections/available-features-doc'
@@ -9,7 +9,7 @@ import { addGlobalOptionsDoc } from './sections/global-options-doc'
 import { addQuickHelpDocumentation } from './sections/quick-help'
 
 interface Args {
-  setup: CommanderSetup
+  setup: CliSetupDetails
   globalOptions: GlobalOptions
 }
 
@@ -31,7 +31,7 @@ export const addCmdDocumentationFactory =
 /**
  * Create console documentation.
  */
-function createDocumentation(cmd: CommanderSetup) {
+function createDocumentation(cmd: CliSetupDetails) {
   const content: string[] = []
   const _ = (line: string) => content.push(line)
 

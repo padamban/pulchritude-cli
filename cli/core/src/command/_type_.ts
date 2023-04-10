@@ -1,10 +1,10 @@
 import { CliReporter, CliReportLogger } from '../report'
-import { Obj, StringKeyof } from '../utils'
+import { Obj, StringKeyof, Type } from '../utils'
 
 /**
  * Config object for the CLI.
  */
-export interface CommanderSetup {
+export interface CliSetupDetails {
   /**
    * Name of the CLI.
    * - same as the npm bin or script name.
@@ -151,7 +151,8 @@ export type OptionType = 'boolean' | 'string' | 'number'
 /**
  * The argument of the command.
  */
-export interface ArgumentDetails<Args extends Obj = any> {
+export interface ArgumentDetails<Args extends Obj = any>
+  extends Type<'argument'> {
   /**
    * Id of the argument. (camelCase)
    * @example `numberValues`
@@ -173,7 +174,7 @@ export interface ArgumentDetails<Args extends Obj = any> {
   /**
    * The primitive type of the argument value(s).
    */
-  type: ArgumentType
+  type?: ArgumentType
 
   /**
    * The commander name for the argument. (kebab-case)
@@ -204,7 +205,7 @@ export interface ArgumentDetails<Args extends Obj = any> {
 /**
  * The option of the command.
  */
-export interface OptionDetails<Opts extends Obj = any> {
+export interface OptionDetails<Opts extends Obj = any> extends Type<'option'> {
   /**
    * Id of the option. (camelCase)
    * @example `noDecimals`
@@ -226,7 +227,7 @@ export interface OptionDetails<Opts extends Obj = any> {
   /**
    * The primitive type of the option value(s).
    */
-  type: OptionType
+  type?: OptionType
 
   /**
    * The commander name for the option. (--kebab-case)
@@ -247,7 +248,7 @@ export interface OptionDetails<Opts extends Obj = any> {
   watchMode?: boolean
 
   /**
-   * The option value is an array of same value types.
+   * The option value is an array of same value type.
    * @example
    * `add-numbers --some-values 23 32 43`
    */
@@ -272,7 +273,7 @@ export interface ChoiceDetails {
   /**
    * Value of the choice.
    */
-  value: string
+  value: string | number
 }
 
 /**

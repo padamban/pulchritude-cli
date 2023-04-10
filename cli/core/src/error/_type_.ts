@@ -1,4 +1,4 @@
-import { Obj } from '../utils'
+import { Obj, SingleOrArray } from '../utils'
 
 /**
  * Error logger function signature.
@@ -27,7 +27,7 @@ export interface ErrorInfo {
   /**
    * What can be done to avoid this issue?
    */
-  recommendation?: string
+  recommendation?: SingleOrArray<string>
 
   /**
    * The original error info.

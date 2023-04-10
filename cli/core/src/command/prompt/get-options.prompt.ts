@@ -45,6 +45,14 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
       state = 'invalid'
     }
 
+    if (ok && optValue) {
+      console.log(
+        Color.gray(
+          `\nSpecified option:    ${Color.option(opt.title)} = ${optValue}`,
+        ),
+      )
+    }
+
     evaluatedOptions.set(opt.id, state)
   })
 
@@ -61,7 +69,7 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
         const message =
           Color.gray(' - fix option - ') +
           Color.option(opt.title) +
-          Color.gray(` (${opt.type})`)
+          Color.gray(` (${opt.type ?? 'choice'}${opt.variadic ? ' list' : ''})`)
 
         return getParameterPrompt({ parameter: opt, message })
       }) ?? [],

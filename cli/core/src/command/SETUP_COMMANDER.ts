@@ -1,10 +1,10 @@
 import { Command, Option } from 'commander'
 
-import { CommandContext, CommanderSetup } from './_type_'
+import { CliSetupDetails, CommandContext } from './_type_'
 import { ACTION_RESOLVER } from './cli/ACTION_RESOLVER'
 import { addCmdDocumentationFactory } from './cli/documentation/add-documentation'
 import { CommanderDescription } from './cli/documentation/sections/utils/get-description'
-import { VALIDATE_SETUP } from './cli/documentation/validators/validate-setup'
+import { VALIDATE_SETUP } from './cli/documentation/validators/VALIDATE_SETUP'
 import { CommanderTag } from './cli/utils/get-commander-tag'
 import { GLOBAL_OPTIONS } from './global-options'
 
@@ -19,12 +19,12 @@ import { GLOBAL_OPTIONS } from './global-options'
  *   - creates terminal documentation
  */
 export const SETUP_COMMANDER =
-  (setup: CommanderSetup) =>
+  (setup: CliSetupDetails) =>
   (ctx: CommandContext) =>
   async (argv: string[]) => {
     const commander = new Command()
 
-    VALIDATE_SETUP({ setup })
+    VALIDATE_SETUP({ setup, width: ctx.reporter.args?.width })
 
     const addDocs = addCmdDocumentationFactory({
       setup,
@@ -71,7 +71,7 @@ export const SETUP_COMMANDER =
           const cmdOpt = new Option(optTag, optDesc)
 
           if (opt.variadic) {
-            cmdOpt.argParser(value => value.split(','))
+            cmdOpt.argParser(value => value?.split(','))
           }
 
           programCommandCmd.addOption(cmdOpt)

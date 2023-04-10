@@ -36,6 +36,12 @@ function fixParameterValue(args: Args): Retval {
     if (type === 'boolean' && typeof value !== 'boolean') {
       newValue = Boolean(value)
     }
+  } else if (!Array.isArray(value) && !!choices?.length) {
+    if (choices.find(c => c.value === value)) {
+      newValue = value
+    } else if (choices.find(c => c.value === Number(value))) {
+      newValue = Number(value)
+    }
   }
 
   return {

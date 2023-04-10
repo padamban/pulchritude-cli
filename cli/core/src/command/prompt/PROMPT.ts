@@ -5,8 +5,8 @@ import { logErrorToConsole } from '../../error/log-error-to-console'
 import { Obj } from '../../utils'
 import { asArray } from '../../utils/as-array'
 import {
+  CliSetupDetails,
   CommandDetails,
-  CommanderSetup,
   CommandsToRun,
   ProgramDetails,
 } from '../_type_'
@@ -19,7 +19,7 @@ import { fixParameterValues } from './utils/fix-parameter-values'
 import { isWatchMode } from './utils/is-watch-mode'
 
 interface Args {
-  setup: CommanderSetup
+  setup: CliSetupDetails
   program: ProgramDetails | undefined
   command: CommandDetails | undefined
   argumentValues: Obj
@@ -42,19 +42,22 @@ interface Retval {
  */
 async function PROMPT(args: Args): Promise<Retval> {
   // eslint-disable-next-line no-console
-  console.log('')
+
+  const noPrompt = args.optionValues.prompt === false
+
+  if (!noPrompt) console.log('')
 
   const program = await getProgramPrompt({
     selectedProgram: args.program,
-    programs: args.setup.programs,
+    programs: args.setup.programs ?? [],
+    noPrompt,
   })
 
   const commands = await getCommandPrompt({
     selectedCommands: asArray(args.command),
     program,
+    noPrompt,
   })
-
-  const noPrompt = args.optionValues.prompt === false
 
   const commandsToRun: CommandsToRun = new Map()
 

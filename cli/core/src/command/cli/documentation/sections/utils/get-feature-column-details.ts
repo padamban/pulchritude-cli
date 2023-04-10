@@ -1,9 +1,9 @@
-import { CommanderSetup } from '../../../../_type_'
+import { CliSetupDetails } from '../../../../_type_'
 import { ComposeTag } from './compose-tag'
 import { DOC_CONFIG } from './config'
 
 interface Args {
-  setup: CommanderSetup
+  setup: CliSetupDetails
 }
 
 /**

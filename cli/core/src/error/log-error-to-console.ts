@@ -1,4 +1,5 @@
 import chalk from 'chalk'
+import { EOL } from 'os'
 
 import { LogError } from './_type_'
 
@@ -19,11 +20,22 @@ const logErrorToConsole: LogError = info => {
   lines.push([`${mainColor(type.toUpperCase())} - ${mainColor(issue)}`])
 
   if (location?.length) {
-    lines.push([`It happened at: ${chalk.yellow(location)}`])
+    lines.push([`It happened at: ${chalk.white(location)}`])
   }
 
   if (recommendation?.length) {
-    lines.push([`Recommendation: ${chalk.greenBright(recommendation)}`])
+    let rec = ''
+
+    if (Array.isArray(recommendation) && recommendation.length === 1) {
+      rec = recommendation[0] ?? ''
+    } else if (Array.isArray(recommendation)) {
+      const indent = '\n' + ' '.repeat(6)
+      rec = indent + recommendation.join(indent)
+    } else {
+      rec = recommendation
+    }
+
+    lines.push([`Recommendation: ${chalk.greenBright(rec)}`])
   }
 
   if (error?.length) {
@@ -31,13 +43,18 @@ const logErrorToConsole: LogError = info => {
   }
 
   if (typeof payload === 'object') {
-    lines.push([`Additional information: ${JSON.stringify(payload, null, 2)}`])
+    const info = JSON.stringify(payload, null, 2)
+      .split(EOL)
+      .map(line => ' '.repeat(6) + line)
+      .join(EOL)
+
+    lines.push([`Additional information: \n${info}`])
   } else if (typeof payload === 'string' && payload?.length) {
     lines.push([`Additional information: ${payload}`])
   }
 
   // eslint-disable-next-line no-console
-  console.log('\n' + lines.join('\n > ') + '\n')
+  console.log(chalk.gray('\n' + lines.join('\n > ') + '\n'))
 }
 
 export { logErrorToConsole }

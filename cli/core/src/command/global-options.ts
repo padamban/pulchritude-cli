@@ -1,4 +1,5 @@
 import { GlobalOptions } from './_type_'
+import { resolveOptionDetails } from './resolve-setup/resolve-option-details'
 
 /**
  * These options are available for all command.
@@ -8,20 +9,16 @@ import { GlobalOptions } from './_type_'
  * - `addCmdDocumentationFactory`
  */
 export const GLOBAL_OPTIONS: GlobalOptions = {
-  help: {
+  help: resolveOptionDetails({
     id: 'help',
     title: 'Help',
     type: 'boolean',
-    name: '--help',
-    alias: '-h',
     description: `Display help information for the current command.`,
-  },
-  noPrompt: {
+  }),
+  noPrompt: resolveOptionDetails({
     id: 'noPrompt',
-    name: '--no-prompt',
-    alias: '-np',
     title: 'No prompt',
     type: 'boolean',
     description: 'Disable the prompt.',
-  },
+  }),
 }

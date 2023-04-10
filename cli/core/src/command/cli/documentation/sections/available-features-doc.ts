@@ -1,4 +1,4 @@
-import { ChoiceDetails, CommanderSetup } from '../../../_type_'
+import { ChoiceDetails, CliSetupDetails } from '../../../_type_'
 import { Color } from '../../colors'
 import { ComposeTag } from './utils/compose-tag'
 import { CommanderDescription } from './utils/get-description'
@@ -6,7 +6,7 @@ import { getFeatureColumnDetails } from './utils/get-feature-column-details'
 
 interface Args {
   addLine: (str: string) => void
-  setup: CommanderSetup
+  setup: CliSetupDetails
 }
 
 /**
@@ -74,7 +74,8 @@ function addChoices(args: {
 }) {
   const longestValue =
     args.choices?.reduce<number>((longest, v) => {
-      if (v.value.length > longest) longest = v.value.length
+      if (v.value.toString().length > longest)
+        longest = v.value.toString().length
       return longest
     }, 0) ?? 0
 

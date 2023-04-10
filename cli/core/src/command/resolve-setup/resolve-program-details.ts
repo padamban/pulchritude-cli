@@ -1,14 +1,12 @@
 import { ProgramDetails } from '../_type_'
 import { TextUtils } from '../cli/utils/text-utils'
-import { PublicProgramDetails } from './_type_'
+import { ProgramSetup } from './_type_'
 import { resolveCommandDetails } from './resolve-command-details'
 
 /**
  * Add/infer some required properties to a program config object.
  */
-export function resolveProgramDetails(
-  config: PublicProgramDetails,
-): ProgramDetails {
+export function resolveProgramDetails(config: ProgramSetup): ProgramDetails {
   const { id } = config
 
   return {

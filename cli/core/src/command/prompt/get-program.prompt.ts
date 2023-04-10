@@ -7,6 +7,7 @@ import { Color } from '../cli/colors'
 interface Args {
   selectedProgram?: ProgramDetails
   programs: ProgramDetails[] | undefined
+  noPrompt: boolean
 }
 
 /**
@@ -15,12 +16,17 @@ interface Args {
 async function getProgramPrompt(
   args: Args,
 ): Promise<ProgramDetails | undefined> {
-  const { programs, selectedProgram } = args
+  const { programs, selectedProgram, noPrompt } = args
 
   if (selectedProgram) {
-    console.log(
-      Color.gray(`\nSelected program: ${Color.program(selectedProgram.title)}`),
-    )
+    if (!noPrompt) {
+      console.log(
+        Color.gray(
+          `\nSelected program:    ${Color.program(selectedProgram.title)}`,
+        ),
+      )
+    }
+
     return selectedProgram
   }
 

@@ -35,3 +35,18 @@ export type StringKeyof<T> = Extract<keyof T, string>
 export type ReplacePropertyType<T, K extends keyof T, R = any> = {
   [T in K]: R
 }
+
+/**
+ * Add a discriminator type.
+ */
+export type Type<K extends string> = {
+  /**
+   * Internal discriminator type.
+   */
+  _type: K
+}
+
+/**
+ * Remove the `_type` property.
+ */
+export type OmitType<T extends Type<any>> = Omit<T, '_type'>

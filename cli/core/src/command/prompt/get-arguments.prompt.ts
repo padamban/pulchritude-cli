@@ -34,6 +34,16 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
 
         messages.forEach(m => console.log(m))
 
+        if (ok && argValue) {
+          console.log(
+            Color.gray(
+              `\nSpecified argument:  ${Color.argument(
+                arg.title,
+              )} = ${argValue}`,
+            ),
+          )
+        }
+
         return !ok
       })
       .map<PromptObject>(arg => {
@@ -41,7 +51,7 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
           Color.gray(' - argument - ') +
           Color.argument(arg.title) +
           ' ' +
-          Color.gray(`(${arg.type}${arg.variadic ? ' list' : ''})`)
+          Color.gray(`(${arg.type ?? 'choice'}${arg.variadic ? ' list' : ''})`)
 
         return getParameterPrompt({ message, parameter: arg })
       }),

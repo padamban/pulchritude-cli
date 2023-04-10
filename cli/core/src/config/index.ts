@@ -1,2 +1,2 @@
 export * from './_types_'
-export { LOAD_CONFIG as loadConfig } from './LOAD_CONFIG'
+export { LOAD_CONFIG } from './LOAD_CONFIG'
