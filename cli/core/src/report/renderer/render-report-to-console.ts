@@ -80,5 +80,14 @@ export const renderReportToConsole = ({ report, width = 50 }: Args) => {
   })
   log(`\n\n`)
 
+  const links = Object.entries(report.detail.outputFileLinks)
+
+  if (links.length) {
+    log(` ${chalk.underline.gray('Report files')}`)
+    links.forEach(([label, link]) => {
+      log(chalk.gray(`   ${label.padEnd(7)}  ./${link}`))
+    })
+  }
+
   log(`\n${tab}${bar}\n`)
 }

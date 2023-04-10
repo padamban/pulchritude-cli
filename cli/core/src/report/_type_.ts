@@ -138,6 +138,7 @@ export interface CliReportDetail {
   initAt: number
   startedAt?: number
   finishedAt?: number
+  outputFileLinks: Partial<Record<FileReportType, string>>
 }
 
 export interface CliReporter {
@@ -196,6 +197,11 @@ export interface CliReporter {
   progress?: CliProgress
 
   /**
+   * Create report files and log into terminal.
+   */
+  render: () => void
+
+  /**
    * Arguments of the reporter.
    */
   args?: ReporterArgs
@@ -216,9 +222,24 @@ export interface ReporterArgs {
    */
   disableProgressBar?: boolean
 
-  output: ReportOutput[]
+  cwd: string
 
+  /**
+   *
+   */
+  rendererConfig: Pick<
+    ReportRendererConfig,
+    'output' | 'outputFolderPath' | 'terminal'
+  >
+}
+
+export interface ReportRendererConfig {
+  report: Report
+  cwd: string
+  // fileManager: ReturnType<CliFileManager>
+  output: ReportType[]
   outputFolderPath: string
-
-  width: number
+  terminal: {
+    frameWidth: number
+  }
 }

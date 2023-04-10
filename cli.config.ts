@@ -7,18 +7,15 @@ const commandA: CommandSetup<
   id: 'comAa',
   title: 'Command A',
   description: 'Command A desc',
-  script:
-    ({ args, opts }) =>
-    async () => {
-      // console.log('\nHELLO comAa', { args, opts })
-    },
+  script: () => async () => {
+    // console.log('\nHELLO comAa', { args, opts })
+  },
   arguments: [
     {
       id: 'argOne',
       description: 'Argument One',
       title: 'Argument One 1',
       type: 'number',
-      // variadic: true,
       required: true,
     },
     {
@@ -26,7 +23,6 @@ const commandA: CommandSetup<
       name: 'arg-two',
       description: 'Argument Two',
       title: 'Argument Two 2',
-      // type: 'string',
       required: true,
       variadic: true,
       choices: [
@@ -68,10 +64,11 @@ const SETUP: CliSetup = {
   name: 'CLI',
   description: 'Allows to declare scripts and run them sequentially.',
   version: '0.0.2',
-  programs: [
-    programA,
-    //  { id: 'programB', commands: [] }
-  ],
+  reporterConfig: {
+    outputFolderPath: '.cli-report',
+    output: ['console', 'json', 'md'],
+  },
+  programs: [programA],
 }
 
 export default SETUP

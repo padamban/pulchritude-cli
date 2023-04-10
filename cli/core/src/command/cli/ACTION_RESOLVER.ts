@@ -1,11 +1,6 @@
 /* eslint-disable no-console */
 import { Command } from 'commander'
-import path from 'path'
 
-import { FILE_MANAGER } from '../../file-manager'
-import { renderReportAsJson } from '../../report/renderer/render-report-as-json'
-import { renderReportAsMarkdown } from '../../report/renderer/render-report-as-md'
-import { renderReportToConsole } from '../../report/renderer/render-report-to-console'
 import { CliSetupDetails, CommandContext } from '../_type_'
 import { PROMPT } from '../prompt/PROMPT'
 import { EXECUTE } from './execute'
@@ -31,8 +26,6 @@ interface Args {
 export const ACTION_RESOLVER = (args: Args) => {
   const { cmd, setup, ctx } = args
 
-  const fileManager = FILE_MANAGER({ cwd: ctx.cwd ?? process.cwd() })
-
   cmd.action(async (...rawArgs) => {
     const { program, command } = resolveCommandChain({ cmd, setup })
 
@@ -52,34 +45,7 @@ export const ACTION_RESOLVER = (args: Args) => {
 
     if (!promptResponse.watch) {
       setTimeout(() => {
-        if (ctx.reporter.args?.output.includes('console')) {
-          renderReportToConsole({
-            width: ctx.reporter.args?.width,
-            report: ctx.reporter.getReport(),
-          })
-        }
-
-        if (ctx.reporter.args?.output.includes('json')) {
-          renderReportAsJson({
-            filePath: path.join(
-              ctx.reporter.args.outputFolderPath,
-              'report.json',
-            ),
-            report: ctx.reporter.getReport(),
-            fileManager,
-          })
-        }
-
-        if (ctx.reporter.args?.output.includes('md')) {
-          renderReportAsMarkdown({
-            filePath: path.join(
-              ctx.reporter.args.outputFolderPath,
-              'report.md',
-            ),
-            report: ctx.reporter.getReport(),
-            fileManager,
-          })
-        }
+        ctx.reporter.render()
 
         process.exit()
       }, 100)

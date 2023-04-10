@@ -24,7 +24,10 @@ export const SETUP_COMMANDER =
   async (argv: string[]) => {
     const commander = new Command()
 
-    VALIDATE_SETUP({ setup, width: ctx.reporter.args?.width })
+    VALIDATE_SETUP({
+      setup,
+      width: ctx.reporter.args?.rendererConfig.terminal.frameWidth,
+    })
 
     const addDocs = addCmdDocumentationFactory({
       setup,

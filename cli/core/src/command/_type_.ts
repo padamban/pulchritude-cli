@@ -1,4 +1,4 @@
-import { CliReporter, CliReportLogger } from '../report'
+import { CliReporter, CliReportLogger, ReportRendererConfig } from '../report'
 import { Obj, StringKeyof, Type } from '../utils'
 
 /**
@@ -20,6 +20,8 @@ export interface CliSetupDetails {
    * Semantic version of the CLI tool.
    */
   version: `${number}.${number}.${number}${'' | `-${string}`}`
+
+  reporterConfig?: Pick<ReportRendererConfig, 'output' | 'outputFolderPath'>
 
   /**
    * Programs of the CLI tool.

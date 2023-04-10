@@ -1,19 +1,27 @@
+import path from 'path'
+
 import { PROGRESS } from '../progress'
 import { CliReporter, Report, ReporterArgs, ReportStatus } from './_type_'
+import { RENDER_REPORT } from './renderer/RENDER_REPORT'
 
 /**
  * Creates a reporter utility that collects execution data into sections.
  */
 export const REPORTER = (args?: ReporterArgs): CliReporter => {
-  const { disableProgressBar, width } = args ?? {}
+  const { disableProgressBar, rendererConfig, cwd } = args ?? {}
 
   const report: Report = {
-    detail: { initAt: Date.now() },
+    detail: {
+      initAt: Date.now(),
+      outputFileLinks: {},
+    },
     setup: {},
     sections: [],
   }
 
-  const progress = disableProgressBar ? undefined : PROGRESS({ barSize: width })
+  const progress = disableProgressBar
+    ? undefined
+    : PROGRESS({ barSize: rendererConfig?.terminal.frameWidth })
 
   let finished = false
 
@@ -178,6 +186,26 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
     },
   }
 
+  const render = async () => {
+    if (rendererConfig) {
+      RENDER_REPORT({ ...rendererConfig, report, cwd: cwd ?? process.cwd() })
+    }
+  }
+
+  if (rendererConfig?.output.includes('json')) {
+    report.detail.outputFileLinks.json = path.join(
+      rendererConfig.outputFolderPath,
+      'report.json',
+    )
+  }
+
+  if (rendererConfig?.output.includes('md')) {
+    report.detail.outputFileLinks.md = path.join(
+      rendererConfig.outputFolderPath,
+      'report.md',
+    )
+  }
+
   return {
     setSetupDetails,
     initSection,
@@ -189,6 +217,7 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
     log,
     progress,
     args,
+    render,
   }
 }
 
