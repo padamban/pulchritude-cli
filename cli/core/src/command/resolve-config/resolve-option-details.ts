@@ -1,9 +1,9 @@
-import { OptionDetails } from '../../_type_'
-import { TextUtils } from '../../cli/utils/text-utils'
-import { PublicOptionDetails } from '../_type_'
+import { OptionDetails } from '../_type_'
+import { TextUtils } from '../cli/utils/text-utils'
+import { PublicOptionDetails } from './_type_'
 
 /**
- * Add required properties.
+ * Add/infer some  required properties to a option config object.
  */
 export function resolveOptionDetails(
   config: PublicOptionDetails,

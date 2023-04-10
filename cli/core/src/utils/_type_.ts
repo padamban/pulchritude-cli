@@ -28,3 +28,10 @@ export type SingleOrArray<T> = T | T[]
  * Keyof that returns only string keys.
  */
 export type StringKeyof<T> = Extract<keyof T, string>
+
+/**
+ * Replace the type of a property, but keep the JS docs.
+ */
+export type ReplacePropertyType<T, K extends keyof T, R = any> = {
+  [T in K]: R
+}

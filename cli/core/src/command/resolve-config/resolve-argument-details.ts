@@ -1,9 +1,9 @@
-import { ArgumentDetails } from '../../_type_'
-import { TextUtils } from '../../cli/utils/text-utils'
-import { PublicArgumentDetails } from '../_type_'
+import { ArgumentDetails } from '../_type_'
+import { TextUtils } from '../cli/utils/text-utils'
+import { PublicArgumentDetails } from './_type_'
 
 /**
- * Add required properties.
+ * Add/infer some  required properties to a argument config object.
  */
 export function resolveArgumentDetails(
   config: PublicArgumentDetails,

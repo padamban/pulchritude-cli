@@ -1,11 +1,11 @@
-import { CommandDetails } from '../../_type_'
-import { TextUtils } from '../../cli/utils/text-utils'
-import { PublicCommandDetails } from '../_type_'
+import { CommandDetails } from '../_type_'
+import { TextUtils } from '../cli/utils/text-utils'
+import { PublicCommandDetails } from './_type_'
 import { resolveArgumentDetails } from './resolve-argument-details'
 import { resolveOptionDetails } from './resolve-option-details'
 
 /**
- * Add required properties.
+ * Add/infer some  required properties to a command config object.
  */
 export function resolveCommandDetails(
   config: PublicCommandDetails,

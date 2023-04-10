@@ -19,6 +19,8 @@ async function EXECUTE(args: Args): Promise<void> {
 
   if (watch) ctx.reporter?.disable()
 
+  ctx.reporter?.progress?.setSectionCount(Array.from(commandsToRun).length)
+
   for (const [, commandToRun] of commandsToRun) {
     const { command, argumentResponse, optionResponse, watchMode } =
       commandToRun

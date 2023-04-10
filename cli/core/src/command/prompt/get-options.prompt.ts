@@ -2,6 +2,7 @@
 import prompt, { PromptObject } from 'prompts'
 
 import { Obj } from '../../utils'
+import { asArray } from '../../utils/as-array'
 import { CommandDetails } from '../_type_'
 import { Color } from '../cli/colors'
 import { checkOptionValue } from './utils/check-option-value'
@@ -91,7 +92,7 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
 
   const additionalOptionResponse = await prompt(
     command?.options
-      ?.filter(({ id }) => selectedOptionIds.includes(id))
+      ?.filter(({ id }) => asArray<string>(selectedOptionIds).includes(id))
       ?.map<PromptObject>(opt => {
         const message =
           Color.gray(' - option - ') +

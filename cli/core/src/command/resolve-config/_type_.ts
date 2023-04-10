@@ -1,5 +1,23 @@
-import { Obj, RequireOnly } from '../../utils'
-import { ArgumentDetails, CommandDetails, OptionDetails } from '../_type_'
+import { Obj, ReplacePropertyType, RequireOnly } from '../../utils'
+import {
+  ArgumentDetails,
+  CommandDetails,
+  OptionDetails,
+  ProgramDetails,
+} from '../_type_'
+
+/**
+ * Program details with only the essential properties being required.
+ */
+export type PublicProgramDetails = RequireOnly<
+  Omit<ProgramDetails, 'commands'>,
+  'id'
+> &
+  ReplacePropertyType<
+    ProgramDetails,
+    'commands',
+    PublicCommandDetails<any, any>[]
+  >
 
 /**
  * Command details with only the essential properties being required.
@@ -10,10 +28,13 @@ export type PublicCommandDetails<
 > = RequireOnly<
   Omit<CommandDetails<Args, Opts>, 'arguments' | 'options'>,
   'id' | 'script'
-> & {
-  arguments?: PublicArgumentDetails<Args>[]
-  options?: PublicOptionDetails<Opts>[]
-}
+> &
+  ReplacePropertyType<CommandDetails, 'options', PublicOptionDetails<Opts>[]> &
+  ReplacePropertyType<
+    CommandDetails,
+    'arguments',
+    PublicArgumentDetails<Args>[]
+  >
 
 /**
  * Argument details with only the essential properties being required.

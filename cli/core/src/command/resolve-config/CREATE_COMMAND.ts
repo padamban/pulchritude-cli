@@ -1,7 +1,7 @@
 import { Obj } from '../../utils'
 import { CommandDetails } from '../_type_'
 import { PublicCommandDetails } from './_type_'
-import { resolveCommandDetails } from './utils/resolve-command-details'
+import { resolveCommandDetails } from './resolve-command-details'
 
 /**
  * Create a command with typed arguments and options.

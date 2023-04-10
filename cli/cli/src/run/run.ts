@@ -1,5 +1,8 @@
 import {
   CommanderSetup,
+  CREATE_COMMAND,
+  CREATE_PROGRAM,
+  loadConfig,
   REPORTER,
   SETUP_COMMANDER,
 } from '@pulchritude-cli/core'
@@ -12,37 +15,25 @@ const RUN = async () => {
     description: 'Allows to declare scripts and run them sequentially.',
     version: '0.0.2',
     programs: [
-      {
-        id: 'prog-aa',
+      CREATE_PROGRAM({
+        id: 'progAa',
         title: 'Program AA',
-        name: 'prog-aa',
-        alias: 'pa',
         description: 'AA program',
         commands: [
-          {
+          CREATE_COMMAND<{}, { optA: boolean; optB: 'es' | 'en' }>({
             id: 'comAa',
             title: 'Command A',
-            name: 'com-aa',
-            alias: 'ca',
             description: 'Command A',
-            script: props => async () => {
-              // console.log('HELLO comAa', { props })
-            },
-            arguments: [],
             options: [
               {
                 id: 'optA',
                 title: 'Option A',
-                name: '--opt-a',
-                alias: '-oa',
                 description: 'Option A',
                 type: 'boolean',
               },
               {
                 id: 'optB',
                 title: 'Option B',
-                name: '--opt-b',
-                alias: '-ob',
                 description: 'Option B',
                 type: 'string',
                 choices: [
@@ -51,9 +42,15 @@ const RUN = async () => {
                 ],
               },
             ],
-          },
+            script: props => async () => {
+              props.opts.optA
+              props.opts.optB
+
+              // console.log('HELLO comAa', props.opts.optA)
+            },
+          }),
         ],
-      },
+      }),
       {
         id: 'progBb',
         title: 'Program BB',
@@ -309,10 +306,10 @@ const RUN = async () => {
     output: ['console', 'json', 'md'],
   })
 
-  // const config = await loadConfig({
-  //   defaultConfig: {},
-  //   validConfigFilePaths: ['cli.config.ts', 'dev-cli.config.ts'],
-  // })
+  const config = await loadConfig({
+    defaultConfig: {},
+    validConfigFilePaths: ['cli.config.ts', 'dev-cli.config.ts'],
+  })
 
   await SETUP_COMMANDER(setup)({ reporter })(process.argv)
 }
