@@ -23,12 +23,12 @@ interface Retval {
  * - e.g.: `--option <slot>`
  */
 function getOptionTagSlot(args: Partial<OptionDetails>) {
-  const { type, variadic } = args
+  const { type, variadic, choices } = args
 
-  if (type === undefined) return ''
+  if (type === undefined && choices === undefined) return ''
   if (type === 'boolean') return ''
 
-  let slot: string = type
+  let slot: string = type ?? 'choice'
 
   if (variadic) slot += `-list`
 
@@ -100,6 +100,7 @@ function forOption(option: OptionDetails, args?: Args): Retval {
   const indent = ' '.repeat(DOC_CONFIG.indent * 3 * +!args?.noIndent)
 
   const slot = getOptionTagSlot({
+    choices: option.choices,
     type: option.type,
     variadic: option.variadic,
   })

@@ -83,9 +83,18 @@ export const renderReportToConsole = ({ report, width = 50 }: Args) => {
   const links = Object.entries(report.detail.outputFileLinks)
 
   if (links.length) {
-    log(` ${chalk.underline.gray('Report files')}`)
+    log(`\n ${chalk.underline.gray('Report files')}`)
     links.forEach(([label, link]) => {
       log(chalk.gray(`   ${label.padEnd(7)}  ./${link}`))
+    })
+  }
+
+  const cmds = report.detail.terminalCommands
+
+  if (cmds.length) {
+    log(`\n ${chalk.underline.gray('Rerun terminal commands')}`)
+    cmds.forEach(cmd => {
+      log(chalk.gray(`   ${cmd}`))
     })
   }
 

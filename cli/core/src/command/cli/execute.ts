@@ -1,9 +1,15 @@
 /* eslint-disable no-console */
-import { CommandContext, CommandsToRun, ProgramDetails } from '../_type_'
+import {
+  CliSetupDetails,
+  CommandContext,
+  CommandsToRun,
+  ProgramDetails,
+} from '../_type_'
 import { Color } from './colors'
+import { createTerminalCommand } from './utils/create-terminal-command'
 
 interface Args {
-  setup: any
+  setup: CliSetupDetails
   program: ProgramDetails | undefined
   commandsToRun: CommandsToRun
   ctx: CommandContext
@@ -14,7 +20,7 @@ interface Args {
  * Execute the scripts of the selected commands.
  */
 async function EXECUTE(args: Args): Promise<void> {
-  const { commandsToRun, ctx, watch } = args
+  const { commandsToRun, ctx, watch, program, setup } = args
   ctx.reporter.start()
 
   if (watch) ctx.reporter?.disable()
@@ -32,6 +38,14 @@ async function EXECUTE(args: Args): Promise<void> {
         console.log(`\n${Color.command(command.title)} - Executed`)
       }
     }
+
+    ctx.reporter.addTerminalCommand(
+      createTerminalCommand({
+        cliId: setup.name,
+        programId: program?.name ?? 'program',
+        commandToRun,
+      }),
+    )
 
     ctx.reporter.initSection({
       id: command.id,

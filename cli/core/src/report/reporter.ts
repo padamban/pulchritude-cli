@@ -14,6 +14,7 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
     detail: {
       initAt: Date.now(),
       outputFileLinks: {},
+      terminalCommands: [],
     },
     setup: {},
     sections: [],
@@ -24,6 +25,10 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
     : PROGRESS({ barSize: rendererConfig?.terminal.frameWidth })
 
   let finished = false
+
+  const addTerminalCommand = (cmd: string) => {
+    report.detail.terminalCommands.push(cmd)
+  }
 
   const setSetupDetails = (setup: Report['setup']) => {
     report.setup = setup
@@ -214,6 +219,7 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
     start,
     finish,
     getReport: () => report,
+    addTerminalCommand,
     log,
     progress,
     args,

@@ -29,12 +29,11 @@ function getArgumentTag(args: ArgumentDetails) {
  * Get argument tag.
  * @example -o, --option
  */
-function getOptionTag(
-  args: Pick<OptionDetails, 'name' | 'alias' | 'type' | 'variadic'>,
-) {
-  const { name, alias, type, variadic } = args
+function getOptionTag(args: Partial<OptionDetails>) {
+  const { name, alias, type, variadic, choices } = args
 
-  let tag = `${alias},`.padEnd(6) + name + getOptionTagSlot({ type, variadic })
+  let tag =
+    `${alias},`.padEnd(6) + name + getOptionTagSlot({ type, variadic, choices })
 
   return tag
 }
@@ -44,12 +43,12 @@ function getOptionTag(
  * @example --option -o <option-value-slot...>
  */
 function getOptionTagSlot(args: Partial<OptionDetails>) {
-  const { type, variadic } = args
+  const { type, variadic, choices } = args
 
-  if (type === undefined) return ''
+  if (type === undefined && choices === undefined) return ''
   if (type === 'boolean') return ''
 
-  let slot: string = type
+  let slot: string = type ?? 'choice'
 
   if (variadic) slot += `-list`
 

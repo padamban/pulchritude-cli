@@ -139,6 +139,7 @@ export interface CliReportDetail {
   startedAt?: number
   finishedAt?: number
   outputFileLinks: Partial<Record<FileReportType, string>>
+  terminalCommands: string[]
 }
 
 export interface CliReporter {
@@ -185,6 +186,8 @@ export interface CliReporter {
    * Returns the full report object.
    */
   getReport: () => Report
+
+  addTerminalCommand: (cmd: string) => void
 
   /**
    * Log section data.

@@ -340,29 +340,31 @@ export interface GlobalOptions {
 }
 
 /**
+ * Command with its details to run.
+ */
+export interface CommandToRun {
+  /**
+   * Command config.
+   */
+  command: CommandDetails
+
+  /**
+   * Argument values object.
+   */
+  argumentResponse: Obj
+
+  /**
+   * Option values object.
+   */
+  optionResponse: Obj
+
+  /**
+   * Is the last command in the sequence is in watch mode.
+   */
+  watchMode: boolean
+}
+
+/**
  * Map of commandId and the command with its details to run.
  */
-export type CommandsToRun = Map<
-  string,
-  {
-    /**
-     * Command config.
-     */
-    command: CommandDetails
-
-    /**
-     * Argument values object.
-     */
-    argumentResponse: Obj
-
-    /**
-     * Option values object.
-     */
-    optionResponse: Obj
-
-    /**
-     * Is the last command in the sequence is in watch mode.
-     */
-    watchMode: boolean
-  }
->
+export type CommandsToRun = Map<string, CommandToRun>
