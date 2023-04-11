@@ -8,7 +8,7 @@ interface Args {
 }
 
 /**
- * Validate CLI command arguments.
+ * Validate CLI command option.
  */
 function validateOption(args: Args): ErrorInfo[] {
   const errorInfo: ErrorInfo[] = []

@@ -17,6 +17,9 @@ import { GLOBAL_OPTIONS } from './global-options'
  *   - creates input prompts if needed
  *   - runs the target scripts
  *   - creates terminal documentation
+ *
+ * @example
+ * await SETUP_COMMANDER(setup)({ reporter })(process.argv)
  */
 export const SETUP_COMMANDER =
   (setup: CliSetupDetails) =>

@@ -10,7 +10,7 @@ interface Retval {
 }
 
 /**
- * Ensure that the parameter (argument or option) value is of the correct type.
+ * Ensure that the parameter (argument or option) __value__ is of the correct type.
  */
 function fixParameterValue(args: Args): Retval {
   const { parameter, value } = args

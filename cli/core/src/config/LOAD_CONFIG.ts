@@ -8,6 +8,14 @@ const joycon = new JoyCon()
 
 /**
  * Load config TS file.
+ * - internally uses joycon
+ * - beware the dependency bundles of the config file
+ *
+ * @example
+ * const config = await LOAD_CONFIG<CliSetup>({
+ *   defaultConfig: {},
+ *   validConfigFilePaths: ['cli.config.ts'],
+ * })
  */
 export async function LOAD_CONFIG<C extends object>(
   args: LoadConfigArgs<C>,

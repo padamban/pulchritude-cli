@@ -1,5 +1,9 @@
 /* eslint-disable no-console */
 interface Args {
+  /**
+   * Width of the banner.
+   * - minimum value: width of the base banner
+   */
   width: number
 }
 

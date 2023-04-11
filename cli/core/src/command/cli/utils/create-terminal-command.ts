@@ -2,19 +2,23 @@ import { asArray } from '../../../utils/as-array'
 import { CommandToRun } from '../../_type_'
 
 interface Args {
-  cliId: string
-  programId: string
+  cliName: string
+  programName: string
   commandToRun: CommandToRun
 }
 
+/**
+ * Create a string that can rerun the command.
+ *
+ * @example
+ * CLI math sqrt 32 --decimal 4  -np=
+ */
 function createTerminalCommand({
-  cliId,
-  programId,
+  cliName,
+  programName,
   commandToRun,
 }: Args): string {
-  let cmd = `${cliId} ${programId} ${commandToRun.command.name}`
-
-  console.log(commandToRun)
+  let cmd = `${cliName} ${programName} ${commandToRun.command.name}`
 
   cmd += commandToRun.command.arguments?.reduce((acc, arg) => {
     const value = commandToRun.argumentResponse[arg.id]

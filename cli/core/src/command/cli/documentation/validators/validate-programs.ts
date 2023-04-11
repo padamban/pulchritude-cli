@@ -7,6 +7,9 @@ interface Args {
   programs: ProgramDetails[]
 }
 
+/**
+ * Validate CLI programs and its commands.
+ */
 function validatePrograms(args: Args): ErrorInfo[] {
   const { programs } = args
 

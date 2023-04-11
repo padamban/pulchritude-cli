@@ -22,7 +22,6 @@ interface Args {
  * - Executes the commands.
  * - Creates reports about the execution.
  */
-
 export const ACTION_RESOLVER = (args: Args) => {
   const { cmd, setup, ctx } = args
 

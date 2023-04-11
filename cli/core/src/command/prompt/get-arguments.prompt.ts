@@ -20,8 +20,6 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
 
   if (!command?.arguments) return { argumentResponse: {} }
 
-  // eslint-disable-next-line no-console
-
   const argumentResponse = await prompt(
     command.arguments
       .filter(arg => {

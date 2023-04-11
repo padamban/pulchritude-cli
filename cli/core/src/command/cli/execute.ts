@@ -41,8 +41,8 @@ async function EXECUTE(args: Args): Promise<void> {
 
     ctx.reporter.addTerminalCommand(
       createTerminalCommand({
-        cliId: setup.name,
-        programId: program?.name ?? 'program',
+        cliName: setup.name,
+        programName: program?.name ?? 'program',
         commandToRun,
       }),
     )

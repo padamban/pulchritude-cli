@@ -8,6 +8,9 @@ import {
 
 import { displayBanner } from '../display/banner'
 
+/**
+ * Run CLI application.
+ */
 const RUN = async () => {
   const width = 70
 

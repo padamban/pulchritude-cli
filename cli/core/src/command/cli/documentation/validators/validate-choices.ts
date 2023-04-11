@@ -6,6 +6,9 @@ interface Args {
   parameter?: ArgumentDetails | OptionDetails
 }
 
+/**
+ * Validate CLI command parameter choices.
+ */
 function validateChoices(args: Args): ErrorInfo[] {
   const { parentChain, parameter } = args
 

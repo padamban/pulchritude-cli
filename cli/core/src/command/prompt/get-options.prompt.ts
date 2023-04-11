@@ -18,7 +18,7 @@ interface Args {
 /**
  * Show a prompt asking for options.
  * - `prompt 1` - select options to specify
- * - `prompt 2-n` - specify the option values
+ * - `prompt 2-n` - specify the selected/invalid option values
  */
 async function getOptionsPrompt(args: Args): Promise<Obj> {
   const { command } = args
