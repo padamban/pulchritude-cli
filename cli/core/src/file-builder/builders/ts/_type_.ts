@@ -1,5 +1,15 @@
 import { FileBuilderFactory } from '../_type_'
 
+/**
+ * Chainable typescript content builder utility.
+ *
+ * @example
+ * const file: ChainableTsWriter = ...
+ *
+ * file
+ *   .addDoNotEditWarning()
+ *   .addDisableLinter()
+ */
 export interface ChainableTsWriter {
   addLine: (text: string) => ChainableTsWriter
   newLine: (nl?: number) => ChainableTsWriter

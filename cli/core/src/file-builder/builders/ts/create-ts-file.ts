@@ -10,6 +10,13 @@ import {
 
 /**
  * Has chainable utility functions for creating typescript file content.
+ *
+ * @example
+ * const file = createTsFile({})()
+ *
+ * file.write.
+ *   .addDoNotEditWarning()
+ *   .addDisableLinter()
  */
 export const createTsFile: TsFileContentBuilderFactory = args => () => {
   const { onError } = args ?? {}
@@ -46,6 +53,9 @@ export const createTsFile: TsFileContentBuilderFactory = args => () => {
   return options
 }
 
+/**
+ * Create the chainable utility.
+ */
 function addChainableOptions(lines: string[]) {
   const options: ChainableTsWriter = {
     addDisableLinter: () => {

@@ -7,8 +7,8 @@ const commandA: CommandSetup<
   id: 'comAa',
   title: 'Command A',
   description: 'Command A desc',
-  script: () => async () => {
-    // console.log('\nHELLO comAa', { args, opts })
+  script: props => async () => {
+    console.log('\nHELLO', props)
   },
   arguments: [
     {

@@ -32,6 +32,9 @@ export const createRawFile: RawFileContentBuilderFactory = props => () => {
   return options
 }
 
+/**
+ * Create the chainable utility.
+ */
 const addChainableOptions = (lines: string[]) => {
   const options: ChainableRawWriter = {
     newLine: (nl = 1) => {

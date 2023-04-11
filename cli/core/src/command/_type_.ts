@@ -1,3 +1,5 @@
+import { FileBuilderInstance } from '../file-builder/_type_'
+import { FileManagerInstance } from '../file-manager'
 import { CliReporter, CliReportLogger, ReportRendererConfig } from '../report'
 import { Obj, StringKeyof, Type } from '../utils'
 
@@ -297,6 +299,16 @@ export interface CommandContext {
    * - report renderer
    */
   reporter: CliReporter
+
+  /**
+   * Create file content.
+   */
+  fileBuilder: FileBuilderInstance
+
+  /**
+   * Write/read/list files.
+   */
+  fileManager: FileManagerInstance
 }
 
 /**
@@ -306,10 +318,35 @@ export type CliScript<
   Args extends Obj = any,
   Opts extends Obj = any,
 > = (props: {
+  /**
+   * Arguments of the command.
+   */
   args: Args
+
+  /**
+   * Options of the command.
+   */
   opts: Opts
+
+  /**
+   * Current working directory.
+   */
   cwd: string
+
+  /**
+   * Log information about the script into the report.
+   */
   log: CliReportLogger
+
+  /**
+   * Create file content.
+   */
+  fileBuilder: FileBuilderInstance
+
+  /**
+   * Write/read/list files.
+   */
+  fileManager: FileManagerInstance
 }) => () => Promise<void>
 
 /**

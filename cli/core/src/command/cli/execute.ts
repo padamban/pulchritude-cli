@@ -21,6 +21,7 @@ interface Args {
  */
 async function EXECUTE(args: Args): Promise<void> {
   const { commandsToRun, ctx, watch, program, setup } = args
+
   ctx.reporter.start()
 
   if (watch) ctx.reporter?.disable()
@@ -61,6 +62,8 @@ async function EXECUTE(args: Args): Promise<void> {
         args: argumentResponse,
         opts: optionResponse,
         log: ctx.reporter.log,
+        fileBuilder: ctx.fileBuilder,
+        fileManager: ctx.fileManager,
       })()
     } catch (error) {
       ctx.reporter.log.error(error)

@@ -1,10 +1,10 @@
-import { CliFileManager } from '../../file-manager'
+import { FileManager } from '../../file-manager'
 import { Report } from '../_type_'
 
 export interface Args {
   filePath: string
   report: Report
-  fileManager: ReturnType<CliFileManager>
+  fileManager: ReturnType<FileManager>
 }
 
 /**

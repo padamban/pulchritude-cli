@@ -2,11 +2,12 @@ import fs from 'fs'
 import glob from 'glob'
 import path from 'path'
 
-type Options = Pick<glob.IOptions, 'ignore'>
+import { FileManager, ListOptions } from './_type_'
 
-import { CliFileManager } from './_type_'
-
-export const FILE_MANAGER: CliFileManager = ({ cwd }) => {
+/**
+ * Create/read/list files.
+ */
+const FILE_MANAGER: FileManager = ({ cwd }) => {
   function ensureDir(dirPath: string) {
     const { dir } = path.parse(dirPath)
 
@@ -25,7 +26,7 @@ export const FILE_MANAGER: CliFileManager = ({ cwd }) => {
     fs.writeFileSync(fullFilePath, content)
   }
 
-  function listFiles(pattern: string, options: Options): string[] {
+  function listFiles(pattern: string, options: ListOptions): string[] {
     return glob.sync(pattern, options)
   }
 
@@ -35,3 +36,5 @@ export const FILE_MANAGER: CliFileManager = ({ cwd }) => {
     listFiles,
   }
 }
+
+export { FILE_MANAGER }

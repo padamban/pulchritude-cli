@@ -1,13 +1,18 @@
 import { IOptions } from 'glob'
 
-export interface CliFileManagerProps {
+export interface FileManagerArgs {
   cwd: string
 }
 
-type ListOptions = Pick<IOptions, 'ignore'>
+export type ListOptions = Pick<IOptions, 'ignore'>
 
-export type CliFileManager = (props: CliFileManagerProps) => {
+export interface FileManagerInstance {
   writeFile: (filePath: string | undefined, content: string) => void
   ensureDir: (dirPath: string) => void
   listFiles: (pattern: string, options: ListOptions) => string[]
 }
+
+/**
+ * Create/read/list files.
+ */
+export type FileManager = (props: FileManagerArgs) => FileManagerInstance

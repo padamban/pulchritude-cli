@@ -1,4 +1,4 @@
-import { CliFileManager } from '../../file-manager'
+import { FileManager } from '../../file-manager'
 import { Obj } from '../../utils'
 import { Report } from '../_type_'
 import { formatDate } from './format-date'
@@ -7,7 +7,7 @@ import { renderStatus } from './render-status'
 export interface Args {
   filePath: string
   report: Report
-  fileManager: ReturnType<CliFileManager>
+  fileManager: ReturnType<FileManager>
 }
 
 /**

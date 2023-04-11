@@ -1,6 +1,9 @@
 import {
   CliSetup,
+  FILE_BUILDER,
+  FILE_MANAGER,
   LOAD_CONFIG,
+  logErrorToConsole,
   REPORTER,
   RESOLVE_SETUP,
   SETUP_COMMANDER,
@@ -21,8 +24,10 @@ const RUN = async () => {
     validConfigFilePaths: ['cli.config.ts', 'dev-cli.config.ts'],
   })
 
+  const cwd = config.cwd ?? process.cwd()
+
   const reporter = REPORTER({
-    cwd: config.cwd ?? process.cwd(),
+    cwd,
     rendererConfig: {
       outputFolderPath: '.cli-report',
       output: ['console', 'json', 'md'],
@@ -35,7 +40,13 @@ const RUN = async () => {
 
   const setup = RESOLVE_SETUP(config.value)
 
-  await SETUP_COMMANDER(setup)({ reporter })(process.argv)
+  const fileBuilder = FILE_BUILDER({ onError: logErrorToConsole })
+
+  const fileManager = FILE_MANAGER({ cwd })
+
+  await SETUP_COMMANDER(setup)({ reporter, fileBuilder, fileManager })(
+    process.argv,
+  )
 }
 
 export { RUN }
