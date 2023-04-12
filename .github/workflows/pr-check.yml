@@ -21,7 +21,7 @@ jobs:
         with:
           version: 7
 
-       - name: Setup node
+      - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
@@ -30,7 +30,7 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile
 
-     - name: Lint check
+      - name: Lint check
         run: pnpm run lint
 
       - name: TSC build check

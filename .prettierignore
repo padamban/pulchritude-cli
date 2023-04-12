@@ -2,5 +2,3 @@ dist
 
 pnpm-lock.yaml
 
-*.yaml
-*.yml
