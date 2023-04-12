@@ -1,14 +1,16 @@
-name: Publish to NPM
+name: Check PR
 
 on:
   push:
-    branches:
-      - 'main'
+    branches: ['*']
+  pull_request:
+    branches: [main]
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  build:
+  check:
+    name: Code check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,7 +21,7 @@ jobs:
         with:
           version: 7
 
-      - name: Setup node
+       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
@@ -39,15 +41,3 @@ jobs:
 
       - name: Build
         run: pnpm run build
-
-      - name: Run pre-publish script
-        run: pnpm run pre-publish
-
-      - name: Create Release Pull Request or Publish
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: pnpm run publish-packages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

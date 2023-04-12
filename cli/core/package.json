@@ -10,7 +10,8 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "lint": "tsc"
+    "build:tsc": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "peerDependencies": {},
   "dependencies": {

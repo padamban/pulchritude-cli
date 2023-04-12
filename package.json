@@ -13,6 +13,7 @@
     "format:check": "prettier --check .",
     "lint": "turbo run lint",
     "build": "turbo run build",
+    "build:tsc": "turbo run build:tsc",
     "release": "changeset publish",
     "changeset": "changeset",
     "pre-publish": "node ./.github/scripts/pre-publish.js",
