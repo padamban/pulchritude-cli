@@ -1,5 +1,16 @@
 # @pulchritude-cli/cli
 
+## 0.1.0
+
+### Minor Changes
+
+- 27062ee: Configure dev-cli
+
+### Patch Changes
+
+- Updated dependencies [27062ee]
+  - @pulchritude-cli/core@0.1.0
+
 ## 0.0.5
 
 ### Patch Changes
