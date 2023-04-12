@@ -9,8 +9,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "lint": "tsc"
+    "build": "tsup src/index.ts --format cjs,esm --dts --external glob",
+    "build:tsc": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "peerDependencies": {},
   "dependencies": {

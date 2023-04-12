@@ -10,6 +10,7 @@
       "dependsOn": ["build"]
     },
     "lint": {},
+    "build:tsc": {},
     "deploy": {
       "dependsOn": ["build", "test", "lint"]
     }
