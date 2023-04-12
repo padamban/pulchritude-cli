@@ -1,6 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "TS Library",
   "extends": "@pulchritude-cli/config.tsconfig/base.json",
   "compilerOptions": {}
 }

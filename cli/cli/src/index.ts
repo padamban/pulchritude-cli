@@ -1,9 +1,9 @@
-import { addCore } from '@pulchritude-cli/core';
-import { addUtils } from '@pulchritude-cli/utils';
-import { RUN } from './RUN';
+import { RUN } from './run'
+export type {
+  ArgumentSetup,
+  CliSetup,
+  OptionSetup,
+  ProgramSetup,
+} from '@pulchritude-cli/core'
 
-export const addCli = (a: number, b: number) => {
-  return addCore(a, b) + addUtils(a, b);
-};
-
-export { RUN };
+export { RUN }
