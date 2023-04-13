@@ -1,5 +1,11 @@
 # @pulchritude-cli/cli
 
+## 0.2.1
+
+### Patch Changes
+
+- dd91ebc: Modify bin command
+
 ## 0.2.0
 
 ### Minor Changes
