@@ -5,7 +5,7 @@
     "cli": "dev-cli"
   },
   "dependencies": {
-    "@pulchritude-cli/cli": "0.2.0",
+    "@pulchritude-cli/cli": "0.2.1",
     "@pulchritude-cli/core": "0.2.0"
   }
 }
