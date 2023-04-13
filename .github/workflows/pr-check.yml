@@ -31,11 +31,11 @@ jobs:
       - name: Lint check
         run: pnpm run lint
 
-      - name: TSC build check
-        run: pnpm run build:tsc
-
       - name: Prettier check
         run: pnpm run format:check
 
       - name: Build
         run: pnpm run build
+
+      - name: TSC build check
+        run: pnpm run build:tsc
