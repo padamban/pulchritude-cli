@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-const { RUN } = require('../dist')
+import { RUN } from '../dist'
 
 RUN()
