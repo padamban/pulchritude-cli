@@ -1,5 +1,16 @@
 # @pulchritude-cli/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- 08f605c: Fix built packages
+
+### Patch Changes
+
+- Updated dependencies [08f605c]
+  - @pulchritude-cli/core@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes
