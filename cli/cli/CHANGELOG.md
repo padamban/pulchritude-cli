@@ -1,5 +1,11 @@
 # @pulchritude-cli/cli
 
+## 0.2.3
+
+### Patch Changes
+
+- dc5da1e: Modify bin command import
+
 ## 0.2.2
 
 ### Patch Changes
