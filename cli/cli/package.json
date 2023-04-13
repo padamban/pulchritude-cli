@@ -2,9 +2,10 @@
   "name": "@pulchritude-cli/cli",
   "version": "0.1.0",
   "private": false,
-  "main": "src/index.js",
-  "types": "src/index.ts",
-  "module": "none",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
   "publishConfig": {
     "access": "public"
   },

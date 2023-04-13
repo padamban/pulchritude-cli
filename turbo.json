@@ -4,13 +4,16 @@
     "dev": {},
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "cache": false
     },
     "test": {
       "dependsOn": ["build"]
     },
     "lint": {},
-    "build:tsc": {},
+    "build:tsc": {
+      "cache": false
+    },
     "deploy": {
       "dependsOn": ["build", "test", "lint"]
     }

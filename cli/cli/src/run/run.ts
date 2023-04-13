@@ -21,7 +21,11 @@ const RUN = async () => {
 
   const config = await LOAD_CONFIG<CliSetup>({
     defaultConfig: {},
-    validConfigFilePaths: ['cli.config.ts', 'dev-cli.config.ts'],
+    validConfigFilePaths: [
+      'cli.config.js',
+      'cli.config.ts',
+      'dev-cli.config.ts',
+    ],
   })
 
   const cwd = config.cwd ?? process.cwd()

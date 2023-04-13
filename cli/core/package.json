@@ -2,9 +2,10 @@
   "name": "@pulchritude-cli/core",
   "version": "0.1.0",
   "private": false,
-  "main": "src/index.ts",
-  "types": "src/index.ts",
-  "module": "none",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
   "publishConfig": {
     "access": "public"
   },
@@ -24,6 +25,7 @@
     "chalk": "5.2.0",
     "cli-progress": "3.11.0",
     "joycon": "3.1.1",
+    "glob": "10.0.0",
     "bundle-require": "4.0.1"
   },
   "devDependencies": {
