@@ -1,5 +1,13 @@
 # @pulchritude-cli/cli
 
+## 0.2.2
+
+### Patch Changes
+
+- c81a2de: Change bin command import
+- Updated dependencies [c81a2de]
+  - @pulchritude-cli/core@0.2.1
+
 ## 0.2.1
 
 ### Patch Changes
