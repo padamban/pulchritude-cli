@@ -1,10 +1,10 @@
-import { IOptions } from 'glob'
+import { GlobOptions } from 'glob'
 
 export interface FileManagerArgs {
   cwd: string
 }
 
-export type ListOptions = Pick<IOptions, 'ignore'>
+export type ListOptions = Pick<GlobOptions, 'ignore'>
 
 export interface FileManagerInstance {
   writeFile: (filePath: string | undefined, content: string) => void
