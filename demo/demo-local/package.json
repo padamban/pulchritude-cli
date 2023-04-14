@@ -8,5 +8,6 @@
   },
   "dependencies": {
     "@pulchritude-cli/cli": "workspace:*"
-  }
+  },
+  "version": null
 }

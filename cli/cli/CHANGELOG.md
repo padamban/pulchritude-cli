@@ -1,5 +1,13 @@
 # @pulchritude-cli/cli
 
+## 0.2.4
+
+### Patch Changes
+
+- 74cdb94: Add demo app
+- Updated dependencies [74cdb94]
+  - @pulchritude-cli/core@0.2.2
+
 ## 0.2.3
 
 ### Patch Changes
