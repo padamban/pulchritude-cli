@@ -4,6 +4,12 @@
 
 ### Patch Changes
 
+- 3838cc0: Bump version
+
+## 0.2.3
+
+### Patch Changes
+
 - 3c23e6c: Modify publish pipeline
 
 ## 0.2.2
