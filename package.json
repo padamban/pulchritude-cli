@@ -19,6 +19,7 @@
     "release": "changeset publish",
     "changeset": "changeset",
     "pre-publish": "node ./.github/scripts/pre-publish.js",
+    "pre-build": "node ./.github/scripts/pre-build.js",
     "publish-packages": "changeset version && changeset publish"
   },
   "dependencies": {},

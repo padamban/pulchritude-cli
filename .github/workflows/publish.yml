@@ -9,6 +9,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   build:
+    name: Build and Publish
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,14 +35,17 @@ jobs:
       - name: Prettier check
         run: pnpm run format:check
 
-      - name: Run pre-publish script
-        run: pnpm run pre-publish
+      - name: Run pre-build script
+        run: pnpm run pre-build
 
       - name: Build
         run: pnpm run build
 
       - name: TSC build check
         run: pnpm run build:tsc
+
+      - name: Run pre-publish script
+        run: pnpm run pre-publish
 
       - name: Create Release Pull Request or Publish
         id: changesets
