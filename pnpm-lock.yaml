@@ -82,7 +82,7 @@ importers:
 
   demo/demo-ts-config:
     specifiers:
-      '@pulchritude-cli/cli': 0.2.4
+      '@pulchritude-cli/cli': latest
     dependencies:
       '@pulchritude-cli/cli': link:../../cli/cli
 

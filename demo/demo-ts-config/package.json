@@ -7,6 +7,6 @@
     "cli:src": "tsx ../../cli/cli/src/run/run-now.ts"
   },
   "dependencies": {
-    "@pulchritude-cli/cli": "0.2.5"
+    "@pulchritude-cli/cli": "latest"
   }
 }
