@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": ["@pulchritude-cli/demo*", "@pulchritude-cli/config*"]
 }
