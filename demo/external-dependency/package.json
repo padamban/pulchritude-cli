@@ -1,5 +1,5 @@
 {
-  "name": "@pulchritude-cli/demo-example",
+  "name": "@pulchritude-cli/external-dependency",
   "private": true,
   "scripts": {
     "cli": "dev-cli"

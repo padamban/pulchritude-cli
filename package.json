@@ -6,7 +6,7 @@
     "packages/*",
     "configs/*",
     "cli/*",
-    "demo/*"
+    "demo/demo-*"
   ],
   "scripts": {
     "cli": "tsx ./cli/cli/src/run/run-now.ts",
