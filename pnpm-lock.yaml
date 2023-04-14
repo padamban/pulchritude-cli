@@ -80,17 +80,9 @@ importers:
   configs/tsconfig:
     specifiers: {}
 
-  demo/demo-example:
+  demo/demo-ts-config:
     specifiers:
-      '@pulchritude-cli/cli': 0.2.3
-      '@pulchritude-cli/core': 0.2.1
-    dependencies:
-      '@pulchritude-cli/cli': link:../../cli/cli
-      '@pulchritude-cli/core': link:../../cli/core
-
-  demo/demo-local:
-    specifiers:
-      '@pulchritude-cli/cli': workspace:*
+      '@pulchritude-cli/cli': 0.2.4
     dependencies:
       '@pulchritude-cli/cli': link:../../cli/cli
 
