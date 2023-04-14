@@ -1,4 +1,4 @@
-import { CliProgress } from '../progress'
+import { ProgressBar } from '../progress'
 import { Obj } from '../utils'
 
 export type ReportStatus = 'ERROR' | 'WARNING' | 'OK' | 'SKIPPED' | 'NONE'
@@ -187,6 +187,10 @@ export interface CliReporter {
    */
   getReport: () => Report
 
+  /**
+   * Add a string that can be copied and pasted into the terminal,
+   * and by pressing enter we cen rerun the given command.
+   */
   addTerminalCommand: (cmd: string) => void
 
   /**
@@ -197,7 +201,7 @@ export interface CliReporter {
   /**
    * Update the progress bar.
    */
-  progress?: CliProgress
+  progress?: ProgressBar
 
   /**
    * Create report files and log into terminal.
@@ -210,13 +214,6 @@ export interface CliReporter {
   args?: ReporterArgs
 }
 
-export type SectionProgress = Partial<
-  Pick<
-    CliProgress,
-    'nextActiveSubSection' | 'setSubSectionCount' | 'setSectionTitle'
-  >
->
-
 export type ReportOutput = 'console' | 'md' | 'json'
 
 export interface ReporterArgs {
@@ -228,7 +225,7 @@ export interface ReporterArgs {
   cwd: string
 
   /**
-   *
+   * TODO
    */
   rendererConfig: Pick<
     ReportRendererConfig,

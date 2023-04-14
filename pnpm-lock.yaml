@@ -80,6 +80,20 @@ importers:
   configs/tsconfig:
     specifiers: {}
 
+  demo/demo-example:
+    specifiers:
+      '@pulchritude-cli/cli': 0.2.3
+      '@pulchritude-cli/core': 0.2.1
+    dependencies:
+      '@pulchritude-cli/cli': link:../../cli/cli
+      '@pulchritude-cli/core': link:../../cli/core
+
+  demo/demo-local:
+    specifiers:
+      '@pulchritude-cli/cli': workspace:*
+    dependencies:
+      '@pulchritude-cli/cli': link:../../cli/cli
+
 packages:
 
   /@babel/code-frame/7.18.6:

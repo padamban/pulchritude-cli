@@ -1,11 +1,10 @@
 {
-  "version": "0.0.0",
-  "description": "Demo @pulchritude/cli usage",
+  "name": "@pulchritude-cli/demo-example",
+  "private": true,
   "scripts": {
     "cli": "dev-cli"
   },
   "dependencies": {
-    "@pulchritude-cli/cli": "0.2.1",
-    "@pulchritude-cli/core": "0.2.0"
+    "@pulchritude-cli/cli": "0.2.3"
   }
 }

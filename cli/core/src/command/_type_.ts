@@ -1,5 +1,6 @@
 import { FileBuilderInstance } from '../file-builder/_type_'
 import { FileManagerInstance } from '../file-manager'
+import { SubProgressBar } from '../progress'
 import { CliReporter, CliReportLogger, ReportRendererConfig } from '../report'
 import { Obj, StringKeyof, Type } from '../utils'
 
@@ -332,6 +333,11 @@ export type CliScript<
    * Current working directory.
    */
   cwd: string
+
+  /**
+   * Manipulate this script's portion of the progress bar.
+   */
+  progress: SubProgressBar | undefined
 
   /**
    * Log information about the script into the report.

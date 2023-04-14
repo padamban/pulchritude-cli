@@ -5,7 +5,8 @@
   "workspaces": [
     "packages/*",
     "configs/*",
-    "cli/*"
+    "cli/*",
+    "demo/*"
   ],
   "scripts": {
     "cli": "tsx ./cli/cli/src/run/run-now.ts",
