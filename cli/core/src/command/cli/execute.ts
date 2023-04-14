@@ -51,7 +51,7 @@ async function EXECUTE(args: Args): Promise<void> {
     ctx.reporter.initSection({
       id: command.id,
       title: command.title,
-      description: command.title,
+      description: command.description,
       arguments: argumentResponse,
       options: optionResponse,
     })
@@ -64,6 +64,7 @@ async function EXECUTE(args: Args): Promise<void> {
         log: ctx.reporter.log,
         fileBuilder: ctx.fileBuilder,
         fileManager: ctx.fileManager,
+        progress: ctx.reporter.progress?.sub,
       })()
     } catch (error) {
       ctx.reporter.log.error(error)

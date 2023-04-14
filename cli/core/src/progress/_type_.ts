@@ -1,16 +1,11 @@
 /**
- * Cli progress instance object.
+ * ASCII progress bar.
  */
-export interface CliProgress {
+export interface ProgressBar {
   /**
    * Divide the 100% into n sections.
    */
   setSectionCount: (count: number | undefined) => void
-
-  /**
-   * Divide the current section into m subsections.
-   */
-  setSubSectionCount: (count: number | undefined) => number
 
   /**
    * Displayed text next to the progress bar.
@@ -23,9 +18,12 @@ export interface CliProgress {
   nextActiveSection: () => void
 
   /**
-   * Jump to the next subsection
+   * Control a segment of the section.
+   * - e.g.:
+   * We run 3 scripts, the progress bar is divided into 3 equal length segments.
+   * With these utilities we can divide the current segment into smaller portions.
    */
-  nextActiveSubSection: (label?: string) => void
+  sub: SubProgressBar
 
   /**
    * End the progress.
@@ -41,7 +39,7 @@ export interface CliProgress {
 /**
  * Arguments of the cli progress bar.
  */
-export interface CliProgressArgs {
+export interface ProgressBarArgs {
   /**
    * Character length of the progress bar.
    */
@@ -51,4 +49,31 @@ export interface CliProgressArgs {
    * Number of space characters before the bar.
    */
   indent?: number
+}
+
+/**
+ * Manage the division of the progress bar sections into smaller sub-sections.
+ */
+export interface SubProgressBar {
+  /**
+   * Jump to the next subsection, and also set the label of the next section.
+   */
+  nextActiveSection: (label?: string) => void
+
+  /**
+   * Divide the current section into m subsections.
+   */
+  setSectionCount: (count: number | undefined) => number
+
+  /**
+   * Displayed text next to the progress bar,
+   * by default it is the name of the current command.
+   */
+  setSectionTitle: (title: string) => void
+
+  /**
+   * Displayed text next to the progress bar,
+   * by default it is the name of the current command.
+   */
+  setSectionLabel: (label: string) => void
 }

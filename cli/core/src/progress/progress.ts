@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import cliProgress from 'cli-progress'
 
-import { CliProgress, CliProgressArgs } from './_type_'
+import { ProgressBar, ProgressBarArgs } from './_type_'
 
 /**
  * Creates a progress bar renderer.
@@ -11,7 +11,7 @@ import { CliProgress, CliProgressArgs } from './_type_'
  * - we can divide the current sections into subsections
  *   - we can jump to the next subsection, and the bar fills in fractionally
  */
-export const PROGRESS = (args?: CliProgressArgs): CliProgress => {
+export const PROGRESS = (args?: ProgressBarArgs): ProgressBar => {
   const { barSize = 50, indent = 0 } = args ?? {}
 
   let sectionCount = 0
@@ -69,19 +69,12 @@ export const PROGRESS = (args?: CliProgressArgs): CliProgress => {
     setSectionCount: (count: number | undefined) => {
       sectionCount = count || 1
     },
-    setSubSectionCount: (count: number | undefined) =>
-      (subSectionCount = count || 1),
+
     setSectionTitle: (title: string) => {
       currentSectionTitle = title
       render()
     },
-    nextActiveSubSection: (label?: string) => {
-      currentSectionLabel = label ?? ''
-      if (subSectionCount > currentSubSectionIdx) {
-        currentSubSectionIdx++
-      }
-      render()
-    },
+
     nextActiveSection: () => {
       currentSectionIdx++
       currentSectionTitle = ''
@@ -90,13 +83,38 @@ export const PROGRESS = (args?: CliProgressArgs): CliProgress => {
       subSectionCount = 1
       render()
     },
+
     finish: () => {
       finished = true
       render()
     },
+
     disable: () => {
       finished = true
       disabled = true
+    },
+
+    sub: {
+      setSectionCount: (count: number | undefined) =>
+        (subSectionCount = count || 1),
+
+      nextActiveSection: (label?: string) => {
+        currentSectionLabel = label ?? ''
+        if (subSectionCount > currentSubSectionIdx) {
+          currentSubSectionIdx++
+        }
+        render()
+      },
+
+      setSectionTitle: (title: string) => {
+        currentSectionTitle = title
+        render()
+      },
+
+      setSectionLabel: (label?: string) => {
+        currentSectionLabel = label ?? ''
+        render()
+      },
     },
   }
 }

@@ -45,7 +45,6 @@ export const ACTION_RESOLVER = (args: Args) => {
     if (!promptResponse.watch) {
       setTimeout(() => {
         ctx.reporter.render()
-
         process.exit()
       }, 100)
     }
