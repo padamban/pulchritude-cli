@@ -1,5 +1,11 @@
 # @pulchritude-cli/core
 
+## 0.2.2
+
+### Patch Changes
+
+- 74cdb94: Add demo app
+
 ## 0.2.1
 
 ### Patch Changes
