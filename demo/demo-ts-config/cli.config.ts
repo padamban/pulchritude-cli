@@ -92,7 +92,7 @@ const math: ProgramSetup = {
 
 const SETUP: CliSetup = {
   name: 'CLI',
-  description: 'Demo CLI config.',
+  description: 'Demo CLI config. (ts config)',
   version: '0.0.0',
   reporterConfig: {
     outputFolderPath: '.cli-report',
