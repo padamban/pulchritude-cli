@@ -1,4 +1,4 @@
-import { CliSetup, CommandSetup, ProgramSetup } from '@changesets/cli'
+import { CliSetup, CommandSetup, ProgramSetup } from '@pulchritude-cli/cli'
 
 export const delay = (ms = 500): Promise<unknown> =>
   new Promise<void>(resolve => {
