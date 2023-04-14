@@ -1,5 +1,13 @@
 # @pulchritude-cli/cli
 
+## 0.2.5
+
+### Patch Changes
+
+- 3c23e6c: Modify publish pipeline
+- Updated dependencies [3c23e6c]
+  - @pulchritude-cli/core@0.2.3
+
 ## 0.2.4
 
 ### Patch Changes

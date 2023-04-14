@@ -1,12 +1,12 @@
 {
   "name": "@pulchritude-cli/demo-ts-config",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "cli": "dev-cli",
     "cli:src": "tsx ../../cli/cli/src/run/run-now.ts"
   },
   "dependencies": {
-    "@pulchritude-cli/cli": "0.2.4"
+    "@pulchritude-cli/cli": "0.2.5"
   }
 }
