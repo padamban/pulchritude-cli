@@ -3,7 +3,7 @@ import { Command } from 'commander'
 
 import { CliSetupDetails, CommandContext } from '../_type_'
 import { PROMPT } from '../prompt/PROMPT'
-import { EXECUTE } from './EXECUTE'
+import { EXECUTE } from './execute'
 import { getOptions } from './utils/get-options'
 import { getPositionalArgs } from './utils/get-positional-args'
 import { resolveCommandChain } from './utils/resolve-command-chain'
