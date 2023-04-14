@@ -1,5 +1,11 @@
 # @pulchritude-cli/core
 
+## 0.2.5
+
+### Patch Changes
+
+- 5be9b19: Improve pipelines
+
 ## 0.2.4
 
 ### Patch Changes
