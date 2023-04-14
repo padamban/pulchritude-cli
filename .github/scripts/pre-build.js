@@ -15,9 +15,6 @@ function revisePackageJsonFile({ filePath }) {
   parsed.types = 'dist/index.d.ts'
   parsed.module = 'dist/index.mjs'
 
-  delete parsed.devDependencies
-  delete parsed.scripts
-
   fs.writeFileSync(filePath, JSON.stringify(parsed, null, 2) + '\n')
 }
 
@@ -25,7 +22,7 @@ function revisePackageJsonFile({ filePath }) {
  * Iterate over every published package, and modify them.
  */
 function reviseNpmPackages({ packagesFolder }) {
-  const folders = fs.readdirSync(packagesFolder)
+  const folders = fs.readdirSync(packagesFolder).filter(f => !f.startsWith('.'))
 
   folders.forEach(folder => {
     const folderPath = path.resolve(packagesFolder, folder)
