@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "cli": "dev-cli",
+    "cli:dist": "tsx ../../cli/cli/dist/run/run-now.js",
     "cli:src": "tsx ../../cli/cli/src/run/run-now.ts"
   },
   "dependencies": {
