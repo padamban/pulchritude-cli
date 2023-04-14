@@ -1,5 +1,13 @@
 # @pulchritude-cli/cli
 
+## 0.2.6
+
+### Patch Changes
+
+- 1536d1c: Improve CI
+- Updated dependencies [1536d1c]
+  - @pulchritude-cli/core@0.2.4
+
 ## 0.2.5
 
 ### Patch Changes
