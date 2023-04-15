@@ -45,7 +45,7 @@ async function PROMPT(args: Args): Promise<Retval> {
 
   const noPrompt = args.optionValues.prompt === false
 
-  if (!noPrompt) console.log('')
+  if (!noPrompt) console.log('\n')
 
   const program = await getProgramPrompt({
     selectedProgram: args.program,

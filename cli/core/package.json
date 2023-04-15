@@ -14,7 +14,9 @@
     "build:tsc": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "prettier": "2.x"
+  },
   "dependencies": {
     "prompts": "2.4.2",
     "@types/prettier": "2.7.2",

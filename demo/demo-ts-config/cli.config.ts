@@ -55,9 +55,12 @@ const constants: CommandSetup<{ name: 'PI' | 'e' }> = {
   script: props => async () => {
     await delay(1000)
 
+    props.log.header('Result')
+
     if (props.args.name === 'PI') {
       props.log.list2(['PI', '3.1415'])
     }
+
     if (props.args.name === 'e') {
       props.log.list2(['e', '2.7182'])
     }
@@ -92,7 +95,7 @@ const math: ProgramSetup = {
 
 const SETUP: CliSetup = {
   name: 'CLI',
-  description: 'Demo CLI config.',
+  description: 'Demo CLI config. (ts config)',
   version: '0.0.0',
   reporterConfig: {
     outputFolderPath: '.cli-report',

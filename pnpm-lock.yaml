@@ -80,9 +80,15 @@ importers:
   configs/tsconfig:
     specifiers: {}
 
+  demo/demo-js-config:
+    specifiers:
+      '@pulchritude-cli/cli': workspace:*
+    dependencies:
+      '@pulchritude-cli/cli': link:../../cli/cli
+
   demo/demo-ts-config:
     specifiers:
-      '@pulchritude-cli/cli': latest
+      '@pulchritude-cli/cli': workspace:*
     dependencies:
       '@pulchritude-cli/cli': link:../../cli/cli
 
