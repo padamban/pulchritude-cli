@@ -1,7 +1,9 @@
-import { CliSetup, CommandSetup, ProgramSetup } from './cli/cli'
-import { delay } from './cli/core/src/utils/delay'
+export const delay = (ms = 500) =>
+  new Promise(resolve => {
+    setTimeout(() => resolve(), ms)
+  })
 
-const add: CommandSetup<{ numbers: number[] }, { decimals: number }> = {
+const add = {
   id: 'add',
   title: 'Addition',
   description: 'Add numbers',
@@ -21,7 +23,6 @@ const add: CommandSetup<{ numbers: number[] }, { decimals: number }> = {
       .toFixed(props.opts.decimals)
 
     props.log.header('Result')
-
     props.log.list2(['Sum', sum])
   },
   arguments: [
@@ -44,51 +45,17 @@ const add: CommandSetup<{ numbers: number[] }, { decimals: number }> = {
   ],
 }
 
-const constants: CommandSetup<{ name: 'PI' | 'e' }> = {
-  id: 'constants',
-  title: 'Constants',
-  description: 'Mathematical constant',
-  script: props => async () => {
-    await delay(1000)
-
-    if (props.args.name === 'PI') {
-      props.log.list2(['PI', '3.1415'])
-    }
-    if (props.args.name === 'e') {
-      props.log.list2(['e', '2.7182'])
-    }
-  },
-  arguments: [
-    {
-      id: 'name',
-      description: 'Name of the constant',
-      title: 'Name',
-      required: true,
-      choices: [
-        {
-          name: 'PI - number',
-          value: 'PI',
-        },
-        {
-          name: `e - Euler's number`,
-          value: 'e',
-        },
-      ],
-    },
-  ],
-}
-
-const math: ProgramSetup = {
+const math = {
   id: 'math',
   title: 'Math',
   description: 'Mathematical operation',
   isMultiCommand: true,
-  commands: [add, constants],
+  commands: [add],
 }
 
-const SETUP: CliSetup = {
+const SETUP = {
   name: 'CLI',
-  description: 'Demo CLI config.',
+  description: 'Demo CLI config. (ts config)',
   version: '0.0.0',
   reporterConfig: {
     outputFolderPath: '.cli-report',

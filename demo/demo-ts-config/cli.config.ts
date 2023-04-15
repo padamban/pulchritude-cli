@@ -55,9 +55,12 @@ const constants: CommandSetup<{ name: 'PI' | 'e' }> = {
   script: props => async () => {
     await delay(1000)
 
+    props.log.header('Result')
+
     if (props.args.name === 'PI') {
       props.log.list2(['PI', '3.1415'])
     }
+
     if (props.args.name === 'e') {
       props.log.list2(['e', '2.7182'])
     }
