@@ -29,5 +29,5 @@ module.exports = {
     'simple-import-sort/exports': 'error',
   },
   overrides: [],
-  ignorePatterns: ['node_modules', 'dist'],
+  ignorePatterns: ['node_modules', 'dist', '.coverage'],
 }
