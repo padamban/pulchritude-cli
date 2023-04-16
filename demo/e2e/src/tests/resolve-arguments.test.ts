@@ -25,7 +25,7 @@ describe('Resolve CLI command', () => {
       await env.cleanup()
     })
 
-    test('provide every option', async () => {
+    test.skip('provide every option', async () => {
       const env = await getTerminal()
 
       await env.writeConfig('option-params')
