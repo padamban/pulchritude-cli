@@ -2,4 +2,4 @@ packages:
   - 'packages/*'
   - 'configs/*'
   - 'cli/*'
-  - 'demo/demo-*'
+  - 'demo/*'

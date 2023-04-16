@@ -1,0 +1,12 @@
+{
+  "name": "@pulchritude-cli/demo-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "cli": "tsx ../../cli/cli/src/run/run-now.ts"
+  },
+  "dependencies": {
+    "@pulchritude-cli/cli": "workspace:*",
+    "@gmrchk/cli-testing-library": "0.1.2"
+  }
+}

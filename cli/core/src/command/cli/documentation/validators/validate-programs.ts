@@ -18,7 +18,7 @@ function validatePrograms(args: Args): ErrorInfo[] {
   if (programs.length === 0) {
     errorInfo.push({
       issue: 'The CLI has no programs.',
-      type: 'warn',
+      type: 'error',
       location: 'CLI config',
       recommendation:
         'Add a program config object to the programs array of the CLI config.',
@@ -29,7 +29,7 @@ function validatePrograms(args: Args): ErrorInfo[] {
     if (program.commands.length === 0) {
       errorInfo.push({
         issue: `The CLI program (${program.title}) has no commands.`,
-        type: 'warn',
+        type: 'error',
         location: program.id,
         recommendation: 'Add a command config object to the commands array.',
       })

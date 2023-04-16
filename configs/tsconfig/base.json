@@ -19,7 +19,9 @@
     "skipLibCheck": true,
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": ["vitest/globals"]
+
   },
   "exclude": ["node_modules"]
 }
