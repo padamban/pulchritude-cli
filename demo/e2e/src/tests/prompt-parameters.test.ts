@@ -17,7 +17,9 @@ describe('CLI prompt', () => {
       expect(stdout).includes('?  - argument - arg1 (number) ›')
 
       await writeText('777')
+      await wait(100)
       await pressKey('enter')
+      await wait(100)
 
       stdout = await getStdout()
 

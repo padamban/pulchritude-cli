@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { prepareEnvironment } from '@gmrchk/cli-testing-library'
 import { ExecResult } from '@gmrchk/cli-testing-library/lib/createExecute'
 import {
@@ -9,6 +8,13 @@ import { Report } from '@pulchritude-cli/cli'
 import path from 'path'
 
 import { ConfigName, getConfigContents } from './get-config-contents'
+
+// TODO fix eslint
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const LOG = (..._args: any) => {
+  // eslint-disable-next-line no-console
+  // console.log(...args)
+}
 
 const CLI = path.join(__dirname, '..', 'run.ts')
 
@@ -50,7 +56,7 @@ const getTerminal = async (): Promise<TerminalEnvironment> => {
     const getStdout = async () => {
       await s.wait(100)
       const stdout = s.getStdout()
-      console.log(stdout)
+      LOG(stdout)
       return stdout
     }
 
@@ -67,9 +73,8 @@ const getTerminal = async (): Promise<TerminalEnvironment> => {
 
   const executeCli: TerminalCliExecute = async params => {
     const exe = await env.execute('tsx', `${CLI} ${params ?? ''}`)
-    console.log(exe.stdout)
-    console.log({ code: exe.code })
-
+    LOG(exe.stdout)
+    LOG({ code: exe.code })
     return exe
   }
 

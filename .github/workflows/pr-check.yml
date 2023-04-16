@@ -39,3 +39,6 @@ jobs:
 
       - name: TSC build check
         run: pnpm run build:tsc
+
+      - name: Unit test
+        run: pnpm run test:c
