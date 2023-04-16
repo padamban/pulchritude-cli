@@ -21,7 +21,6 @@
     "noUncheckedIndexedAccess": true,
     "noEmit": true,
     "types": ["vitest/globals"]
-
   },
   "exclude": ["node_modules"]
 }
