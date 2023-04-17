@@ -13,7 +13,7 @@ import { ConfigName, getConfigContents } from './get-config-contents'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const LOG = (..._args: any) => {
   // eslint-disable-next-line no-console
-  // console.log(...args)
+  console.log(..._args)
 }
 
 const CLI = path.join(__dirname, '..', 'run.ts')
