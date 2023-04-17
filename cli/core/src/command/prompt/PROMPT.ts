@@ -16,6 +16,7 @@ import { getCommandPrompt } from './get-command.prompt'
 import { getOptionsPrompt } from './get-options.prompt'
 import { getProgramPrompt } from './get-program.prompt'
 import { fixParameterValues } from './utils/fix-parameter-values'
+import { hasParameters } from './utils/has-parameters'
 import { isWatchMode } from './utils/is-watch-mode'
 
 interface Args {
@@ -68,7 +69,7 @@ async function PROMPT(args: Args): Promise<Retval> {
     if (noPrompt) {
       argumentResponse = args.argumentValues
       optionResponse = args.optionValues
-    } else {
+    } else if (hasParameters({ command })) {
       console.log(chalk.bold(`\n${Color.command(command.title)} parameters`))
 
       argumentResponse = await getArgumentsPrompt({
@@ -81,6 +82,8 @@ async function PROMPT(args: Args): Promise<Retval> {
         command,
       })
 
+      console.log('')
+    } else {
       console.log('')
     }
 

@@ -10,6 +10,7 @@ import {
 } from '@pulchritude-cli/core'
 
 import { displayBanner } from '../display/banner'
+import { displayVersionLine } from '../display/version-line'
 
 /**
  * Run CLI application.
@@ -30,6 +31,10 @@ const RUN = async () => {
 
   const cwd = config.cwd ?? process.cwd()
 
+  const setup = RESOLVE_SETUP(config.value)
+
+  displayVersionLine({ width, version: setup.version })
+
   const reporter = REPORTER({
     cwd,
     rendererConfig: {
@@ -41,8 +46,6 @@ const RUN = async () => {
       ...config.value.reporterConfig,
     },
   })
-
-  const setup = RESOLVE_SETUP(config.value)
 
   const fileBuilder = FILE_BUILDER({ onError: logErrorToConsole })
 

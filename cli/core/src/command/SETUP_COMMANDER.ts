@@ -40,7 +40,7 @@ export const SETUP_COMMANDER =
     commander
       .name(setup.name)
       .description(setup.description)
-      .version(setup.version)
+      .version(setup.version, '-v, --version', 'Version of the CLI tool.')
 
     const commands: Command[] = [commander]
 

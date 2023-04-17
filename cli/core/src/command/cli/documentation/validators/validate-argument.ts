@@ -15,13 +15,9 @@ function validateArgument(args: Args): ErrorInfo[] {
 
   const requiredOrder = args.arguments?.map(a => !!a.required) ?? []
 
-  let brokenRequiredOrder = false
-  let prevRequired = true
-
-  requiredOrder?.forEach(r => {
-    brokenRequiredOrder = prevRequired === false && r === true
-    prevRequired = r
-  })
+  const brokenRequiredOrder =
+    JSON.stringify([...requiredOrder].sort().reverse()) !==
+    JSON.stringify(requiredOrder)
 
   if (brokenRequiredOrder) {
     errorInfo.push({

@@ -18,7 +18,7 @@ interface Args {
 async function getArgumentsPrompt(args: Args): Promise<Obj> {
   const { command } = args
 
-  if (!command?.arguments) return { argumentResponse: {} }
+  if (!command?.arguments) return {}
 
   const argumentResponse = await prompt(
     command.arguments

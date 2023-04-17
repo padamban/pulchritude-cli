@@ -5,6 +5,7 @@ export type {
   CommandSetup,
   OptionSetup,
   ProgramSetup,
+  Report,
 } from '@pulchritude-cli/core'
 
 export { RUN }

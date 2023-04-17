@@ -1,4 +1,6 @@
 dist
+.coverage
+**/.cli-repport
 **/dist
 pnpm-lock.yaml
 

@@ -19,6 +19,9 @@ function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
 
   _(`\n\n${Color.subtitle('CONFIGURED PROGRAMS')}\n`)
 
+  if (setup.programs.length === 0) {
+    _(`\n${Color.warning(' - No programs')}\n`)
+  }
   setup.programs.forEach(p => {
     _(
       `${ComposeTag.forProgram(p, { cellLength }).coloredCellText}${

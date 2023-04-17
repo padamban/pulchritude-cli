@@ -20,14 +20,16 @@ function createTerminalCommand({
 }: Args): string {
   let cmd = `${cliName} ${programName} ${commandToRun.command.name}`
 
-  cmd += commandToRun.command.arguments?.reduce((acc, arg) => {
-    const value = commandToRun.argumentResponse[arg.id]
-    if (value !== undefined) acc += ' ' + asArray(value).join(' ')
-    return acc
-  }, '')
+  if (commandToRun.command.arguments) {
+    cmd += commandToRun.command.arguments.reduce((acc, arg) => {
+      const value = commandToRun.argumentResponse[arg.id]
+      if (value !== undefined) acc += ' ' + asArray(value).join(' ')
+      return acc
+    }, '')
+  }
 
-  cmd +=
-    commandToRun.command.options?.reduce((acc, opt) => {
+  if (commandToRun.command.options) {
+    cmd += commandToRun.command.options.reduce((acc, opt) => {
       const value = commandToRun.optionResponse[opt.id]
       if (value !== undefined) acc += ` ${opt.name}`
 
@@ -39,7 +41,10 @@ function createTerminalCommand({
       acc += ` ${asArray(value).join(',')}`
 
       return acc
-    }, '') + ' -np'
+    }, '')
+  }
+
+  cmd += ' -np'
 
   return cmd
 }

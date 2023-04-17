@@ -39,3 +39,12 @@ jobs:
 
       - name: TSC build check
         run: pnpm run build:tsc
+
+      - name: Unit test
+        run: pnpm run test:c
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./.coverage/cobertura-coverage.xml
