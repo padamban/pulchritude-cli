@@ -1,24 +1,20 @@
 import { getTerminal } from '../utils/terminal'
 
 describe('CLI setup validator', () => {
-  test(
-    'shows error if the cli has no programs',
-    async () => {
-      const env = await getTerminal()
+  test('shows error if the cli has no programs', async () => {
+    const env = await getTerminal()
 
-      await env.writeConfig('only-cli-info')
+    await env.writeConfig('only-cli-info')
 
-      const { code, stdout } = await env.executeCli()
+    const { code, stdout } = await env.executeCli()
 
-      expect(code).toBe(1)
-      expect(stdout).includes('CLI SETUP ISSUES')
-      expect(stdout).includes('ERROR - The CLI has no programs.')
-      expect(stdout).includes('Exiting due to setup validation errors...')
+    expect(code).toBe(1)
+    expect(stdout).includes('CLI SETUP ISSUES')
+    expect(stdout).includes('ERROR - The CLI has no programs.')
+    expect(stdout).includes('Exiting due to setup validation errors...')
 
-      await env.cleanup()
-    },
-    { timeout: 20000 },
-  )
+    await env.cleanup()
+  })
 
   test('shows error if the cli programs has no command', async () => {
     const env = await getTerminal()
@@ -37,31 +33,31 @@ describe('CLI setup validator', () => {
     await env.cleanup()
   })
 
-  // test('does not show error if the cli program command has no parameters', async () => {
-  //   const env = await getTerminal()
+  test('does not show error if the cli program command has no parameters', async () => {
+    const env = await getTerminal()
 
-  //   await env.writeConfig('only-command-info')
+    await env.writeConfig('only-command-info')
 
-  //   const { code, stdout } = await env.executeCli('--help')
+    const { code, stdout } = await env.executeCli('--help')
 
-  //   expect(code).toBe(0)
-  //   expect(stdout).not.includes('CLI SETUP ISSUES')
+    expect(code).toBe(0)
+    expect(stdout).not.includes('CLI SETUP ISSUES')
 
-  //   await env.cleanup()
-  // })
+    await env.cleanup()
+  })
 
-  // test(`parameter validation passed`, async () => {
-  //   const env = await getTerminal()
+  test(`parameter validation passed`, async () => {
+    const env = await getTerminal()
 
-  //   await env.writeConfig('valid-params')
+    await env.writeConfig('valid-params')
 
-  //   const { code, stdout } = await env.executeCli(`--help`)
+    const { code, stdout } = await env.executeCli(`--help`)
 
-  //   expect(code).toBe(0)
-  //   expect(stdout).not.includes('CLI SETUP ISSUES')
+    expect(code).toBe(0)
+    expect(stdout).not.includes('CLI SETUP ISSUES')
 
-  //   await env?.cleanup()
-  // })
+    await env?.cleanup()
+  })
 
   // describe('parameter validation found issues', () => {
   //   let env: TerminalEnvironment | undefined
