@@ -20,22 +20,22 @@ describe('CLI setup validator', () => {
     { timeout: 20000 },
   )
 
-  // test('shows error if the cli programs has no command', async () => {
-  //   const env = await getTerminal()
+  test('shows error if the cli programs has no command', async () => {
+    const env = await getTerminal()
 
-  //   await env.writeConfig('only-program-info')
+    await env.writeConfig('only-program-info')
 
-  //   const { code, stdout } = await env.executeCli()
+    const { code, stdout } = await env.executeCli()
 
-  //   expect(code).toBe(1)
-  //   expect(stdout).includes('CLI SETUP ISSUES')
-  //   expect(stdout).includes(
-  //     'ERROR - The CLI program (Program) has no commands.',
-  //   )
-  //   expect(stdout).includes('Exiting due to setup validation errors...')
+    expect(code).toBe(1)
+    expect(stdout).includes('CLI SETUP ISSUES')
+    expect(stdout).includes(
+      'ERROR - The CLI program (Program) has no commands.',
+    )
+    expect(stdout).includes('Exiting due to setup validation errors...')
 
-  //   await env.cleanup()
-  // })
+    await env.cleanup()
+  })
 
   // test('does not show error if the cli program command has no parameters', async () => {
   //   const env = await getTerminal()
