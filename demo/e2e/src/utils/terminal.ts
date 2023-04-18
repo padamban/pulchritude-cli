@@ -67,7 +67,8 @@ const getTerminal = async (): Promise<TerminalEnvironment> => {
 
   const spawnCli: TerminalCliSpawn = async params => {
     const s = await spawn('tsx', `${CLI} ${params ?? ''}`)
-    await s.wait(1000)
+    await s.waitForText('0.0.0')
+    await s.wait(500)
     return s
   }
 
