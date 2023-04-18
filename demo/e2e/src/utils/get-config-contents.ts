@@ -9,6 +9,9 @@ type ConfigName =
   | 'valid-params'
   | 'argument-params'
   | 'option-params'
+  | 'js-based'
+
+type ConfigExtension = 'ts' | 'js' | (string & {})
 
 type ConfigContent = string
 
@@ -16,17 +19,31 @@ interface Args {
   configFolder: string
 }
 
-function getConfigContents(args: Args): Map<ConfigName, ConfigContent> {
+type Retval = Map<
+  ConfigName,
+  {
+    extension: ConfigExtension
+    content: ConfigContent
+  }
+>
+
+function getConfigContents(args: Args): Retval {
   const { configFolder } = args
   const configFilePaths = fs.readdirSync(configFolder)
 
-  const contents = configFilePaths.reduce(
+  const contents = configFilePaths.reduce<Retval>(
     (map, p) =>
       map.set(
         p.split('.')[0] as any,
-        fs.readFileSync(path.resolve(configFolder, p), { encoding: 'utf8' }),
+
+        {
+          extension: p.split('.')[2] ?? 'ts',
+          content: fs.readFileSync(path.resolve(configFolder, p), {
+            encoding: 'utf8',
+          }),
+        },
       ),
-    new Map<ConfigName, ConfigContent>(),
+    new Map(),
   )
 
   return contents

@@ -9,11 +9,9 @@ import path from 'path'
 
 import { ConfigName, getConfigContents } from './get-config-contents'
 
-// TODO fix eslint
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const LOG = (..._args: any) => {
   // eslint-disable-next-line no-console
-  console.log(..._args)
+  // console.log(..._args)
 }
 
 const CLI = path.join(__dirname, '..', 'run.ts')
@@ -80,7 +78,11 @@ const getTerminal = async (): Promise<TerminalEnvironment> => {
   }
 
   const writeConfig: TerminalEnvironment['writeConfig'] = async configName => {
-    await env.writeFile('./cli.config.ts', CONFIG.get(configName)!)
+    const config = CONFIG.get(configName)
+
+    if (!config) return
+
+    await env.writeFile(`./cli.config.${config.extension}`, config.content)
   }
 
   const readReport: TerminalEnvironment['readReport'] = async () => {
