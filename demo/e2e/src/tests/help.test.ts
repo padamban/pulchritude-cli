@@ -1,6 +1,6 @@
 import { getTerminal, TerminalEnvironment } from '../utils/terminal'
 
-describe.skip('CLI help', () => {
+describe('CLI help', () => {
   describe('not shown if the CLI setup has validation errors', () => {
     test('missing programs', async () => {
       const env = await getTerminal()
