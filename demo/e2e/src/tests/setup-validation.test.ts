@@ -1,6 +1,6 @@
 import { getTerminal, TerminalEnvironment } from '../utils/terminal'
 
-describe.skip('CLI setup validator', () => {
+describe('CLI setup validator', () => {
   test('shows error if the cli has no programs', async () => {
     const env = await getTerminal()
 
@@ -44,6 +44,19 @@ describe.skip('CLI setup validator', () => {
     expect(stdout).not.includes('CLI SETUP ISSUES')
 
     await env.cleanup()
+  })
+
+  test(`parameter validation passed`, async () => {
+    const env = await getTerminal()
+
+    await env.writeConfig('valid-params')
+
+    const { code, stdout } = await env.executeCli(`--help`)
+
+    expect(code).toBe(0)
+    expect(stdout).not.includes('CLI SETUP ISSUES')
+
+    await env?.cleanup()
   })
 
   describe('parameter validation found issues', () => {
@@ -94,18 +107,5 @@ describe.skip('CLI setup validator', () => {
       )
       expect(stdout).includes('> It happened at: program.command.opt2')
     })
-  })
-
-  test(`parameter validation passed`, async () => {
-    const env = await getTerminal()
-
-    await env.writeConfig('valid-params')
-
-    const { code, stdout } = await env.executeCli(`--help`)
-
-    expect(code).toBe(0)
-    expect(stdout).not.includes('CLI SETUP ISSUES')
-
-    await env?.cleanup()
   })
 })
