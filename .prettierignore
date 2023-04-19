@@ -3,4 +3,4 @@ dist
 **/.cli-repport
 **/dist
 pnpm-lock.yaml
-
+docs/.docusaurus
