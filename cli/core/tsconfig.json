@@ -1,0 +1,6 @@
+{
+  "extends": "@pulchritude-cli/config.tsconfig/ts-library.json",
+  "compilerOptions": {
+    "types": ["node", "vitest/globals"]
+  }
+}

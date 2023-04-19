@@ -6,9 +6,11 @@
     "packages/*",
     "configs/*",
     "cli/*",
-    "demo/*"
+    "demo/*",
+    "docs"
   ],
   "scripts": {
+    "dev": "turbo run dev",
     "cli": "tsx ./cli/cli/src/run/run-now.ts",
     "cli:d": "node ./cli/cli/dist/run/run-now.js",
     "format": "prettier --write .",
