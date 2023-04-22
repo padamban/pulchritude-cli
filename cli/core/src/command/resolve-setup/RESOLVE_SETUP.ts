@@ -1,5 +1,5 @@
 import { CliSetupDetails } from '../_type_'
-import { CliSetup } from './_type_'
+import { ResolveSetupArgs } from './_type_'
 import { resolveProgramDetails } from './resolve-program-details'
 
 /**
@@ -11,11 +11,14 @@ import { resolveProgramDetails } from './resolve-program-details'
  * @example
  * const setup = RESOLVE_SETUP(config.value)
  */
-export function RESOLVE_SETUP(config: CliSetup): CliSetupDetails {
+export function RESOLVE_SETUP(args: ResolveSetupArgs): CliSetupDetails {
+  const { rawSetup, packageVersion } = args
+
   return {
-    name: config.name ?? 'CLI',
-    version: config.version ?? '0.0.0',
-    description: config.description ?? '',
-    programs: config.programs?.map(resolveProgramDetails) ?? [],
+    name: rawSetup?.name ?? 'CLI',
+    packageVersion: packageVersion ?? 'unknown',
+    version: rawSetup?.version ?? 'unknown',
+    description: rawSetup?.description ?? '',
+    programs: rawSetup?.programs?.map(resolveProgramDetails) ?? [],
   }
 }

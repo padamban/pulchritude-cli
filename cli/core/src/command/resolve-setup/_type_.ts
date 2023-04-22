@@ -5,13 +5,25 @@ import {
   CommandDetails,
   OptionDetails,
   ProgramDetails,
+  SemanticVersion,
 } from '../_type_'
 
 /**
  * Program details with only the essential properties being required.
  */
-export type CliSetup = Omit<Partial<CliSetupDetails>, 'programs'> &
+export type CliSetup = Omit<
+  Partial<CliSetupDetails>,
+  'programs' | 'packageVersion'
+> &
   Partial<ReplacePropertyType<CliSetupDetails, 'programs', ProgramSetup[]>>
+
+/**
+ * Arguments of the setup resolver function.
+ */
+export interface ResolveSetupArgs {
+  rawSetup: CliSetup | undefined
+  packageVersion?: SemanticVersion
+}
 
 /**
  * Program details with only the essential properties being required.
