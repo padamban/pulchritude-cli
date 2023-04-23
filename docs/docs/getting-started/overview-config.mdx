@@ -1,0 +1,195 @@
+---
+sidebar_position: 3
+description: Overview of the configuration file.
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Overview the config file
+
+Overview of each part of the config file, by creating an example CLI.
+
+:::info
+In the following sections a simple CLI tool will be built,
+that adds numbers and specifies the decimal places.
+
+```bash
+CLI math add 10 2.212 6.443 --decimals 2
+> 18.65
+```
+
+:::
+
+## CLI Setup
+
+The base information of your CLI tool.
+
+```ts title="cli.config.ts"
+import { CliSetup } from '@pulchritude-cli/cli'
+
+const SETUP: CliSetup = {
+  name: 'CLI',
+  description: 'Demo CLI tool.',
+  version: '4.2.1',
+  programs: [],
+}
+
+export default SETUP
+```
+
+## Program
+
+The CLI has a collection programs. A program is a collection of related commands.
+
+### Create a program
+
+```ts title="cli.config.ts"
+import { ProgramSetup } from '@pulchritude-cli/cli'
+
+const math: ProgramSetup = {
+  id: 'math',
+  title: 'Math',
+  description: 'Mathematical operations',
+  commands: [],
+}
+```
+
+### Register the program
+
+```ts title="cli.config.ts"
+const SETUP: CliSetup = {
+  name: 'CLI',
+  ...
+  // highlight-start
+  programs: [math],
+  // highlight-end
+}
+```
+
+## Command
+
+A command defines arguments and options and a script to run.
+
+### Create a command
+
+```ts title="cli.config.ts"
+import { CommandSetup } from '@pulchritude-cli/cli'
+
+const add: CommandSetup = {
+  id: 'add',
+  title: 'Addition',
+  description: 'Add numbers',
+  arguments: [],
+  options: [],
+  script: props => async () => {},
+}
+```
+
+### Register the command
+
+```ts title="cli.config.ts"
+const math: ProgramSetup = {
+  id: 'math',
+  ...
+  // highlight-start
+  commands: [add],
+  // highlight-end
+}
+```
+
+## Argument
+
+Positional parameters of the command.
+
+### Create the argument
+
+The type in the first genric slot and the argument config values should mirror each other.
+
+```ts title="cli.config.ts"
+// highlight-start
+const add: CommandSetup<{ numbers: number[] }> = {
+  // highlight-end
+  id: 'add',
+  ...
+  // highlight-start
+  arguments: [
+    {
+      id: 'numbers',
+      description: 'Numbers to add',
+      title: 'Numbers',
+      type: 'number',
+      required: true,
+      variadic: true, // multiple values, array
+    },
+  ],
+  // highlight-end
+}
+```
+
+## Option
+
+Named parameters of the command.
+
+### Create the option
+
+The type in the second genric slot and the option config values should mirror each other.
+
+```ts title="cli.config.ts"
+// highlight-start
+const add: CommandSetup<any, { decimals: number }> = {
+  // highlight-end
+  id: 'add',
+  ...
+  // highlight-start
+  options: [
+    {
+      id: 'decimals',
+      title: 'Decimals',
+      description: 'Number of decimals to show.',
+      type: 'number',
+    },
+  ],
+  // highlight-end
+}
+```
+
+## Scripts
+
+Script is an async function executed by the selected command.
+
+```ts title="cli.config.ts"
+const add: CommandSetup<{ numbers: number[] }, { decimals: number }> = {
+  id: 'add',
+  ...
+  arguments: [ ... ],
+  options: [ ... ],
+  // highlight-start
+  script: params => async () => {
+    const sum = params.args.numbers
+      .reduce((acc, v) => acc + v, 0)
+      .toFixed(params.opts.decimals)
+
+    params.fileManager.writeFile('./result.txt', sum)
+  },
+  // highlight-end
+}
+```
+
+:::caution
+
+With the original command we wanted to output the the data directly into the console.
+
+```bash
+CLI math add 10 2.212 6.443 --decimals 2
+> 18.65
+```
+
+However this is not possible with the current CLI tooling.
+Instead we wrote the info to a result file.
+
+```ts
+params.fileManager.writeFile('./result.txt', sum)
+```
+
+:::
