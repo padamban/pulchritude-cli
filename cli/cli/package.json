@@ -1,6 +1,6 @@
 {
   "name": "@pulchritude-cli/cli",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "private": false,
   "type": "module",
   "main": "src/index.ts",

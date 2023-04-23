@@ -1,5 +1,11 @@
 # @pulchritude-cli/core
 
+## 0.4.0
+
+### Minor Changes
+
+- 9ccd0cb: Joint release
+
 ## 0.3.0
 
 ### Patch Changes
