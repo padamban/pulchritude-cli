@@ -18,7 +18,7 @@ sidebar_position: 1
 
 #### Argument parsing
 
-#### Argument alias parsing 
+#### Argument alias parsing
 
 #### Prompt
 
@@ -33,6 +33,3 @@ sidebar_position: 1
 ### Logging
 
 #### Report files
-
-
-
