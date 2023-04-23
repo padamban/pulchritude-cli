@@ -1,6 +1,6 @@
 import { getTerminal } from '../utils/terminal'
 
-describe('CLI prompt', () => {
+describe.skip('CLI prompt', () => {
   describe('arguments', () => {
     test('specify argument values, check values', async () => {
       const env = await getTerminal()

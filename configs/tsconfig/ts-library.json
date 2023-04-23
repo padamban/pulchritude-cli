@@ -3,6 +3,8 @@
   "display": "TS Library",
   "extends": "./base.json",
   "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "types": ["node", "vitest/globals"]
   }
 }

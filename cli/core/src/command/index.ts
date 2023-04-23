@@ -8,4 +8,5 @@ export type {
   ProgramSetup,
 } from './resolve-setup/_type_'
 export { RESOLVE_SETUP } from './resolve-setup/RESOLVE_SETUP'
+export { resolveProgramDetails } from './resolve-setup/resolve-program-details'
 export { SETUP_COMMANDER } from './SETUP_COMMANDER'

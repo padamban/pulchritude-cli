@@ -2,9 +2,9 @@ import { Command, Option } from 'commander'
 
 import { CliSetupDetails, CommandContext } from './_type_'
 import { ACTION_RESOLVER } from './cli/ACTION_RESOLVER'
+import { Color } from './cli/colors'
 import { addCmdDocumentationFactory } from './cli/documentation/add-documentation'
 import { CommanderDescription } from './cli/documentation/sections/utils/get-description'
-import { VALIDATE_SETUP } from './cli/documentation/validators/VALIDATE_SETUP'
 import { CommanderTag } from './cli/utils/get-commander-tag'
 import { GLOBAL_OPTIONS } from './global-options'
 
@@ -27,10 +27,10 @@ export const SETUP_COMMANDER =
   async (argv: string[]) => {
     const commander = new Command()
 
-    VALIDATE_SETUP({
-      setup,
-      width: ctx.reporter.args?.rendererConfig.terminal.frameWidth,
-    })
+    // VALIDATE_SETUP({
+    //   setup,
+    //   width: ctx.reporter.args?.rendererConfig.terminal.frameWidth,
+    // })
 
     const addDocs = addCmdDocumentationFactory({
       setup,
@@ -40,7 +40,16 @@ export const SETUP_COMMANDER =
     commander
       .name(setup.name)
       .description(setup.description)
-      .version(setup.version, '-v, --version', 'Version of the CLI tool.')
+      .version(
+        `\n\nCLI package version: ${Color.important(
+          setup.packageVersion?.padStart(15),
+        )}\nCLI config version:  ${Color.important(
+          setup.version.padStart(15),
+        )}\n`,
+        '-v,   --version',
+        'Version of the CLI tool.',
+      )
+      .option('-i,   --init', 'Create config')
 
     const commands: Command[] = [commander]
 

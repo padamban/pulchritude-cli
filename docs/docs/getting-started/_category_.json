@@ -1,0 +1,9 @@
+{
+  "label": "Getting started",
+  "position": 2,
+  "collapsed": false,
+  "link": {
+    "type": "generated-index",
+    "description": "Quick guide to setup a CLI."
+  }
+}

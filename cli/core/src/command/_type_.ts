@@ -3,6 +3,18 @@ import { FileManagerInstance } from '../file-manager'
 import { SubProgressBar } from '../progress'
 import { CliReporter, CliReportLogger, ReportRendererConfig } from '../report'
 import { Obj, StringKeyof, Type } from '../utils'
+import { CliSetup } from './resolve-setup/_type_'
+
+export interface CliSetupResolverArgs {
+  config: CliSetup | undefined
+}
+
+/**
+ * Semantic version.
+ */
+export type SemanticVersion =
+  | `${number}.${number}.${number}${'' | `-${string}`}`
+  | 'unknown'
 
 /**
  * Config object for the CLI.
@@ -20,10 +32,18 @@ export interface CliSetupDetails {
   description: string
 
   /**
-   * Semantic version of the CLI tool.
+   * Semantic version of the CLI tool config file.
    */
-  version: `${number}.${number}.${number}${'' | `-${string}`}`
+  version: SemanticVersion
 
+  /**
+   * Semantic version of the CLI tool package.
+   */
+  packageVersion: SemanticVersion
+
+  /**
+   * Configuration of the reporter.
+   */
   reporterConfig?: Pick<ReportRendererConfig, 'output' | 'outputFolderPath'>
 
   /**

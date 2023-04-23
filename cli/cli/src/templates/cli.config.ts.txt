@@ -1,24 +1,15 @@
 import { CliSetup, CommandSetup, ProgramSetup } from '@pulchritude-cli/cli'
 
-export const delay = (ms = 500): Promise<unknown> =>
-  new Promise<void>(resolve => {
-    setTimeout(() => resolve(), ms)
-  })
-
 const add: CommandSetup<{ numbers: number[] }, { decimals: number }> = {
   id: 'add',
   title: 'Addition',
   description: 'Add numbers',
   script: props => async () => {
     props.progress?.setSectionCount(3)
+
     props.progress?.setSectionLabel('Stage 1.')
-    await delay(1000)
-
     props.progress?.nextActiveSection('Stage 2.')
-    await delay(1000)
-
     props.progress?.nextActiveSection('Stage 3.')
-    await delay(1000)
 
     const sum = props.args.numbers
       .reduce((acc, v) => acc + v, 0)
@@ -53,8 +44,7 @@ const constants: CommandSetup<{ name: 'PI' | 'e' }> = {
   title: 'Constants',
   description: 'Mathematical constant',
   script: props => async () => {
-    await delay(1000)
-    props.fileManager.writeFile('./result.txt', String())
+
     props.log.header('Result')
 
     if (props.args.name === 'PI') {

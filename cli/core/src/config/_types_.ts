@@ -6,18 +6,13 @@ export type LoadConfigState = 'success' | 'error' | 'missing-config-file'
 /**
  * Arguments of the config loader.
  */
-export interface LoadConfigArgs<CONFIG> {
+export interface LoadConfigArgs {
   /**
    * The possible filenames that will be loaded automatically.
    * @example
    * ['cli.config.ts', 'dev-cli.config.ts']
    */
   validConfigFilePaths: string[]
-
-  /**
-   * Default config object.
-   */
-  defaultConfig: CONFIG
 }
 
 /**
@@ -27,7 +22,7 @@ export interface LoadConfigRetval<CONFIG> {
   /**
    * Loaded config object.
    */
-  value: CONFIG
+  value: CONFIG | undefined
 
   /**
    * Current working directory.

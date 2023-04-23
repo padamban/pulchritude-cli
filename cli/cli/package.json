@@ -10,7 +10,8 @@
     "access": "public"
   },
   "bin": {
-    "dev-cli": "bin/dev-cli.js"
+    "dev-cli": "bin/dev-cli.js",
+    "CLI": "bin/CLI.js"
   },
   "scripts": {
     "build": "tsup src/** --format cjs,esm --dts",

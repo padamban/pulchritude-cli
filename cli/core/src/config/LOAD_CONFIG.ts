@@ -18,9 +18,9 @@ const joycon = new JoyCon()
  * })
  */
 export async function LOAD_CONFIG<C extends object>(
-  args: LoadConfigArgs<C>,
+  args: LoadConfigArgs,
 ): Promise<LoadConfigRetval<C>> {
-  const { defaultConfig, validConfigFilePaths } = args
+  const { validConfigFilePaths } = args
 
   const CURRENT_WORKING_DIRECTORY = process.cwd()
 
@@ -42,7 +42,6 @@ export async function LOAD_CONFIG<C extends object>(
 
       return {
         value: {
-          ...defaultConfig,
           ...config,
         },
         cwd: rootDir,
@@ -50,7 +49,7 @@ export async function LOAD_CONFIG<C extends object>(
       }
     } catch (error) {
       return {
-        value: defaultConfig,
+        value: undefined,
         cwd: undefined,
         state: 'error',
         error: String(error),
@@ -58,5 +57,9 @@ export async function LOAD_CONFIG<C extends object>(
     }
   }
 
-  return { value: defaultConfig, cwd: undefined, state: 'missing-config-file' }
+  return {
+    value: undefined,
+    cwd: undefined,
+    state: 'missing-config-file',
+  }
 }
