@@ -10,13 +10,11 @@ import {
   SETUP_COMMANDER,
 } from '@pulchritude-cli/core'
 import { SemanticVersion } from '@pulchritude-cli/core/src/command/_type_'
-import fs from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
 
 import packageJson from '../../package.json'
 import { displayBanner } from '../display/banner'
 import { displayVersionLine } from '../display/version-line'
+import { TEMPLATES } from '../templates'
 
 /**
  * Run CLI application.
@@ -71,25 +69,24 @@ const RUN = async () => {
           script: props => async () => {
             const opts: { language: string } = props.opts
 
-            const __filename = fileURLToPath(import.meta.url)
-            const __dirname = path.dirname(__filename)
-
             const extension = opts.language
 
-            const configFile = `cli.config.${extension}`
-
-            const templatePath = path.join(
-              __dirname,
-              '../templates',
-              `${configFile}.txt`,
+            const template = TEMPLATES.find(
+              t => t.name === 'basic' && t.extension === extension,
             )
 
-            if (fs.existsSync(templatePath)) {
-              const content = fs.readFileSync(templatePath, {
-                encoding: 'utf8',
+            if (template) {
+              props.fileManager.writeFile(
+                `cli.config.${extension}`,
+                template.content,
+              )
+            } else {
+              props.log.errorDetail({
+                issue: `Couldn't find a template file.`,
+                type: 'error',
+                recommendation: 'Specify the template file language.',
+                location: 'Command parameters.',
               })
-
-              props.fileManager.writeFile(configFile, content)
             }
           },
         },

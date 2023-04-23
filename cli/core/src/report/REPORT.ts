@@ -1,7 +1,13 @@
 import path from 'path'
 
 import { PROGRESS } from '../progress'
-import { CliReporter, Report, ReporterArgs, ReportStatus } from './_type_'
+import {
+  CliReporter,
+  CliReportLogger,
+  Report,
+  ReporterArgs,
+  ReportStatus,
+} from './_type_'
 import { RENDER_REPORT } from './renderer/RENDER_REPORT'
 
 /**
@@ -88,7 +94,7 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
   const section = () => report.sections.at(-1)
   const content = () => section()?.content
 
-  const log = {
+  const log: CliReportLogger = {
     title: (title: string) => {
       if (finished) return log
       const s = section()
@@ -125,69 +131,71 @@ export const REPORTER = (args?: ReporterArgs): CliReporter => {
       }
       return log
     },
-    header: (text: string, status: ReportStatus = 'NONE') => {
+    header: (text, status = 'NONE') => {
       if (finished) return log
       content()?.push({ type: 'header', text, status })
       log.sectionStatus(status)
       return log
     },
-    line: (text: string, status: ReportStatus = 'NONE') => {
+    line: (text, status = 'NONE') => {
       if (finished) return log
       log.headerStatus(status)
       content()?.push({ type: 'line', text, status })
       return log
     },
-    solutionLine: (text: string) => {
+    solutionLine: text => {
       if (finished) return log
       content()?.push({ type: 'solution-line', text })
       return log
     },
-    problemLine: (text: string) => {
+    problemLine: text => {
       if (finished) return log
       content()?.push({ type: 'problem-line', text })
       return log
     },
-    labeledLine: (
-      label: string,
-      text: string,
-      status: ReportStatus = 'NONE',
-    ) => {
+    labeledLine: (label, text, status = 'NONE') => {
       if (finished) return log
       content()?.push({ type: 'labeled-line', label, text, status })
       return log
     },
-    list: (data: string[]) => {
+    list: data => {
       if (finished) return log
       content()?.push({ type: 'list', items: data })
       return log
     },
-    codeList: (data: string[]) => {
+    codeList: data => {
       if (finished) return log
       content()?.push({ type: 'code-list', items: data })
       return log
     },
-    list2: (...items: [string, string][]) => {
+    list2: (...items) => {
       if (finished) return log
       content()?.push({ type: 'list-2col', items })
       return log
     },
-    codeList2: (...items: [string, string][]) => {
+    codeList2: (...items) => {
       if (finished) return log
       content()?.push({ type: 'code-list-2col', items })
       return log
     },
-    table2: (...data: [string, string][]) => {
+    table2: (...data) => {
       if (finished) return log
       content()?.push({ type: 'table-2col', content: data })
       return log
     },
-    error: (err: unknown) => {
+    error: err => {
       if (finished) return log
       log.headerStatus('ERROR')
       content()?.push({ type: 'error', text: '' + err })
       return log
     },
-    consoleOutput: (output: unknown) => {
+    errorDetail: err => {
+      if (finished) return log
+      log.headerStatus('ERROR')
+      content()?.push({ type: 'error-detail', info: err })
+      return log
+    },
+    consoleOutput: output => {
       if (finished) return log
       content()?.push({ type: 'console-output', text: '' + output })
       return log

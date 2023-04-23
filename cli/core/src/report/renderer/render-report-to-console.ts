@@ -75,6 +75,24 @@ export const renderReportToConsole = ({ report, width = 50 }: Args) => {
               break
           }
           break
+
+        case 'solution-line':
+          log(`${tab}     - Solution: ${chalk.green(c.text)}`)
+          break
+        case 'error-detail':
+          switch (c.info.type) {
+            case 'error':
+              log(`${tab}     - ${chalk.red(c.info.issue)}`)
+              if (c.info.recommendation)
+                log(`${tab}     - ${chalk.green(c.info.recommendation)}`)
+              break
+            case 'warn':
+              log(`${tab}     - ${chalk.yellow(c.info.issue)}`)
+              if (c.info.recommendation)
+                log(`${tab}     - ${chalk.green(c.info.recommendation)}`)
+              break
+          }
+          break
       }
     })
   })

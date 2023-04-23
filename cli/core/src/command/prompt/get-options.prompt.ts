@@ -105,7 +105,7 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
         const message =
           Color.gray(' - option - ') +
           Color.option(opt.title) +
-          Color.gray(` (${opt.type}${opt.variadic ? ' list' : ''})`)
+          Color.gray(` (${opt.type ?? 'choice'}${opt.variadic ? ' list' : ''})`)
 
         return getParameterPrompt({ parameter: opt, message })
       }) ?? [],

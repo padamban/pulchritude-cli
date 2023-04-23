@@ -1,3 +1,6 @@
+import { TemplateDetails } from './_type_'
+
+const template = `
 import { CliSetup, CommandSetup, ProgramSetup } from '@pulchritude-cli/cli'
 
 const add: CommandSetup<{ numbers: number[] }, { decimals: number }> = {
@@ -5,19 +8,11 @@ const add: CommandSetup<{ numbers: number[] }, { decimals: number }> = {
   title: 'Addition',
   description: 'Add numbers',
   script: props => async () => {
-    props.progress?.setSectionCount(3)
-
-    props.progress?.setSectionLabel('Stage 1.')
-    props.progress?.nextActiveSection('Stage 2.')
-    props.progress?.nextActiveSection('Stage 3.')
-
     const sum = props.args.numbers
       .reduce((acc, v) => acc + v, 0)
       .toFixed(props.opts.decimals)
 
-    props.log.header('Result')
-
-    props.log.list2(['Sum', sum])
+      props.log.solutionLine(\`\${sum}\`)
   },
   arguments: [
     {
@@ -39,48 +34,11 @@ const add: CommandSetup<{ numbers: number[] }, { decimals: number }> = {
   ],
 }
 
-const constants: CommandSetup<{ name: 'PI' | 'e' }> = {
-  id: 'constants',
-  title: 'Constants',
-  description: 'Mathematical constant',
-  script: props => async () => {
-
-    props.log.header('Result')
-
-    if (props.args.name === 'PI') {
-      props.log.list2(['PI', '3.1415'])
-    }
-
-    if (props.args.name === 'e') {
-      props.log.list2(['e', '2.7182'])
-    }
-  },
-  arguments: [
-    {
-      id: 'name',
-      description: 'Name of the constant',
-      title: 'Name',
-      required: true,
-      choices: [
-        {
-          name: 'PI - number',
-          value: 'PI',
-        },
-        {
-          name: `e - Euler's number`,
-          value: 'e',
-        },
-      ],
-    },
-  ],
-}
-
 const math: ProgramSetup = {
   id: 'math',
   title: 'Math',
   description: 'Mathematical operation',
-  isMultiCommand: true,
-  commands: [add, constants],
+  commands: [add],
 }
 
 const SETUP: CliSetup = {
@@ -95,3 +53,10 @@ const SETUP: CliSetup = {
 }
 
 export default SETUP
+`
+
+export const basicTsTemplate: TemplateDetails = {
+  name: 'basic',
+  extension: 'ts',
+  content: template,
+}

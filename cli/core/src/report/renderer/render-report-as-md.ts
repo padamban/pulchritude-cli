@@ -140,6 +140,31 @@ export const renderReportAsMarkdown = ({
         case 'error':
           add(`\`\`\`\n${c.text}\n\`\`\``)
           break
+        case 'error-detail':
+          add(`\n- ${renderStatus('ERROR', { silent: true })} ${c.info.issue}`)
+
+          if (c.info.location) {
+            add(`  - Location: \`${c.info.location}\``)
+          }
+          if (c.info.recommendation) {
+            add(`  - Recommendation: \`${c.info.recommendation}\``)
+          }
+          if (c.info.payload) {
+            add(
+              `  \`\`\`\n  ${c.info.payload
+                .split('\n')
+                .join('\n    ')}\n  \`\`\``,
+            )
+          }
+          if (c.info.error) {
+            add(
+              `  \`\`\`\n  ${c.info.error
+                .split('\n')
+                .join('\n    ')}\n  \`\`\``,
+            )
+          }
+
+          break
         case 'console-output':
           add(`\`\`\`\n${c.text}\n\`\`\``)
           break
