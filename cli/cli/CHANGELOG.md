@@ -1,5 +1,13 @@
 # @pulchritude-cli/cli
 
+## 0.4.1
+
+### Patch Changes
+
+- 45a5165: Fix import path
+- Updated dependencies [45a5165]
+  - @pulchritude-cli/core@0.4.1
+
 ## 0.4.0
 
 ### Minor Changes
