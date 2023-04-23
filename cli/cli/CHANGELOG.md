@@ -1,5 +1,11 @@
 # @pulchritude-cli/cli
 
+## 0.3.1
+
+### Patch Changes
+
+- feb06df: Improve template command
+
 ## 0.3.0
 
 ### Minor Changes
