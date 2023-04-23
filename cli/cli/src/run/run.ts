@@ -7,9 +7,9 @@ import {
   REPORTER,
   RESOLVE_SETUP,
   resolveProgramDetails,
+  SemanticVersion,
   SETUP_COMMANDER,
 } from '@pulchritude-cli/core'
-import { SemanticVersion } from '@pulchritude-cli/core/src/command/_type_'
 
 import packageJson from '../../package.json'
 import { displayBanner } from '../display/banner'

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
-import { SemanticVersion } from '@pulchritude-cli/core/src/command/_type_'
-import { Color } from '@pulchritude-cli/core/src/command/cli/colors'
+import { Color } from '@pulchritude-cli/core'
+import { SemanticVersion } from '@pulchritude-cli/core'
 
 interface Args {
   /**
