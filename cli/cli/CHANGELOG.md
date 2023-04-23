@@ -1,5 +1,17 @@
 # @pulchritude-cli/cli
 
+## 0.3.0
+
+### Minor Changes
+
+- 1d2b2d5: Improved version flag.
+
+### Patch Changes
+
+- fc83c47: Add js demo
+- Updated dependencies [fc83c47]
+  - @pulchritude-cli/core@0.3.0
+
 ## 0.2.7
 
 ### Patch Changes

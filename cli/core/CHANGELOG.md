@@ -1,5 +1,11 @@
 # @pulchritude-cli/core
 
+## 0.3.0
+
+### Patch Changes
+
+- fc83c47: Add js demo
+
 ## 0.2.5
 
 ### Patch Changes
