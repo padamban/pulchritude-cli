@@ -19,6 +19,7 @@
     "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
-    "@pulchritude-cli/core": "workspace:*"
+    "@pulchritude-cli/core": "workspace:*",
+    "esbuild": "0.17.18"
   }
 }
