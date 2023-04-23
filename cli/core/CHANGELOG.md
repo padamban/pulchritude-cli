@@ -1,5 +1,11 @@
 # @pulchritude-cli/core
 
+## 0.4.2
+
+### Patch Changes
+
+- 77438b0: Add esbuild as a CLI dependency to fix pnpm i issue
+
 ## 0.4.1
 
 ### Patch Changes
