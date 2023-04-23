@@ -1,3 +1,4 @@
+import { ErrorInfo } from '../error'
 import { ProgressBar } from '../progress'
 import { Obj } from '../utils'
 
@@ -55,6 +56,10 @@ export type ReportEntry =
   | {
       type: 'error'
       text: string
+    }
+  | {
+      type: 'error-detail'
+      info: ErrorInfo
     }
   | {
       type: 'console-output'
@@ -131,6 +136,7 @@ export interface CliReportLogger {
   codeList2: (...items: [string, string][]) => CliReportLogger
   table2: (...data: [string, string][]) => CliReportLogger
   error: (err: unknown) => CliReportLogger
+  errorDetail: (err: ErrorInfo) => CliReportLogger
   consoleOutput: (output: unknown) => CliReportLogger
 }
 

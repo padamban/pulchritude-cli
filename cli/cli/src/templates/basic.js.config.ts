@@ -1,29 +1,16 @@
-export const delay = (ms = 500) =>
-  new Promise(resolve => {
-    setTimeout(() => resolve(), ms)
-  })
+import { TemplateDetails } from './_type_'
 
+const template = `
 const add = {
   id: 'add',
   title: 'Addition',
   description: 'Add numbers',
   script: props => async () => {
-    props.progress?.setSectionCount(3)
-    props.progress?.setSectionLabel('Stage 1.')
-    await delay(1000)
-
-    props.progress?.nextActiveSection('Stage 2.')
-    await delay(1000)
-
-    props.progress?.nextActiveSection('Stage 3.')
-    await delay(1000)
-
     const sum = props.args.numbers
       .reduce((acc, v) => acc + v, 0)
       .toFixed(props.opts.decimals)
 
-    props.log.header('Result')
-    props.log.list2(['Sum', sum])
+    props.log.solutionLine(\`\${sum}\`)
   },
   arguments: [
     {
@@ -49,7 +36,6 @@ const math = {
   id: 'math',
   title: 'Math',
   description: 'Mathematical operation',
-  isMultiCommand: true,
   commands: [add],
 }
 
@@ -65,3 +51,10 @@ const SETUP = {
 }
 
 export default SETUP
+`
+
+export const basicJsTemplate: TemplateDetails = {
+  name: 'basic',
+  extension: 'js',
+  content: template,
+}
