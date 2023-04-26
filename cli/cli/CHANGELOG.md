@@ -1,5 +1,13 @@
 # @pulchritude-cli/cli
 
+## 0.4.3
+
+### Patch Changes
+
+- db856eb: Improve docs
+- Updated dependencies [db856eb]
+  - @pulchritude-cli/core@0.4.3
+
 ## 0.4.2
 
 ### Patch Changes
