@@ -5,6 +5,27 @@ description: Execute cli commands differently.
 
 # Run the created CLI
 
-![An image from the static](/img/docusaurus.png)
+## Global flags
 
-![An image from the static](/img/homer.gif)
+### `--help` or `-h`
+
+Displays a the full documentaion and a quick guide for the curent scope.
+
+```bash
+CLI math add --help
+
+# Dispalys:
+# - general guide
+# - full documentation generated from the config
+# - quick help for the 'add' command
+```
+
+### `--no-prompt` or `-np`
+
+By default prompts will be created for the unspecified parameters.
+
+The `--no-prompt` will not show the prompts for the optional parameters.
+
+```bash
+CLI math add 3 43 -np
+```

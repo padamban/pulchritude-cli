@@ -8,7 +8,8 @@ import TabItem from '@theme/TabItem'
 
 # Overview the config file
 
-Overview of each part of the config file, by creating an example CLI.
+Let's overview of each part of the config file,
+by going through the creation of a simple CLI application.
 
 :::info
 In the following sections a simple CLI tool will be built,
@@ -40,7 +41,9 @@ export default SETUP
 
 ## Program
 
-The CLI has a collection programs. A program is a collection of related commands.
+The CLI has a collection programs.
+
+A program is a collection of related commands.
 
 ### Create a program
 
@@ -102,7 +105,7 @@ const math: ProgramSetup = {
 
 Positional parameters of the command.
 
-### Create the argument
+### Create an argument
 
 The type in the first genric slot and the argument config values should mirror each other.
 
@@ -131,7 +134,7 @@ const add: CommandSetup<{ numbers: number[] }> = {
 
 Named parameters of the command.
 
-### Create the option
+### Create an option
 
 The type in the second genric slot and the option config values should mirror each other.
 

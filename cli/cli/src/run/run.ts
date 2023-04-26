@@ -39,60 +39,62 @@ const RUN = async () => {
     packageVersion: packageJson.version as SemanticVersion,
   })
 
-  setup.programs.unshift(
-    resolveProgramDetails({
-      id: 'config',
-      title: 'Config',
-      description: 'Built-in CLI config utilities.',
-      commands: [
-        {
-          id: 'createConfigFile',
-          title: 'Create config file',
-          description: 'Generate a config file into your directory',
-          options: [
-            {
-              id: 'language',
-              title: 'Language',
-              description: 'Language of the config file.',
-              choices: [
-                {
-                  value: 'ts',
-                  name: 'Typescript',
-                },
-                {
-                  value: 'js',
-                  name: 'Javascript',
-                },
-              ],
-            },
-          ],
-          script: props => async () => {
-            const opts: { language: string } = props.opts
+  if (config.state === 'missing-config-file') {
+    setup.programs.unshift(
+      resolveProgramDetails({
+        id: 'config',
+        title: 'Config',
+        description: 'Built-in CLI config utilities.',
+        commands: [
+          {
+            id: 'createConfigFile',
+            title: 'Create config file',
+            description: 'Generate a config file into your directory',
+            options: [
+              {
+                id: 'language',
+                title: 'Language',
+                description: 'Language of the config file.',
+                choices: [
+                  {
+                    value: 'ts',
+                    name: 'Typescript',
+                  },
+                  {
+                    value: 'js',
+                    name: 'Javascript',
+                  },
+                ],
+              },
+            ],
+            script: props => async () => {
+              const opts: { language: string } = props.opts
 
-            const extension = opts.language
+              const extension = opts.language
 
-            const template = TEMPLATES.find(
-              t => t.name === 'basic' && t.extension === extension,
-            )
-
-            if (template) {
-              props.fileManager.writeFile(
-                `cli.config.${extension}`,
-                template.content,
+              const template = TEMPLATES.find(
+                t => t.name === 'basic' && t.extension === extension,
               )
-            } else {
-              props.log.errorDetail({
-                issue: `Couldn't find a template file.`,
-                type: 'error',
-                recommendation: 'Specify the template file language.',
-                location: 'Command parameters.',
-              })
-            }
+
+              if (template) {
+                props.fileManager.writeFile(
+                  `cli.config.${extension}`,
+                  template.content,
+                )
+              } else {
+                props.log.errorDetail({
+                  issue: `Couldn't find a template file.`,
+                  type: 'error',
+                  recommendation: 'Specify the template file language.',
+                  location: 'Command parameters.',
+                })
+              }
+            },
           },
-        },
-      ],
-    }),
-  )
+        ],
+      }),
+    )
+  }
 
   displayVersionLine({ width, version: setup.version })
 

@@ -8,7 +8,15 @@ import TabItem from '@theme/TabItem'
 
 # Generate config file
 
-Run the following command for creating a typescript config file in your directory.
+## Config file
+
+The config file is a `js` or `ts` file that contains the CLI **command** and **script** declarations.
+
+The config file is must be named as `cli.config.js` or `cli.config.ts`, because the CLI command searches for this file when it is executed.
+
+## Create using the global command
+
+Run the following command for creating a config file in your folder.
 
 <Tabs>
 <TabItem value="instant" label="Generate TS config file">
@@ -26,3 +34,84 @@ CLI config create-config-file
 
 </TabItem>
 </Tabs>
+
+:::note
+When the global command is called within a nested folder it finds the config file of the parent folder.
+
+```bash
+mkdir child-folder
+cd child-folder
+
+CLI --help
+
+# Outputs the documentation generated from the parent file
+```
+
+:::
+
+## Create using the script command
+
+Call the previously registered `my-cli` script command.
+
+<Tabs>
+<TabItem value="npm" label="npm">
+
+```bash
+npm run my-cli config create-config-file -- --language ts
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn my-cli config create-config-file --language ts
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm my-cli config create-config-file --language ts
+```
+
+</TabItem>
+</Tabs>
+
+## Check the config file
+
+By running the CLI command with the `--help` flag we can see the generated ducumentation,
+which displays the config in a more readable format.
+
+<Tabs>
+<TabItem value="npm" label="npm">
+
+```bash
+npm run my-cli -- --help
+```
+
+</TabItem>
+<TabItem value="yarn" label="yarn">
+
+```bash
+yarn my-cli --help
+```
+
+</TabItem>
+<TabItem value="pnpm" label="pnpm">
+
+```bash
+pnpm my-cli --help
+```
+
+</TabItem>
+</Tabs>
+
+Check the documentation for values comming from the config file.
+
+```bash
+DETAILS
+
+  Tool name:    CLI
+  Description:  Demo CLI config # this should have a value
+  Version:      0.0.0           # this should have a semantic version
+```
