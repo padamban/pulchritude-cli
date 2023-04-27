@@ -1,6 +1,6 @@
 import { getTerminal } from '../utils/terminal'
 
-describe.skip('Use JS config file', () => {
+describe('Use JS config file', () => {
   test('load minimal config', async () => {
     const env = await getTerminal()
 

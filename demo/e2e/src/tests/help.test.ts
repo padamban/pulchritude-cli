@@ -1,6 +1,6 @@
 import { getTerminal, TerminalEnvironment } from '../utils/terminal'
 
-describe.skip('CLI help', () => {
+describe('CLI help', () => {
   describe('not shown if the CLI setup has validation errors', () => {
     test('missing programs', async () => {
       const env = await getTerminal()
@@ -40,14 +40,10 @@ describe.skip('CLI help', () => {
 
     beforeAll(async () => {
       env = await getTerminal()
-
       await env.writeConfig('only-command-info')
-
       const exe = await env.executeCli(`--help`)
-
       code = exe.code
       stdout = exe.stdout
-
       expect(code).toBe(0)
       expect(stdout).includes('DOCUMENTATION')
     })
@@ -85,9 +81,9 @@ describe.skip('CLI help', () => {
     test('shows quick help (cli level)', async () => {
       expect(stdout).includes('QUICK HELP')
       expect(stdout).includes('Usage: CLI [options] [command]')
-      expect(stdout).includes('-v, --version  Version of the CLI tool.')
+      expect(stdout).includes('-v,   --version  Version of the CLI tool.')
       expect(stdout).includes(
-        '-h,   --help   Display help information for the current command.',
+        '-h,   --help     Display help information for the current command.',
       )
     })
   })

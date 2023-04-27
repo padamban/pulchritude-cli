@@ -1,6 +1,6 @@
 import { getTerminal } from '../utils/terminal'
 
-describe.skip('CLI prompt', () => {
+describe('CLI prompt', () => {
   describe('command selection', () => {
     test('shows program selector', async () => {
       const env = await getTerminal()

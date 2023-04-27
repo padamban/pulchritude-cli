@@ -1,6 +1,6 @@
 import { getTerminal } from '../utils/terminal'
 
-describe.skip('CLI prompt', () => {
+describe('CLI prompt', () => {
   describe('arguments', () => {
     test('specify argument values, check values', async () => {
       const env = await getTerminal()
@@ -146,7 +146,7 @@ describe.skip('CLI prompt', () => {
 
       expect(stdout).includes('✔  - option - opt1 (number list) … 34,45')
       expect(stdout).includes(
-        '?  - option - opt2 (undefined) › - Use arrow-keys. Return to submit.',
+        '?  - option - opt2 (choice) › - Use arrow-keys. Return to submit.',
       )
 
       await pressKey('enter')
@@ -154,7 +154,7 @@ describe.skip('CLI prompt', () => {
 
       stdout = await getStdout()
 
-      expect(stdout).includes('✔  - option - opt2 (undefined) › Opt A')
+      expect(stdout).includes('✔  - option - opt2 (choice) › Opt A')
       expect(stdout).includes('CLI program command --opt1 34,45 --opt2 A -np')
 
       const report = await env.readReport()

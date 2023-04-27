@@ -1,6 +1,6 @@
 import { getTerminal, TerminalEnvironment } from '../utils/terminal'
 
-describe.skip('CLI setup validator', () => {
+describe('CLI setup validator', () => {
   test('shows error if the cli has no programs', async () => {
     const env = await getTerminal()
 

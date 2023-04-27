@@ -1,6 +1,6 @@
 import { getTerminal } from '../utils/terminal'
 
-describe.skip('Resolve CLI command', () => {
+describe('Resolve CLI command', () => {
   describe('options', () => {
     test('provide every option + no prompt flag', async () => {
       const env = await getTerminal()

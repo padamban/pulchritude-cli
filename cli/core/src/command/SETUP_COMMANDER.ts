@@ -50,7 +50,6 @@ export const SETUP_COMMANDER =
         '-v,   --version',
         'Version of the CLI tool.',
       )
-      .option('-i,   --init', 'Create config')
 
     const commands: Command[] = [commander]
 
