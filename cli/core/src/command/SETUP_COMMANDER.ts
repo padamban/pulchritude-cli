@@ -5,6 +5,7 @@ import { ACTION_RESOLVER } from './cli/ACTION_RESOLVER'
 import { Color } from './cli/colors'
 import { addCmdDocumentationFactory } from './cli/documentation/add-documentation'
 import { CommanderDescription } from './cli/documentation/sections/utils/get-description'
+import { VALIDATE_SETUP } from './cli/documentation/validators/VALIDATE_SETUP'
 import { CommanderTag } from './cli/utils/get-commander-tag'
 import { GLOBAL_OPTIONS } from './global-options'
 
@@ -27,10 +28,10 @@ export const SETUP_COMMANDER =
   async (argv: string[]) => {
     const commander = new Command()
 
-    // VALIDATE_SETUP({
-    //   setup,
-    //   width: ctx.reporter.args?.rendererConfig.terminal.frameWidth,
-    // })
+    VALIDATE_SETUP({
+      setup,
+      width: ctx.reporter.args?.rendererConfig.terminal.frameWidth,
+    })
 
     const addDocs = addCmdDocumentationFactory({
       setup,
