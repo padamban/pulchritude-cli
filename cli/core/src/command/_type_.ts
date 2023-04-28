@@ -100,10 +100,8 @@ export interface ProgramDetails {
   isMultiCommand?: boolean
 }
 
-export interface CommandDetails<
-  Args extends Obj = any,
-  Opts extends Obj = any,
-> {
+export interface CommandDetails<Args extends Obj = any, Opts extends Obj = any>
+  extends Type<'command'> {
   /**
    * Id of the command. (camelCase)
    * @example `addNumbers`
