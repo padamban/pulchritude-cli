@@ -4,4 +4,4 @@ dist
 .cli-report
 .coverage
 turbo-*.log
-dependency-graph.svg
+dependency-graph.*

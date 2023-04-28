@@ -1,5 +1,14 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
+  // options: {
+  //   reporterOptions: {
+  //     dot: {
+  //       theme: {
+  //         graph: { rankdir: 'TD' },
+  //       },
+  //     },
+  //   },
+  // },
   forbidden: [
     /* rules from the 'recommended' preset: */
     {
@@ -337,11 +346,18 @@ module.exports = {
          */
         collapsePattern: 'node_modules/(@[^/]+/[^/]+|[^/]+)',
 
+        showMetrics: false,
         /* Options to tweak the appearance of your graph.See
            https://github.com/sverweij/dependency-cruiser/blob/master/doc/options-reference.md#reporteroptions
            for details and some examples. If you don't specify a theme
            don't worry - dependency-cruiser will fall back to the default one.
         */
+        theme: {
+          graph: {
+            splines: 'false',
+            rankdir: 'TD',
+          },
+        },
         // theme: {
         //   graph: {
         //     /* use splines: "ortho" for straight lines. Be aware though
