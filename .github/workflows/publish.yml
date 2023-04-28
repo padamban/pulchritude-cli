@@ -35,6 +35,9 @@ jobs:
       - name: Prettier check
         run: pnpm run format:check
 
+      - name: Dependency graph check
+        run: pnpm dep-graph
+
       - name: Run pre-build script
         run: pnpm run pre-build
 

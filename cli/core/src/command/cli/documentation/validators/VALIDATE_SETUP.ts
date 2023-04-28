@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { ErrorInfo } from '../../../../error'
-import { logErrorToConsole } from '../../../../error/log-error-to-console'
+import { logErrorToConsole } from '../../../../error'
 import { CliSetupDetails } from '../../../_type_'
 import { Color } from '../../colors'
 import { validatePrograms } from './validate-programs'

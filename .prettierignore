@@ -5,3 +5,4 @@ dist
 pnpm-lock.yaml
 docs/.docusaurus
 docs/build
+dependency-graph.*

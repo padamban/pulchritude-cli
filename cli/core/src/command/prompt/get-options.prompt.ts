@@ -2,7 +2,7 @@
 import prompt, { PromptObject } from 'prompts'
 
 import { Obj } from '../../utils'
-import { asArray } from '../../utils/as-array'
+import { asArray } from '../../utils'
 import { CommandDetails } from '../_type_'
 import { Color } from '../cli/colors'
 import { checkOptionValue } from './utils/check-option-value'

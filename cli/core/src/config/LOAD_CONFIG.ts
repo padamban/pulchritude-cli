@@ -2,7 +2,7 @@ import { bundleRequire } from 'bundle-require'
 import JoyCon from 'joycon'
 import path from 'path'
 
-import { LoadConfigArgs, LoadConfigRetval } from './_types_'
+import { LoadConfigArgs, LoadConfigRetval } from './_type_'
 
 const joycon = new JoyCon()
 

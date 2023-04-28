@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import prompt from 'prompts'
 
-import { asArray } from '../../utils/as-array'
+import { asArray } from '../../utils'
 import { CommandDetails, ProgramDetails } from '../_type_'
 import { Color } from '../cli/colors'
 
