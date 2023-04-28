@@ -11,6 +11,7 @@ export function resolveCommandDetails(config: CommandSetup): CommandDetails {
   const { id } = config
 
   return {
+    _type: 'command',
     id,
     name: config.name ?? TextUtils.toKebabCase(id),
     alias: config.alias ?? TextUtils.createVariableAlias(id),

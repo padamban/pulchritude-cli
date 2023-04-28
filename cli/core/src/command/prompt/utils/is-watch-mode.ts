@@ -2,7 +2,7 @@ import { Obj } from '../../../utils'
 import { CommandDetails } from '../../_type_'
 
 interface Args {
-  command: CommandDetails
+  command: Pick<CommandDetails, 'options'>
   options: Obj
 }
 

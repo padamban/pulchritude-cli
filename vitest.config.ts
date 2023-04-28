@@ -12,7 +12,7 @@ export default defineConfig({
       reportsDirectory: '.coverage',
       excludeNodeModules: true,
       all: true,
-      exclude: ['**/*.test.ts', '**/dist'],
+      exclude: ['**/*.test.ts', '**/_type_.ts', '**/index.ts', '**/dist'],
       include: ['cli/core'],
     },
   },

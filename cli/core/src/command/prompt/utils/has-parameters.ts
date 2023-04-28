@@ -7,8 +7,8 @@ interface Args {
 /**
  * Check if the command has parameters.
  */
-export const hasParameters = (args: Args) => {
+export const hasParameters = (args: Args): boolean => {
   const { command } = args
 
-  return command.arguments?.length || command.options?.length
+  return !!(command.arguments?.length || command.options?.length)
 }
