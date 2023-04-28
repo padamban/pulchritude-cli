@@ -1,10 +1,10 @@
-import prettier from 'prettier'
+import prettier, { BuiltInParserName } from 'prettier'
 
 import { LogError } from '../error'
 
 interface Args {
   input: string
-  parser: 'typescript' | 'markdown' | 'mdx' | 'json' | 'scss'
+  parser: BuiltInParserName
   onError?: LogError
 }
 
