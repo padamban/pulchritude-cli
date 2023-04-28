@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import chalk from 'chalk'
 
-import { logErrorToConsole } from '../../error/log-error-to-console'
+import { logErrorToConsole } from '../../error'
 import { Obj } from '../../utils'
-import { asArray } from '../../utils/as-array'
+import { asArray } from '../../utils'
 import {
   CliSetupDetails,
   CommandDetails,

@@ -1,4 +1,4 @@
-import { asArray } from '../../../utils/as-array'
+import { asArray } from '../../../utils'
 import { CommandToRun } from '../../_type_'
 
 interface Args {

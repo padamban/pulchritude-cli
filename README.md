@@ -10,7 +10,3 @@ Custom CLI builder tool.
 
 [![codecov](https://codecov.io/gh/padamban/pulchritude-cli/branch/main/graphs/tree.svg?token=1VR6GKQK5B)](https://codecov.io/gh/padamban/pulchritude-cli)
 
-## Todo
-
-- this readme
-- cli init command
