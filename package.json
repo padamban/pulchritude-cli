@@ -28,7 +28,7 @@
     "test:c": "vitest run --coverage",
     "dep-graph": "depcruise cli/cli/src --config",
     "dep-graph:svg": "depcruise cli/cli/src --config --output-type dot | dot -T svg > dependency-graph.svg",
-    "dep-graph:md": "depcruise cli/cli/src --config --output-type metrics > dependency-graph.md"
+    "dep-graph:md": "depcruise cli/cli/src --config --output-type markdown > dependency-graph.md"
   },
   "dependencies": {},
   "devDependencies": {
