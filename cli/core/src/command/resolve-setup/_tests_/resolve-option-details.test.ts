@@ -2,7 +2,7 @@ import { OptionDetails } from '../../_type_'
 import { resolveOptionDetails } from '../resolve-option-details'
 
 describe('resolveOptionDetails', () => {
-  test('provided only: id', () => {
+  test('check default values', () => {
     const resolved = resolveOptionDetails({ id: 'myOption' })
 
     expect(resolved).toMatchObject<OptionDetails>({
@@ -16,7 +16,7 @@ describe('resolveOptionDetails', () => {
     })
   })
 
-  test('provided required properties of the detail object', () => {
+  test('check given values', () => {
     const resolved = resolveOptionDetails({
       id: 'myOption',
       title: 'My Option',

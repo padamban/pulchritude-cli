@@ -25,6 +25,7 @@
     "publish-packages": "changeset version && changeset publish",
     "test:w": "vitest --watch --config ./configs/vitest/all.config.ts",
     "test:ui": "vitest --ui --config ./configs/vitest/all.config.ts",
+    "test:unit:ui": "vitest --ui --config ./configs/vitest/unit.config.ts",
     "test:e2e": "vitest run --config ./configs/vitest/e2e.config.ts",
     "test:unit": "vitest run --config ./configs/vitest/unit.config.ts",
     "test:unit:c": "vitest run --coverage --config ./configs/vitest/unit.config.ts",

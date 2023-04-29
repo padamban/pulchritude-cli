@@ -54,7 +54,7 @@ export interface CliSetupDetails {
   programs: ProgramDetails[]
 }
 
-export interface ProgramDetails {
+export interface ProgramDetails extends Type<'program'> {
   /**
    * Id of the program. (camelCase)
    * @example `myCalculator`

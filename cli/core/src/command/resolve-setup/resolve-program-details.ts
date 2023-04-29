@@ -10,6 +10,7 @@ export function resolveProgramDetails(config: ProgramSetup): ProgramDetails {
   const { id } = config
 
   return {
+    _type: 'program',
     id,
     name: config.name ?? TextUtils.toKebabCase(id),
     alias: config.alias ?? TextUtils.createVariableAlias(id),
