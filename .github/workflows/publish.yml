@@ -47,8 +47,11 @@ jobs:
       - name: TSC build check
         run: pnpm run build:tsc
 
-      - name: Unit test
-        run: pnpm run test:c
+      - name: Run e2e test
+        run: pnpm run test:e2e
+
+      - name: Run unit test with coverage
+        run: pnpm run test:unit:c
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
