@@ -1,0 +1,14 @@
+name: Check code
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint check
+        run: pnpm run lint
+
+      - name: Prettier check
+        run: pnpm run format:check
+
+      - name: Dependency graph check
+        run: pnpm dep-graph
