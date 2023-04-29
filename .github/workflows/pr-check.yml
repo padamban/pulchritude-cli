@@ -28,16 +28,14 @@ jobs:
       - name: Install packages
         run: pnpm install --frozen-lockfile
 
-      - uses: ./.github/actions/code-check.yml
+      - name: Lint check
+        run: pnpm run lint
 
-      # - name: Lint check
-      #   run: pnpm run lint
+      - name: Prettier check
+        run: pnpm run format:check
 
-      # - name: Prettier check
-      #   run: pnpm run format:check
-
-      # - name: Dependency graph check
-      #   run: pnpm dep-graph
+      - name: Dependency graph check
+        run: pnpm dep-graph
 
       - name: Build
         run: pnpm run build
