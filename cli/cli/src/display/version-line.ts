@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 
-import { Color } from '@pulchritude-cli/core'
-import { SemanticVersion } from '@pulchritude-cli/core'
+import { CliTheme, SemanticVersion } from '@pulchritude-cli/core'
 
 interface Args {
   /**
@@ -13,10 +12,15 @@ interface Args {
    * Cli config version.
    */
   version: SemanticVersion | undefined
+
+  /**
+   * Theme config.
+   */
+  theme: CliTheme
 }
 
-export const displayVersionLine = ({ width, version }: Args) => {
+export const displayVersionLine = ({ width, version, theme }: Args) => {
   if (!version || version === 'unknown') return
   const bar = ' '.repeat(width - version.length - 1)
-  console.log(`${bar} ${Color.gray(version)}`)
+  console.log(`${bar} ${theme.color.gray(version)}`)
 }

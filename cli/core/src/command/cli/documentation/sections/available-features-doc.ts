@@ -1,5 +1,5 @@
+import { CliTheme } from '../../../../theme'
 import { ChoiceDetails, CliSetupDetails } from '../../../_type_'
-import { Color } from '../../colors'
 import { ComposeTag } from './utils/compose-tag'
 import { CommanderDescription } from './utils/get-description'
 import { getFeatureColumnDetails } from './utils/get-feature-column-details'
@@ -7,59 +7,75 @@ import { getFeatureColumnDetails } from './utils/get-feature-column-details'
 interface Args {
   addLine: (str: string) => void
   setup: CliSetupDetails
+  theme: CliTheme
 }
 
 /**
  * Create documentation section from the CLI setup.
  */
-function addAvailableFeaturesDocumentation({ setup, addLine: _ }: Args) {
+function addAvailableFeaturesDocumentation(args: Args) {
+  const { setup, addLine: _, theme } = args
+  const { color } = theme
+
   const { firstColumnWidth: cellLength } = getFeatureColumnDetails({ setup })
 
-  const dash = Color.gray('- ')
+  const dash = color.gray('- ')
 
-  _(`\n\n${Color.subtitle('CONFIGURED PROGRAMS')}\n`)
+  _(`\n\n${color.subtitle('CONFIGURED PROGRAMS')}\n`)
 
   if (setup.programs.length === 0) {
-    _(`\n${Color.warning(' - No programs')}\n`)
+    _(`\n${color.warning(' - No programs')}\n`)
   }
   setup.programs.forEach(p => {
     _(
-      `${ComposeTag.forProgram(p, { cellLength }).coloredCellText}${
+      `${ComposeTag.forProgram(p, { cellLength, theme }).coloredCellText}${
         p.description
       }`,
     )
 
-    if (p.isMultiCommand) _(`    ${Color.gray('multi run')}`)
+    if (p.isMultiCommand) _(`    ${color.gray('multi run')}`)
 
     p.commands.forEach(c => {
       _('')
 
       _(
-        `${ComposeTag.forCommand(c, { cellLength }).coloredCellText}${dash}${
-          c.description
-        }`,
+        `${
+          ComposeTag.forCommand(c, { cellLength, theme }).coloredCellText
+        }${dash}${c.description}`,
       )
 
       c.arguments?.forEach(arg => {
-        const argDesc = CommanderDescription.getArgumentDescription(arg)
+        const argDesc = CommanderDescription.getArgumentDescription(arg, {
+          theme,
+        })
 
         _(
           `${
-            ComposeTag.forArgument(arg, { cellLength }).coloredCellText
+            ComposeTag.forArgument(arg, { cellLength, theme }).coloredCellText
           }  ${dash}${argDesc}`,
         )
 
-        addChoices({ addLine: _, choices: arg.choices, indent: cellLength + 6 })
+        addChoices({
+          addLine: _,
+          choices: arg.choices,
+          indent: cellLength + 6,
+          theme,
+        })
       })
 
       c.options?.forEach(opt => {
         _(
           `${
-            ComposeTag.forOption(opt, { cellLength }).coloredCellText
+            ComposeTag.forOption(opt, { cellLength, theme }).coloredCellText
           }  ${dash}${opt.description}`,
         )
 
-        addChoices({ addLine: _, choices: opt.choices, indent: cellLength + 6 })
+        addChoices({
+          addLine: _,
+          choices: opt.choices,
+          indent: cellLength + 6,
+          theme,
+        })
       })
     })
 
@@ -74,7 +90,10 @@ function addChoices(args: {
   choices?: ChoiceDetails[]
   indent: number
   addLine: (str: string) => void
+  theme: CliTheme
 }) {
+  const { color } = args.theme
+
   const longestValue =
     args.choices?.reduce<number>((longest, v) => {
       if (v.value.toString().length > longest)
@@ -86,9 +105,9 @@ function addChoices(args: {
     const rawValue = `"${val.value}"`
     const value = rawValue
       .padEnd(longestValue + 2)
-      .replace(rawValue, Color.important(rawValue))
+      .replace(rawValue, color.important(rawValue))
 
-    args.addLine(`${' '.repeat(args.indent)}${value}  ${Color.gray(val.name)}`)
+    args.addLine(`${' '.repeat(args.indent)}${value}  ${color.gray(val.name)}`)
   })
 }
 

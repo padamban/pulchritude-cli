@@ -1,6 +1,6 @@
 import { ArgumentDetails } from '../_type_'
-import { TextUtils } from '../cli/utils/text-utils'
 import { ArgumentSetup } from './_type_'
+import { TextUtils } from './text-utils'
 
 /**
  * Add/infer some  required properties to a argument config object.
@@ -10,7 +10,7 @@ export function resolveArgumentDetails(config: ArgumentSetup): ArgumentDetails {
 
   return {
     _type: 'argument',
-    name: config.name ?? TextUtils.toKebabCase(id),
+    name: config.name ?? TextUtils.camelToKebabCase(id),
     title: config.title ?? id,
     description: config.description ?? '',
     type: config.type,

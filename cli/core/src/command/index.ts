@@ -1,5 +1,4 @@
 export type { CliSetupDetails, SemanticVersion } from './_type_'
-export { Color } from './cli/colors'
 export type {
   ArgumentSetup,
   CliSetup,

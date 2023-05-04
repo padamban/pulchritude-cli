@@ -1,17 +1,21 @@
 import { PromptObject } from 'prompts'
 
-import { ArgumentDetails, OptionDetails } from '../../_type_'
-import { resolvePromptType } from './resolve-prompt-type'
+import { ArgumentDetails, OptionDetails } from '../_type_'
+import { PromptConfig } from './_type_'
+import { resolvePromptType } from './utils'
 
 interface Args {
   parameter: ArgumentDetails | OptionDetails
   message: string
+  config: PromptConfig
 }
 
 /**
  * Create an input prompt for a parameter (argument or option).
  */
-function getParameterPrompt({ parameter, message }: Args): PromptObject {
+function getParameterPrompt(args: Args): PromptObject {
+  const { parameter, message } = args
+
   return {
     name: parameter.id,
     message,

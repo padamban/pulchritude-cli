@@ -181,6 +181,10 @@ module.exports = {
     doNotFollow: {
       path: 'node_modules',
     },
+    exclude: {
+      path: 'node_modules',
+    },
+    tsPreCompilationDeps: false,
     enhancedResolveOptions: {
       exportsFields: ['exports'],
       conditionNames: ['import', 'require', 'node', 'default'],

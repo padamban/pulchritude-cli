@@ -50,3 +50,14 @@ export type Type<K extends string> = {
  * Remove the `_type` property.
  */
 export type OmitType<T extends Type<any>> = Omit<T, '_type'>
+
+/**
+ * The original `Partial` is shallow, this one goes deep.
+ */
+export type DeepPartial<T> = T extends Function
+  ? T
+  : T extends object
+  ? T extends unknown[]
+    ? DeepPartial<T[number]>[]
+    : { [P in keyof T]?: DeepPartial<T[P]> }
+  : T

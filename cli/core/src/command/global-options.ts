@@ -1,5 +1,5 @@
 import { GlobalOptions } from './_type_'
-import { resolveOptionDetails } from './resolve-setup/resolve-option-details'
+import { resolveOptionDetails } from './resolve-setup'
 
 /**
  * These options are available for all command.

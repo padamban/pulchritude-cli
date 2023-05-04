@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 import { ArgumentDetails } from '../../_type_'
-import { Color } from '../../cli/colors'
+import { PromptConfig } from '../_type_'
 
 interface Args {
   argument: ArgumentDetails
   argValue: any
+  config: PromptConfig
 }
 
 interface Retval {
@@ -16,7 +17,8 @@ interface Retval {
  * Check the validity of the arguments specified inside the terminal.
  */
 function checkArgumentValue(args: Args): Retval {
-  const { argument, argValue } = args
+  const { argument, argValue, config } = args
+  const { color } = config.theme
 
   if (argValue === undefined) return { ok: false, messages: [] }
   if (Array.isArray(argValue) && !argValue.length)
@@ -30,6 +32,7 @@ function checkArgumentValue(args: Args): Retval {
       const itemCheck = checkArgumentValue({
         argValue: v,
         argument,
+        config,
       })
       ok &&= itemCheck.ok
       messages.push(...itemCheck.messages)
@@ -41,12 +44,12 @@ function checkArgumentValue(args: Args): Retval {
 
     if (!validChoice) {
       messages.push(
-        Color.warning(
-          `\n${Color.error('Error')} - The ${Color.argument(
+        color.warning(
+          `\n${color.error('Error')} - The ${color.argument(
             argument.title,
-          )} cannot be ${Color.error.bold(argValue)}.`,
+          )} cannot be ${color.error.bold(argValue)}.`,
         ),
-        Color.success(
+        color.success(
           ` - Use: ${argument.choices.map(c => c.value).join(',')}.\n`,
         ),
       )
@@ -55,12 +58,12 @@ function checkArgumentValue(args: Args): Retval {
     const isNumber = !Number.isNaN(+argValue)
     if (!isNumber) {
       messages.push(
-        Color.warning(
-          `\n${Color.error('Error')} - The ${Color.argument(
+        color.warning(
+          `\n${color.error('Error')} - The ${color.argument(
             argument.title,
-          )} cannot be ${Color.error.bold(argValue)}.`,
+          )} cannot be ${color.error.bold(argValue)}.`,
         ),
-        Color.success(` - It must be a number!`),
+        color.success(` - It must be a number!`),
       )
     }
 

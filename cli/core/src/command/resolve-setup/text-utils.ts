@@ -1,4 +1,4 @@
-import { FlagOption, FlagOptionAlias } from '../../_type_'
+import { FlagOption, FlagOptionAlias } from '../_type_'
 
 /**
  * Manipulate string values.
@@ -6,7 +6,7 @@ import { FlagOption, FlagOptionAlias } from '../../_type_'
 export const TextUtils = {
   createOptionName,
   createVariableAlias,
-  toKebabCase,
+  camelToKebabCase,
 }
 
 /**
@@ -15,7 +15,7 @@ export const TextUtils = {
  * `optionId` => `--option-id, -oi`
  */
 function createOptionName(variableName: string) {
-  const kebab = toKebabCase(variableName)
+  const kebab = camelToKebabCase(variableName)
 
   const name: FlagOption = `--${kebab}`
 
@@ -50,7 +50,7 @@ function createVariableAlias(variableName: string) {
  *
  * `someValue` => `some-value`
  */
-function toKebabCase(value: string) {
+function camelToKebabCase(value: string) {
   const kebab = value
     .split(/\.?(?=[A-Z])/)
     .join('-')

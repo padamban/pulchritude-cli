@@ -1,11 +1,12 @@
 import chalk from 'chalk'
 
+import { CliColor } from './_type_'
+
 /**
  * Console colors and font weights.
  */
-const Color = {
-  title: (str: string) =>
-    chalk.bold.underline.bgBlue.whiteBright(str.padEnd(70)),
+const DEFAULT_COLORS: CliColor = {
+  title: chalk.bold.underline.bgBlue.whiteBright,
   subtitle: chalk.bold.underline,
   program: chalk.greenBright.bold,
   command: chalk.cyanBright.bold,
@@ -16,6 +17,6 @@ const Color = {
   error: chalk.redBright,
   warning: chalk.yellow,
   important: chalk.yellow,
-}
+} as const
 
-export { Color }
+export { DEFAULT_COLORS }

@@ -1,5 +1,5 @@
 import { resolveCommandDetails } from '../../../resolve-setup/resolve-command-details'
-import { isWatchMode } from '../is-watch-mode'
+import { isWatchMode } from '../'
 
 const createDemoCommand = ({ watchMode }: { watchMode: boolean }) =>
   resolveCommandDetails({

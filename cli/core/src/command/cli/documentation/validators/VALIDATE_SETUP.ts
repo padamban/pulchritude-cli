@@ -1,25 +1,26 @@
 /* eslint-disable no-console */
 import { ErrorInfo } from '../../../../error'
 import { logErrorToConsole } from '../../../../error'
+import { CliTheme } from '../../../../theme'
 import { CliSetupDetails } from '../../../_type_'
-import { Color } from '../../colors'
 import { validatePrograms } from './validate-programs'
 
 interface Args {
   setup: CliSetupDetails
   width: number | undefined
+  theme: CliTheme
 }
 
 /**
  * Validate CLI setup.
  */
-function VALIDATE_SETUP({ setup, width }: Args) {
+function VALIDATE_SETUP({ setup, width, theme }: Args) {
   const errorInfo: ErrorInfo[] = []
 
   errorInfo.push(...validatePrograms({ programs: setup.programs }))
 
   if (errorInfo.length) {
-    console.log('\n\n' + Color.subtitle('CLI SETUP ISSUES'))
+    console.log('\n\n' + theme.color.subtitle('CLI SETUP ISSUES'))
     errorInfo.map(logErrorToConsole)
 
     if (errorInfo.some(err => err.type === 'error')) {

@@ -2,7 +2,6 @@ import { Command, Option } from 'commander'
 
 import { CliSetupDetails, CommandContext } from './_type_'
 import { ACTION_RESOLVER } from './cli/ACTION_RESOLVER'
-import { Color } from './cli/colors'
 import { addCmdDocumentationFactory } from './cli/documentation/add-documentation'
 import { CommanderDescription } from './cli/documentation/sections/utils/get-description'
 import { VALIDATE_SETUP } from './cli/documentation/validators/VALIDATE_SETUP'
@@ -28,9 +27,12 @@ export const SETUP_COMMANDER =
   async (argv: string[]) => {
     const commander = new Command()
 
+    const { color } = ctx.theme
+
     VALIDATE_SETUP({
       setup,
       width: ctx.reporter.args?.rendererConfig.terminal.frameWidth,
+      theme: ctx.theme,
     })
 
     const addDocs = addCmdDocumentationFactory({
@@ -42,9 +44,9 @@ export const SETUP_COMMANDER =
       .name(setup.name)
       .description(setup.description)
       .version(
-        `\n\nCLI package version: ${Color.important(
+        `\n\nCLI package version: ${color.important(
           setup.packageVersion?.padStart(15),
-        )}\nCLI config version:  ${Color.important(
+        )}\nCLI config version:  ${color.important(
           setup.version.padStart(15),
         )}\n`,
         '-v,   --version',
@@ -72,7 +74,9 @@ export const SETUP_COMMANDER =
         c.arguments?.forEach(arg => {
           const argTag = CommanderTag.getArgumentTag(arg)
 
-          const argDesc = CommanderDescription.getArgumentDescription(arg)
+          const argDesc = CommanderDescription.getArgumentDescription(arg, {
+            theme: setup.theme,
+          })
 
           programCommandCmd.argument(`${argTag}`, argDesc)
         })
@@ -81,7 +85,9 @@ export const SETUP_COMMANDER =
 
         options.forEach(opt => {
           const optTag = CommanderTag.getOptionTag(opt)
-          const optDesc = CommanderDescription.getOptionDescription(opt)
+          const optDesc = CommanderDescription.getOptionDescription(opt, {
+            theme: setup.theme,
+          })
 
           const cmdOpt = new Option(optTag, optDesc)
 
