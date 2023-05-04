@@ -1,4 +1,3 @@
-
 import { CliSetup, CommandSetup, ProgramSetup } from '@pulchritude-cli/cli'
 
 const add: CommandSetup<{ numbers: number[] }, { decimals: number }> = {
@@ -10,7 +9,7 @@ const add: CommandSetup<{ numbers: number[] }, { decimals: number }> = {
       .reduce((acc, v) => acc + v, 0)
       .toFixed(props.opts.decimals)
 
-      props.log.solutionLine(`${sum}`)
+    props.log.solutionLine(`${sum}`)
   },
   arguments: [
     {
