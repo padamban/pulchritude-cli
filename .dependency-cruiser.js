@@ -1,5 +1,33 @@
 /** @type {import('dependency-cruiser').IConfiguration} */
 module.exports = {
+  options: {
+    doNotFollow: {
+      path: 'node_modules',
+    },
+    exclude: {
+      path: 'node_modules',
+    },
+    // reaches: '^cli/core/src/command/_type_.ts',
+    tsPreCompilationDeps: true,
+    enhancedResolveOptions: {
+      exportsFields: ['exports'],
+      conditionNames: ['import', 'require', 'node', 'default'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
+      mainFields: ['main', 'types'],
+    },
+    reporterOptions: {
+      dot: {
+        collapsePattern: 'node_modules/(@[^/]+/[^/]+|[^/]+)',
+        showMetrics: false,
+        theme: {
+          graph: {
+            splines: 'false',
+            rankdir: 'TD',
+          },
+        },
+      },
+    },
+  },
   forbidden: [
     /* rules from the 'recommended' preset: */
     {
@@ -177,31 +205,4 @@ module.exports = {
       },
     },
   ],
-  options: {
-    doNotFollow: {
-      path: 'node_modules',
-    },
-    exclude: {
-      path: 'node_modules',
-    },
-    tsPreCompilationDeps: false,
-    enhancedResolveOptions: {
-      exportsFields: ['exports'],
-      conditionNames: ['import', 'require', 'node', 'default'],
-      extensions: ['.js', '.jsx', '.ts', '.tsx', '.d.ts'],
-      mainFields: ['main', 'types'],
-    },
-    reporterOptions: {
-      dot: {
-        collapsePattern: 'node_modules/(@[^/]+/[^/]+|[^/]+)',
-        showMetrics: false,
-        theme: {
-          graph: {
-            splines: 'false',
-            rankdir: 'TD',
-          },
-        },
-      },
-    },
-  },
 }

@@ -297,7 +297,7 @@ export interface ChoiceDetails {
   /**
    * Value of the choice.
    */
-  value: string | number
+  value: string | number | boolean
 }
 
 /**
