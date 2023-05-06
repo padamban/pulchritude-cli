@@ -22,8 +22,6 @@ const demo = (init: Params) => (value: any, config?: Params) => {
     value,
   })
 
-  console.log({ value, v })
-
   return v
 }
 

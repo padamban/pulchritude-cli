@@ -37,6 +37,17 @@ function checkArgumentValue(args: Args): Retval {
       ok &&= itemCheck.ok
       messages.push(...itemCheck.messages)
     })
+  } else if (Array.isArray(argValue)) {
+    return {
+      ok: false,
+      messages: [
+        color.warning(
+          `\n${color.error('Error')} - The ${color.argument(
+            argument.title,
+          )} cannot have array value, since it is not configured to be variadic.`,
+        ),
+      ],
+    }
   } else if (argument.choices) {
     const validChoice = !!argument.choices.find(c => c.value === argValue)
 
@@ -47,7 +58,7 @@ function checkArgumentValue(args: Args): Retval {
         color.warning(
           `\n${color.error('Error')} - The ${color.argument(
             argument.title,
-          )} cannot be ${color.error.bold(argValue)}.`,
+          )} cannot be ${color.error(argValue)}.`,
         ),
         color.success(
           ` - Use: ${argument.choices.map(c => c.value).join(',')}.\n`,
@@ -61,7 +72,7 @@ function checkArgumentValue(args: Args): Retval {
         color.warning(
           `\n${color.error('Error')} - The ${color.argument(
             argument.title,
-          )} cannot be ${color.error.bold(argValue)}.`,
+          )} cannot be ${color.error(argValue)}.`,
         ),
         color.success(` - It must be a number!`),
       )

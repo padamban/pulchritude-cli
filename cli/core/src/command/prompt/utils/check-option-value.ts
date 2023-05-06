@@ -35,6 +35,17 @@ function checkOptionValue(args: Args): Retval {
       ok &&= itemCheck.ok
       messages.push(...itemCheck.messages)
     })
+  } else if (Array.isArray(optValue)) {
+    return {
+      ok: false,
+      messages: [
+        color.warning(
+          `\n${color.error('Error')} - The ${color.option(
+            option.title,
+          )} cannot have array value, since it is not configured to be variadic.`,
+        ),
+      ],
+    }
   } else if (option.choices) {
     const validChoice = !!option.choices.find(c => c.value === optValue)
 
@@ -45,7 +56,7 @@ function checkOptionValue(args: Args): Retval {
         color.warning(
           `\n${color.error('Error')} - The ${color.option(
             option.title,
-          )} cannot be ${color.error.bold(optValue)}.`,
+          )} cannot be ${color.error(optValue)}.`,
         ),
         color.success(
           ` - Use: ${option.choices.map(c => c.value).join(',')}.\n`,
@@ -54,12 +65,13 @@ function checkOptionValue(args: Args): Retval {
     }
   } else if (option.type === 'number') {
     const isNumber = !Number.isNaN(+optValue)
+
     if (!isNumber) {
       messages.push(
         color.warning(
           `\n${color.error('Error')} - The ${color.option(
             option.title,
-          )} cannot be ${color.error.bold(optValue)}.`,
+          )} cannot be ${color.error(optValue)}.`,
         ),
         color.success(` - It must be a number!`),
       )
