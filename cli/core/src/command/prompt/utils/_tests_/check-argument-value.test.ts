@@ -1,6 +1,4 @@
-import chalk from 'chalk'
-
-import { THEME } from '../../../../theme'
+import { MOCK_THEME } from '../../../../theme/theme.mock'
 import { DeepPartial } from '../../../../utils'
 import { checkArgumentValue } from '../check-argument-value'
 
@@ -11,9 +9,7 @@ type Value = CheckData['argValue']
 const createDemo = (arg: Argument) => (value: Value) => {
   const v = checkArgumentValue({
     config: {
-      theme: THEME(() => ({
-        color: { error: chalk, warning: chalk, option: chalk, success: chalk },
-      })),
+      theme: MOCK_THEME,
     },
     argument: {
       id: 'demoArg',
@@ -21,8 +17,6 @@ const createDemo = (arg: Argument) => (value: Value) => {
     } as any,
     argValue: value,
   })
-
-  console.log({ value, v })
 
   return v
 }

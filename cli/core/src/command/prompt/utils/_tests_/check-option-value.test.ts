@@ -1,6 +1,4 @@
-import chalk from 'chalk'
-
-import { THEME } from '../../../../theme'
+import { MOCK_THEME } from '../../../../theme/theme.mock'
 import { DeepPartial } from '../../../../utils'
 import { checkOptionValue } from '../check-option-value'
 
@@ -11,9 +9,7 @@ type Value = CheckData['optValue']
 const createDemo = (option: Option) => (value: Value) => {
   const v = checkOptionValue({
     config: {
-      theme: THEME(() => ({
-        color: { error: chalk, warning: chalk, option: chalk, success: chalk },
-      })),
+      theme: MOCK_THEME,
     },
     option: {
       id: 'demoOpt',
