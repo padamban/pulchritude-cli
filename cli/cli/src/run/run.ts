@@ -9,6 +9,7 @@ import {
   resolveProgramDetails,
   SemanticVersion,
   SETUP_COMMANDER,
+  THEME,
 } from '@pulchritude-cli/core'
 
 import packageJson from '../../package.json'
@@ -21,6 +22,12 @@ import { TEMPLATES } from '../templates'
  */
 const RUN = async () => {
   const width = 70
+
+  const theme = THEME(t => ({
+    color: {
+      program: t.color.program.underline.red,
+    },
+  }))
 
   displayBanner({ width })
 
@@ -37,6 +44,7 @@ const RUN = async () => {
   const setup = RESOLVE_SETUP({
     rawSetup: config.value,
     packageVersion: packageJson.version as SemanticVersion,
+    theme,
   })
 
   if (config.state === 'missing-config-file') {
@@ -96,7 +104,7 @@ const RUN = async () => {
     )
   }
 
-  displayVersionLine({ width, version: setup.version })
+  displayVersionLine({ width, version: setup.version, theme })
 
   const reporter = REPORTER({
     cwd,
@@ -114,7 +122,7 @@ const RUN = async () => {
 
   const fileManager = FILE_MANAGER({ cwd })
 
-  await SETUP_COMMANDER(setup)({ reporter, fileBuilder, fileManager })(
+  await SETUP_COMMANDER(setup)({ reporter, fileBuilder, fileManager, theme })(
     process.argv,
   )
 }

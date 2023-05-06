@@ -1,5 +1,5 @@
 import { resolveCommandDetails } from '../../../resolve-setup/resolve-command-details'
-import { hasParameters } from '../has-parameters'
+import { hasParameters } from '../'
 
 const createDemoCommand = ({
   hasArguments,

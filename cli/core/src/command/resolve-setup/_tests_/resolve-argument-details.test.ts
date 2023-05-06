@@ -2,7 +2,7 @@ import { ArgumentDetails } from '../../_type_'
 import { resolveArgumentDetails } from '../resolve-argument-details'
 
 describe('resolveArgumentDetails', () => {
-  test('provided only: id', () => {
+  test('check default values', () => {
     const resolved = resolveArgumentDetails({ id: 'myArgument' })
 
     expect(resolved).toMatchObject<ArgumentDetails>({
@@ -15,7 +15,7 @@ describe('resolveArgumentDetails', () => {
     })
   })
 
-  test('provided required properties of the detail object', () => {
+  test('check given values', () => {
     const resolved = resolveArgumentDetails({
       id: 'myArgument',
       title: 'My Argument',

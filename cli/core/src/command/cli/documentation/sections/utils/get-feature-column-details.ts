@@ -21,17 +21,17 @@ function getFeatureColumnDetails({ setup }: Args) {
   }
 
   setup.programs.forEach(p => {
-    evaluate(ComposeTag.forProgram(p))
+    evaluate(ComposeTag.forProgram(p, { theme: setup.theme }))
 
     p.commands.forEach(c => {
-      evaluate(ComposeTag.forCommand(c))
+      evaluate(ComposeTag.forCommand(c, { theme: setup.theme }))
 
       c.arguments?.forEach(a => {
-        evaluate(ComposeTag.forArgument(a))
+        evaluate(ComposeTag.forArgument(a, { theme: setup.theme }))
       })
 
       c.options?.forEach(opt => {
-        evaluate(ComposeTag.forOption(opt))
+        evaluate(ComposeTag.forOption(opt, { theme: setup.theme }))
       })
     })
   })

@@ -1,3 +1,4 @@
+import { CliTheme } from '../../theme'
 import { Obj, OmitType, ReplacePropertyType, RequireOnly } from '../../utils'
 import {
   ArgumentDetails,
@@ -21,8 +22,20 @@ export type CliSetup = Omit<
  * Arguments of the setup resolver function.
  */
 export interface ResolveSetupArgs {
+  /**
+   * CLI configuration.
+   */
   rawSetup: CliSetup | undefined
+
+  /**
+   * Version of the CLI package.
+   */
   packageVersion?: SemanticVersion
+
+  /**
+   * Theme of the CLI.
+   */
+  theme: CliTheme
 }
 
 /**

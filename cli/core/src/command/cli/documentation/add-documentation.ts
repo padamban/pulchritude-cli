@@ -38,19 +38,22 @@ function createDocumentation(cmd: CliSetupDetails) {
   addCommonDocumentation({
     setup: cmd,
     addLine: _,
+    theme: cmd.theme,
   })
 
   addGlobalOptionsDoc({
     addLine: _,
     globalOptions: [GLOBAL_OPTIONS.noPrompt, GLOBAL_OPTIONS.help],
+    theme: cmd.theme,
   })
 
   addAvailableFeaturesDocumentation({
     setup: cmd,
     addLine: _,
+    theme: cmd.theme,
   })
 
-  addQuickHelpDocumentation({ addLine: _ })
+  addQuickHelpDocumentation({ addLine: _, theme: cmd.theme })
 
   return content.join('\n')
 }

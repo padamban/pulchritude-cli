@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 import { OptionDetails } from '../../_type_'
-import { Color } from '../../cli/colors'
+import { PromptConfig } from '../_type_'
 
 interface Args {
   option: OptionDetails
   optValue: any
+  config: PromptConfig
 }
 
 interface Retval {
@@ -16,7 +17,8 @@ interface Retval {
  * Check the validity of the options specified inside the terminal.
  */
 function checkOptionValue(args: Args): Retval {
-  const { option, optValue } = args
+  const { option, optValue, config } = args
+  const { color } = config.theme
 
   if (optValue === undefined) return { ok: false, messages: [] }
 
@@ -28,10 +30,22 @@ function checkOptionValue(args: Args): Retval {
       const itemCheck = checkOptionValue({
         optValue: v,
         option,
+        config,
       })
       ok &&= itemCheck.ok
       messages.push(...itemCheck.messages)
     })
+  } else if (Array.isArray(optValue)) {
+    return {
+      ok: false,
+      messages: [
+        color.warning(
+          `\n${color.error('Error')} - The ${color.option(
+            option.title,
+          )} cannot have array value, since it is not configured to be variadic.`,
+        ),
+      ],
+    }
   } else if (option.choices) {
     const validChoice = !!option.choices.find(c => c.value === optValue)
 
@@ -39,26 +53,27 @@ function checkOptionValue(args: Args): Retval {
 
     if (!validChoice) {
       messages.push(
-        Color.warning(
-          `\n${Color.error('Error')} - The ${Color.option(
+        color.warning(
+          `\n${color.error('Error')} - The ${color.option(
             option.title,
-          )} cannot be ${Color.error.bold(optValue)}.`,
+          )} cannot be ${color.error(optValue)}.`,
         ),
-        Color.success(
+        color.success(
           ` - Use: ${option.choices.map(c => c.value).join(',')}.\n`,
         ),
       )
     }
   } else if (option.type === 'number') {
     const isNumber = !Number.isNaN(+optValue)
+
     if (!isNumber) {
       messages.push(
-        Color.warning(
-          `\n${Color.error('Error')} - The ${Color.option(
+        color.warning(
+          `\n${color.error('Error')} - The ${color.option(
             option.title,
-          )} cannot be ${Color.error.bold(optValue)}.`,
+          )} cannot be ${color.error(optValue)}.`,
         ),
-        Color.success(` - It must be a number!`),
+        color.success(` - It must be a number!`),
       )
     }
 

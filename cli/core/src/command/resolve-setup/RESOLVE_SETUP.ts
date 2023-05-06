@@ -12,7 +12,7 @@ import { resolveProgramDetails } from './resolve-program-details'
  * const setup = RESOLVE_SETUP(config.value)
  */
 export function RESOLVE_SETUP(args: ResolveSetupArgs): CliSetupDetails {
-  const { rawSetup, packageVersion } = args
+  const { rawSetup, packageVersion, theme } = args
 
   return {
     name: rawSetup?.name ?? 'CLI',
@@ -20,5 +20,6 @@ export function RESOLVE_SETUP(args: ResolveSetupArgs): CliSetupDetails {
     version: rawSetup?.version ?? 'unknown',
     description: rawSetup?.description ?? '',
     programs: rawSetup?.programs?.map(resolveProgramDetails) ?? [],
+    theme,
   }
 }

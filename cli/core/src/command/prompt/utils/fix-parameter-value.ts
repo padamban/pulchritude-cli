@@ -41,6 +41,8 @@ function fixParameterValue(args: Args): Retval {
       newValue = value
     } else if (choices.find(c => c.value === Number(value))) {
       newValue = Number(value)
+    } else {
+      newValue = undefined
     }
   }
 

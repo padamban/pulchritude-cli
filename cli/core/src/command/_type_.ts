@@ -2,12 +2,8 @@ import { FileBuilderInstance } from '../file-builder/_type_'
 import { FileManagerInstance } from '../file-manager'
 import { SubProgressBar } from '../progress'
 import { CliReporter, CliReportLogger, ReportRendererConfig } from '../report'
+import { CliTheme } from '../theme/_type_'
 import { Obj, StringKeyof, Type } from '../utils'
-import { CliSetup } from './resolve-setup/_type_'
-
-export interface CliSetupResolverArgs {
-  config: CliSetup | undefined
-}
 
 /**
  * Semantic version.
@@ -52,9 +48,14 @@ export interface CliSetupDetails {
    * - the commands have parameters and a script to run
    */
   programs: ProgramDetails[]
+
+  /**
+   * Theme of the CLI.
+   */
+  theme: CliTheme
 }
 
-export interface ProgramDetails {
+export interface ProgramDetails extends Type<'program'> {
   /**
    * Id of the program. (camelCase)
    * @example `myCalculator`
@@ -296,7 +297,7 @@ export interface ChoiceDetails {
   /**
    * Value of the choice.
    */
-  value: string | number
+  value: string | number | boolean
 }
 
 /**
@@ -328,6 +329,11 @@ export interface CommandContext {
    * Write/read/list files.
    */
   fileManager: FileManagerInstance
+
+  /**
+   * Theme of the CLI
+   */
+  theme: CliTheme
 }
 
 /**

@@ -1,18 +1,18 @@
 /* eslint-disable no-console */
 import prompt, { PromptObject } from 'prompts'
 
-import { Obj } from '../../utils'
-import { asArray } from '../../utils'
+import { asArray, Obj } from '../../utils'
 import { CommandDetails } from '../_type_'
-import { Color } from '../cli/colors'
-import { checkOptionValue } from './utils/check-option-value'
-import { getParameterPrompt } from './utils/get-parameter-prompt'
+import { PromptConfig } from './_type_'
+import { getParameterPrompt } from './get-parameter.prompt'
+import { checkOptionValue } from './utils'
 
 type OptionState = 'invalid' | 'ok' | 'unknown'
 
 interface Args {
   command: CommandDetails | undefined
   values: Obj | undefined
+  config: PromptConfig
 }
 
 /**
@@ -21,7 +21,8 @@ interface Args {
  * - `prompt 2-n` - specify the selected/invalid option values
  */
 async function getOptionsPrompt(args: Args): Promise<Obj> {
-  const { command } = args
+  const { command, config } = args
+  const { color } = config.theme
 
   const evaluatedOptions = new Map<string, OptionState>()
 
@@ -33,6 +34,7 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
     const { ok, messages } = checkOptionValue({
       option: opt,
       optValue,
+      config,
     })
 
     messages.forEach(m => console.log(m))
@@ -47,8 +49,8 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
 
     if (ok && optValue) {
       console.log(
-        Color.gray(
-          `\nSpecified option:    ${Color.option(opt.title)} = ${optValue}`,
+        color.gray(
+          `\nSpecified option:    ${color.option(opt.title)} = ${optValue}`,
         ),
       )
     }
@@ -67,11 +69,11 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
       ?.filter(({ id }) => invalidOptionsIds.includes(id))
       .map<PromptObject>(opt => {
         const message =
-          Color.gray(' - fix option - ') +
-          Color.option(opt.title) +
-          Color.gray(` (${opt.type ?? 'choice'}${opt.variadic ? ' list' : ''})`)
+          color.gray(' - fix option - ') +
+          color.option(opt.title) +
+          color.gray(` (${opt.type ?? 'choice'}${opt.variadic ? ' list' : ''})`)
 
-        return getParameterPrompt({ parameter: opt, message })
+        return getParameterPrompt({ parameter: opt, message, config })
       }) ?? [],
   )
 
@@ -83,7 +85,7 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
 
   const { selectedOptionIds } = await prompt({
     name: 'selectedOptionIds',
-    message: ` - Select ${Color.option('options')} that need specifying!`,
+    message: ` - Select ${color.option('options')} that need specifying!`,
     type: 'multiselect',
     instructions: false,
     choices:
@@ -92,7 +94,7 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
           return unknownOptionsIds.includes(opt.id)
         })
         .map(opt => ({
-          title: Color.option(opt.title),
+          title: color.option(opt.title),
           value: opt.id,
           description: opt.description,
         })) ?? [],
@@ -103,11 +105,11 @@ async function getOptionsPrompt(args: Args): Promise<Obj> {
       ?.filter(({ id }) => asArray<string>(selectedOptionIds).includes(id))
       ?.map<PromptObject>(opt => {
         const message =
-          Color.gray(' - option - ') +
-          Color.option(opt.title) +
-          Color.gray(` (${opt.type ?? 'choice'}${opt.variadic ? ' list' : ''})`)
+          color.gray(' - option - ') +
+          color.option(opt.title) +
+          color.gray(` (${opt.type ?? 'choice'}${opt.variadic ? ' list' : ''})`)
 
-        return getParameterPrompt({ parameter: opt, message })
+        return getParameterPrompt({ parameter: opt, message, config })
       }) ?? [],
   )
 

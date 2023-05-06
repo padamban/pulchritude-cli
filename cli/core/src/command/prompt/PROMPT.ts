@@ -4,34 +4,13 @@ import chalk from 'chalk'
 import { logErrorToConsole } from '../../error'
 import { Obj } from '../../utils'
 import { asArray } from '../../utils'
-import {
-  CliSetupDetails,
-  CommandDetails,
-  CommandsToRun,
-  ProgramDetails,
-} from '../_type_'
-import { Color } from '../cli/colors'
+import { CommandsToRun } from '../_type_'
+import { PromptArgs, PromptRetval } from './_type_'
 import { getArgumentsPrompt } from './get-arguments.prompt'
 import { getCommandPrompt } from './get-command.prompt'
 import { getOptionsPrompt } from './get-options.prompt'
 import { getProgramPrompt } from './get-program.prompt'
-import { fixParameterValues } from './utils/fix-parameter-values'
-import { hasParameters } from './utils/has-parameters'
-import { isWatchMode } from './utils/is-watch-mode'
-
-interface Args {
-  setup: CliSetupDetails
-  program: ProgramDetails | undefined
-  command: CommandDetails | undefined
-  argumentValues: Obj
-  optionValues: Obj
-}
-
-interface Retval {
-  program: ProgramDetails | undefined
-  commandsToRun: CommandsToRun
-  watch: boolean
-}
+import { fixParameterValues, hasParameters, isWatchMode } from './utils'
 
 /**
  * Show prompt inputs.
@@ -41,8 +20,8 @@ interface Retval {
  * - Packages the commands to run with its parameters.
  * - Decides whether is in watch mode.
  */
-async function PROMPT(args: Args): Promise<Retval> {
-  // eslint-disable-next-line no-console
+async function PROMPT(args: PromptArgs): Promise<PromptRetval> {
+  const { color } = args.config.theme
 
   const noPrompt = args.optionValues.prompt === false
 
@@ -52,12 +31,14 @@ async function PROMPT(args: Args): Promise<Retval> {
     selectedProgram: args.program,
     programs: args.setup.programs ?? [],
     noPrompt,
+    config: args.config,
   })
 
   const commands = await getCommandPrompt({
     selectedCommands: asArray(args.command),
     program,
     noPrompt,
+    config: args.config,
   })
 
   const commandsToRun: CommandsToRun = new Map()
@@ -70,16 +51,18 @@ async function PROMPT(args: Args): Promise<Retval> {
       argumentResponse = args.argumentValues
       optionResponse = args.optionValues
     } else if (hasParameters({ command })) {
-      console.log(chalk.bold(`\n${Color.command(command.title)} parameters`))
+      console.log(chalk.bold(`\n${color.command(command.title)} parameters`))
 
       argumentResponse = await getArgumentsPrompt({
         values: args.argumentValues,
         command,
+        config: args.config,
       })
 
       optionResponse = await getOptionsPrompt({
         values: args.optionValues,
         command,
+        config: args.config,
       })
 
       console.log('')

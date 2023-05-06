@@ -38,9 +38,12 @@ export const ACTION_RESOLVER = (args: Args) => {
       command,
       argumentValues,
       optionValues,
+      config: {
+        theme: ctx.theme,
+      },
     })
 
-    await EXECUTE({ setup, ctx, ...promptResponse })
+    await EXECUTE({ setup, ctx, ...promptResponse, theme: ctx.theme })
 
     if (!promptResponse.watch) {
       setTimeout(() => {

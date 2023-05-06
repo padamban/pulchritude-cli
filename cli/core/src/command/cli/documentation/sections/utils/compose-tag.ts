@@ -1,15 +1,16 @@
+import { CliTheme } from '../../../../../theme'
 import {
   ArgumentDetails,
   CommandDetails,
   OptionDetails,
   ProgramDetails,
 } from '../../../../_type_'
-import { Color } from '../../../colors'
 import { DOC_CONFIG } from './config'
 
 interface Args {
   cellLength?: number
   noIndent?: boolean
+  theme: CliTheme
 }
 
 interface Retval {
@@ -40,15 +41,15 @@ function getOptionTagSlot(args: Partial<OptionDetails>) {
 /**
  * Create tag for program.
  */
-function forProgram(program: ProgramDetails, args?: Args): Retval {
+function forProgram(program: ProgramDetails, args: Args): Retval {
   const indent = ' '.repeat(DOC_CONFIG.indent)
 
   const rawText = `${indent}${program.name} ${program.alias}`
   const trail = calculateTrail(rawText.length, args?.cellLength)
 
   const coloredCellText = `${rawText}${trail}`
-    .replace(program.name, Color.program(program.name))
-    .replace(` ${program.alias} `, Color.gray(` ${program.alias} `))
+    .replace(program.name, args.theme.color.program(program.name))
+    .replace(` ${program.alias} `, args.theme.color.gray(` ${program.alias} `))
 
   const length = rawText.length
 
@@ -58,15 +59,15 @@ function forProgram(program: ProgramDetails, args?: Args): Retval {
 /**
  * Create tag for command.
  */
-function forCommand(command: CommandDetails, args?: Args): Retval {
+function forCommand(command: CommandDetails, args: Args): Retval {
   const indent = ' '.repeat(DOC_CONFIG.indent * 2)
 
   const rawText = `${indent}${command.name} ${command.alias}`
   const trail = calculateTrail(rawText.length, args?.cellLength)
 
   const coloredCellText = `${rawText}${trail}`
-    .replace(command.name, Color.command(command.name))
-    .replace(` ${command.alias} `, Color.gray(` ${command.alias} `))
+    .replace(command.name, args.theme.color.command(command.name))
+    .replace(` ${command.alias} `, args.theme.color.gray(` ${command.alias} `))
 
   const length = rawText.length
 
@@ -76,7 +77,7 @@ function forCommand(command: CommandDetails, args?: Args): Retval {
 /**
  * Create tag for argument.
  */
-function forArgument(argument: ArgumentDetails, args?: Args): Retval {
+function forArgument(argument: ArgumentDetails, args: Args): Retval {
   const indent = ' '.repeat(DOC_CONFIG.indent * 3)
 
   const framedName = `[${argument.name}]`
@@ -85,7 +86,7 @@ function forArgument(argument: ArgumentDetails, args?: Args): Retval {
 
   const coloredCellText = `${rawText}${trail}`.replace(
     framedName,
-    Color.argument(framedName),
+    args.theme.color.argument(framedName),
   )
 
   const length = rawText.length
@@ -96,7 +97,7 @@ function forArgument(argument: ArgumentDetails, args?: Args): Retval {
 /**
  * Create tag for option.
  */
-function forOption(option: OptionDetails, args?: Args): Retval {
+function forOption(option: OptionDetails, args: Args): Retval {
   const indent = ' '.repeat(DOC_CONFIG.indent * 3 * +!args?.noIndent)
 
   const slot = getOptionTagSlot({
@@ -110,9 +111,9 @@ function forOption(option: OptionDetails, args?: Args): Retval {
   const trail = calculateTrail(rawText.length, args?.cellLength)
 
   const coloredCellText = `${rawText}${trail}`
-    .replace(option.name, Color.option(option.name))
-    .replace(slot, Color.option.dim(slot))
-    .replace(' ' + option.alias, Color.gray(' ' + option.alias))
+    .replace(option.name, args.theme.color.option(option.name))
+    .replace(slot, args.theme.color.option.dim(slot))
+    .replace(' ' + option.alias, args.theme.color.gray(' ' + option.alias))
 
   const length = rawText.length
 

@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
+import { CliTheme } from '../../theme'
 import {
   CliSetupDetails,
   CommandContext,
   CommandsToRun,
   ProgramDetails,
 } from '../_type_'
-import { Color } from './colors'
 import { createTerminalCommand } from './utils/create-terminal-command'
 
 interface Args {
@@ -14,13 +14,14 @@ interface Args {
   commandsToRun: CommandsToRun
   ctx: CommandContext
   watch: boolean
+  theme: CliTheme
 }
 
 /**
  * Execute the scripts of the selected commands.
  */
 async function EXECUTE(args: Args): Promise<void> {
-  const { commandsToRun, ctx, watch, program, setup } = args
+  const { commandsToRun, ctx, watch, program, setup, theme } = args
 
   ctx.reporter.start()
 
@@ -34,9 +35,9 @@ async function EXECUTE(args: Args): Promise<void> {
 
     if (watch) {
       if (watchMode) {
-        console.log(`\n${Color.command(command.title)} - Watching...`)
+        console.log(`\n${theme.color.command(command.title)} - Watching...`)
       } else {
-        console.log(`\n${Color.command(command.title)} - Executed`)
+        console.log(`\n${theme.color.command(command.title)} - Executed`)
       }
     }
 

@@ -3,20 +3,22 @@ import prompt, { PromptObject } from 'prompts'
 
 import { Obj } from '../../utils'
 import { CommandDetails } from '../_type_'
-import { Color } from '../cli/colors'
-import { checkArgumentValue } from './utils/check-argument-value'
-import { getParameterPrompt } from './utils/get-parameter-prompt'
+import { PromptConfig } from './_type_'
+import { getParameterPrompt } from './get-parameter.prompt'
+import { checkArgumentValue } from './utils'
 
 interface Args {
   command: CommandDetails | undefined
   values: Obj | undefined
+  config: PromptConfig
 }
 
 /**
  * Show a prompt asking for argument.
  */
 async function getArgumentsPrompt(args: Args): Promise<Obj> {
-  const { command } = args
+  const { command, config } = args
+  const { color } = config.theme
 
   if (!command?.arguments) return {}
 
@@ -28,14 +30,15 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
         const { ok, messages } = checkArgumentValue({
           argValue,
           argument: arg,
+          config,
         })
 
         messages.forEach(m => console.log(m))
 
         if (ok && argValue) {
           console.log(
-            Color.gray(
-              `\nSpecified argument:  ${Color.argument(
+            color.gray(
+              `\nSpecified argument:  ${color.argument(
                 arg.title,
               )} = ${argValue}`,
             ),
@@ -46,12 +49,12 @@ async function getArgumentsPrompt(args: Args): Promise<Obj> {
       })
       .map<PromptObject>(arg => {
         const message =
-          Color.gray(' - argument - ') +
-          Color.argument(arg.title) +
+          color.gray(' - argument - ') +
+          color.argument(arg.title) +
           ' ' +
-          Color.gray(`(${arg.type ?? 'choice'}${arg.variadic ? ' list' : ''})`)
+          color.gray(`(${arg.type ?? 'choice'}${arg.variadic ? ' list' : ''})`)
 
-        return getParameterPrompt({ message, parameter: arg })
+        return getParameterPrompt({ message, parameter: arg, config })
       }),
   )
 
