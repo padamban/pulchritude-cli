@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "\n\n-- Lint --------------------------\n"
+pnpm lint
+
+echo "\n\n-- Format ------------------------\n"
+pnpm format:check
+
+echo "\n\n-- Test - unit -------------------\n"
+pnpm test:unit
+
+echo "\n\n-- Test - e2e --------------------\n"
+pnpm test:e2e
+
+echo "\n\n-- Build -------------------------\n"
+pnpm build
+
+echo "\n\n-- Build - tsc -------------------\n"
+pnpm build:tsc
