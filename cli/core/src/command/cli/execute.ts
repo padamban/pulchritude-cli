@@ -6,7 +6,7 @@ import {
   CommandsToRun,
   ProgramDetails,
 } from '../_type_'
-import { createTerminalCommand } from './utils/create-terminal-command'
+import { createTerminalCommand } from './utils'
 
 interface Args {
   setup: CliSetupDetails
