@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Lint"
+pnpm lint
+
+echo "Format"
+pnpm format:check
+
+echo "Test - unit"
+pnpm test:unit
+
+echo "Test - e2e"
+pnpm test:e2e
