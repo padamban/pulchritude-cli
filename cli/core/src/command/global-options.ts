@@ -6,7 +6,7 @@ import { resolveOptionDetails } from './resolve-setup'
  *
  * They need to be implemented in:
  * - `addGlobalOptionsDoc`
- * - `addCmdDocumentationFactory`
+ * - `addCmdDocumentationFactory`.
  */
 export const GLOBAL_OPTIONS: GlobalOptions = {
   help: resolveOptionDetails({

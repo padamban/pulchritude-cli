@@ -11,8 +11,7 @@ export const TextUtils = {
 
 /**
  * Convert the option id to option name.
- *
- * `optionId` => `--option-id, -oi`
+ * - E.g.: `optionId` => `--option-id, -oi`.
  */
 function createOptionName(variableName: string) {
   const kebab = camelToKebabCase(variableName)
@@ -32,8 +31,7 @@ function createOptionName(variableName: string) {
 
 /**
  * Convert the camelCase to alias.
- *
- * `someValue` => `sv`
+ * - E.g.: `someValue` => `sv`.
  */
 function createVariableAlias(variableName: string) {
   const alias = variableName
@@ -47,8 +45,7 @@ function createVariableAlias(variableName: string) {
 
 /**
  * Convert the camelCase to kebab-case.
- *
- * `someValue` => `some-value`
+ * - E.g.: `someValue` => `some-value`.
  */
 function camelToKebabCase(value: string) {
   const kebab = value

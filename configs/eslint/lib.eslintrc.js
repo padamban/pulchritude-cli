@@ -31,27 +31,24 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
-    'jsdoc/require-example': [
-      // The Error level should be `error`, `warn`, or `off` (or 2, 1, or 0)
-      'error',
-      // The options vary by rule, but are generally added to an options
-      //  object as follows:
-      {
-        checkConstructors: true,
-        exemptedBy: ['type'],
-      },
-    ],
+    'jsdoc/require-example': 'off',
+    'jsdoc/require-returns': 'off',
+    'jsdoc/require-param': 'off',
+    'jsdoc/informative-docs': 'off',
+    'jsdoc/require-description-complete-sentence': 'error',
+    'jsdoc/require-asterisk-prefix': 'error',
+    'jsdoc/require-description': 'error',
     'jsdoc/require-jsdoc': [
       'warn',
       {
         publicOnly: true,
         require: {
-          ArrowFunctionExpression: true,
-          ClassDeclaration: true,
-          ClassExpression: true,
-          FunctionDeclaration: true,
-          FunctionExpression: true,
-          MethodDefinition: true,
+          ArrowFunctionExpression: false,
+          ClassDeclaration: false,
+          ClassExpression: false,
+          FunctionDeclaration: false,
+          FunctionExpression: false,
+          MethodDefinition: false,
         },
         contexts: [
           'ArrowFunctionExpression',

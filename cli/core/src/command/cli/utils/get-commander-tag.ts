@@ -40,7 +40,7 @@ function getOptionTag(args: Partial<OptionDetails>) {
 
 /**
  * Get argument tag.
- * @example --option -o <option-value-slot...>
+ * @example --option -o <option-value-slot...>.
  */
 function getOptionTagSlot(args: Partial<OptionDetails>) {
   const { type, variadic, choices } = args

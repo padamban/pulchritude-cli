@@ -10,7 +10,6 @@ import {
 
 /**
  * Has chainable utility functions for creating typescript file content.
- *
  * @example
  * const file = createTsFile({})()
  *

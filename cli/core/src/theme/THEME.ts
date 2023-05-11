@@ -6,6 +6,10 @@ type ThemeOverride = (defaultTheme: CliTheme) => DeepPartial<CliTheme>
 
 const DEFAULT_THEME: CliTheme = { color: DEFAULT_COLORS }
 
+/**
+ * Create a theme object.
+ * @param override Overrides the default theme.
+ */
 function THEME(override?: ThemeOverride): CliTheme {
   const overriddenTheme = override?.(DEFAULT_THEME) ?? DEFAULT_THEME
   return {

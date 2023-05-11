@@ -9,7 +9,7 @@ import { ProgressBar, ProgressBarArgs } from './_type_'
  *   - we can jump to the next section, and the bar fills in fractionally
  *   - we can display a section info next to the bar
  * - we can divide the current sections into subsections
- *   - we can jump to the next subsection, and the bar fills in fractionally
+ *   - we can jump to the next subsection, and the bar fills in fractionally.
  */
 export const PROGRESS = (args?: ProgressBarArgs): ProgressBar => {
   const { barSize = 50, indent = 0 } = args ?? {}
@@ -119,4 +119,7 @@ export const PROGRESS = (args?: ProgressBarArgs): ProgressBar => {
   }
 }
 
+/**
+ * Progress utility instance.
+ */
 export type Progress = ReturnType<typeof PROGRESS>

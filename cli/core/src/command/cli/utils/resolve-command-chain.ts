@@ -38,8 +38,7 @@ function resolveCommandChain({ setup, cmd }: Args): Retval {
 
 /**
  * Get the names of the selected.
- *
- * `[app, program, command]`
+ * - E.g.: `['app', 'program', 'command']`.
  */
 function getCommandChain(cmd: Command): string[] {
   let names: string[] = [cmd.name()]

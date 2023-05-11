@@ -9,9 +9,8 @@ interface Args {
 
 /**
  * Create a string that can rerun the command.
- *
  * @example
- * CLI math sqrt 32 --decimal 4  -np=
+ * CLI math sqrt 32 --decimal 4  -np
  */
 function createTerminalCommand({
   cliName,

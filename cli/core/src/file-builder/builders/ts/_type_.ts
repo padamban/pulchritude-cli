@@ -1,14 +1,8 @@
-import { FileBuilderFactory } from '../_type_'
+/* eslint-disable jsdoc/require-jsdoc */
+import { FileBuilderFactory, GenericFileContentBuilder } from '../_type_'
 
 /**
  * Chainable typescript content builder utility.
- *
- * @example
- * const file: ChainableTsWriter = ...
- *
- * file
- *   .addDoNotEditWarning()
- *   .addDisableLinter()
  */
 export interface ChainableTsWriter {
   addLine: (text: string) => ChainableTsWriter
@@ -28,12 +22,14 @@ export interface ChainableTsWriter {
   addCommentHeader: (comment: string, nl?: number) => ChainableTsWriter
 }
 
-export interface TsFileContentBuilder {
-  write: ChainableTsWriter
-  isEmpty: () => boolean
-  compileContent: () => Promise<string>
-}
+/**
+ * Typescript file content builder instance.
+ */
+export type TsFileContentBuilder = GenericFileContentBuilder<ChainableTsWriter>
 
+/**
+ * Typescript file content builder instance factory.
+ */
 export type TsFileContentBuilderFactory = FileBuilderFactory<
   () => TsFileContentBuilder
 >

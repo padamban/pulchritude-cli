@@ -9,8 +9,7 @@ const joycon = new JoyCon()
 /**
  * Load config TS file.
  * - internally uses joycon
- * - beware the dependency bundles of the config file
- *
+ * - beware the dependency bundles of the config file.
  * @example
  * const config = await LOAD_CONFIG<CliSetup>({
  *   defaultConfig: {},

@@ -6,6 +6,9 @@ import { renderReportAsJson } from './render-report-as-json'
 import { renderReportAsMarkdown } from './render-report-as-md'
 import { renderReportToConsole } from './render-report-to-console'
 
+/**
+ * Report renderer utility.
+ */
 function RENDER_REPORT(args: ReportRendererConfig) {
   const { report, output, outputFolderPath, terminal, cwd } = args
 

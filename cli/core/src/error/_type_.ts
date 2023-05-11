@@ -36,7 +36,7 @@ export interface ErrorInfo {
 
   /**
    * Provide additional info.
-   * - if is an object it will be stringified internally
+   * - If is an object it will be stringified internally.
    */
   payload?: string | Obj
 }

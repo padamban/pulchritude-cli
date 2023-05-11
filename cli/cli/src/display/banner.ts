@@ -2,7 +2,7 @@
 interface Args {
   /**
    * Width of the banner.
-   * - minimum value: width of the base banner
+   * - Minimum value: width of the base banner.
    */
   width: number
 }
