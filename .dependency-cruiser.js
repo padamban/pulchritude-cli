@@ -8,7 +8,7 @@ module.exports = {
       path: 'node_modules',
     },
     // reaches: '^cli/core/src/command/_type_.ts',
-    tsPreCompilationDeps: true,
+    tsPreCompilationDeps: false,
     enhancedResolveOptions: {
       exportsFields: ['exports'],
       conditionNames: ['import', 'require', 'node', 'default'],
