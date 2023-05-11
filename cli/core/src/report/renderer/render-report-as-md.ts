@@ -1,14 +1,7 @@
-import { FileManager } from '../../file-manager'
 import { Obj } from '../../utils'
-import { Report } from '../_type_'
+import { ReportRendererArgs } from '../_type_'
 import { formatDate } from './format-date'
 import { renderStatus } from './render-status'
-
-export interface Args {
-  filePath: string
-  report: Report
-  fileManager: ReturnType<FileManager>
-}
 
 /**
  * Convert the report object as an MD file content, and save the file.
@@ -17,7 +10,7 @@ export const renderReportAsMarkdown = ({
   filePath,
   report,
   fileManager,
-}: Args) => {
+}: ReportRendererArgs) => {
   let content = ''
 
   const add = (str: string) => {

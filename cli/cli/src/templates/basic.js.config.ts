@@ -52,7 +52,9 @@ const SETUP = {
 
 export default SETUP
 `
-
+/**
+ * JS template details.
+ */
 export const basicJsTemplate: TemplateDetails = {
   name: 'basic',
   extension: 'js',

@@ -13,11 +13,10 @@ import { GLOBAL_OPTIONS } from './global-options'
  * - configure programs, commands, parameters
  * - terminal help/documentation
  * - adds action resolver to the commands
- *   - receives the terminal arguments
- *   - creates input prompts if needed
- *   - runs the target scripts
- *   - creates terminal documentation
- *
+ * - receives the terminal arguments
+ * - creates input prompts if needed
+ * - runs the target scripts
+ * - creates terminal documentation.
  * @example
  * await SETUP_COMMANDER(setup)({ reporter })(process.argv)
  */

@@ -21,7 +21,7 @@ interface Retval {
 
 /**
  * Create value slot text for the option.
- * - e.g.: `--option <slot>`
+ * - E.g.: `--option <slot>`.
  */
 function getOptionTagSlot(args: Partial<OptionDetails>) {
   const { type, variadic, choices } = args
@@ -129,6 +129,10 @@ function calculateTrail(textLength: number, cellLength: number | undefined) {
   return ' '.repeat(diff)
 }
 
+/**
+ * Create CLI command and parameter tags,
+ * that can be used inside the commander.js config.
+ */
 export const ComposeTag = {
   forProgram,
   forCommand,

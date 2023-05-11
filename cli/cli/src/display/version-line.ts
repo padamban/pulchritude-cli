@@ -19,7 +19,11 @@ interface Args {
   theme: CliTheme
 }
 
-export const displayVersionLine = ({ width, version, theme }: Args) => {
+/**
+ * Display the CLI config version.
+ */
+export const displayVersionLine = (args: Args) => {
+  const { width, version, theme } = args
   if (!version || version === 'unknown') return
   const bar = ' '.repeat(width - version.length - 1)
   console.log(`${bar} ${theme.color.gray(version)}`)

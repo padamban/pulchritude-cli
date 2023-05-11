@@ -55,6 +55,9 @@ const SETUP: CliSetup = {
 export default SETUP
 `
 
+/**
+ * TS template details.
+ */
 export const basicTsTemplate: TemplateDetails = {
   name: 'basic',
   extension: 'ts',

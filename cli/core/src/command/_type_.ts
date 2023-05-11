@@ -44,8 +44,8 @@ export interface CliSetupDetails {
 
   /**
    * Programs of the CLI tool.
-   * - each program can have multiple commands
-   * - the commands have parameters and a script to run
+   * - Each program can have multiple commands
+   * - The commands have parameters and a script to run.
    */
   programs: ProgramDetails[]
 
@@ -55,9 +55,12 @@ export interface CliSetupDetails {
   theme: CliTheme
 }
 
+/**
+ * Internally used program config object.
+ */
 export interface ProgramDetails extends Type<'program'> {
   /**
-   * Id of the program. (camelCase)
+   * Id of the program. (camelCase).
    * @example `myCalculator`
    */
   id: string
@@ -75,13 +78,13 @@ export interface ProgramDetails extends Type<'program'> {
   description: string
 
   /**
-   * The commander name for the program. (kebab-case)
+   * The commander name for the program. (kebab-case).
    * @example `my-calculator`
    */
   name: string
 
   /**
-   * The commander alias for the program. (initialism)
+   * The commander alias for the program. (initialism).
    * @example `mc`
    */
   alias: string
@@ -96,40 +99,48 @@ export interface ProgramDetails extends Type<'program'> {
    * Can run multiple commands sequentially.
    * - the order will be the same as in the commands array
    * - useful when we want to run multiple scripts at once
-   * - only the last script can be in watch mode
+   * - only the last script can be in watch mode.
    */
   isMultiCommand?: boolean
 }
 
+/**
+ * Internally used command config object.
+ */
 export interface CommandDetails<Args extends Obj = any, Opts extends Obj = any>
   extends Type<'command'> {
   /**
-   * Id of the command. (camelCase)
-   * @example `addNumbers`
+   * Id of the command. (camelCase).
+   * @example
+   * id: `addNumbers`
    */
   id: string
 
   /**
    * The title name of the command, that is displayed for the user in the prompt or documentation.
-   * @example `Add numbers`
+   * @example
+   * title: `Add numbers`
    */
   title: string
 
   /**
    * The description of the command, that is displayed for the user.
-   * @example `Mathematical operation for summing numbers`
+   * @example
+   * description: `Mathematical operation for summing numbers`
    */
   description: string
 
   /**
-   * The commander name for the command. (kebab-case)
-   * @example `add-numbers`
+   * The commander name for the command (kebab-case).
+   * @example
+   * name: `add-numbers`
    */
   name: string
 
   /**
-   * The commander alias for the command. (initialism)
-   * @example `an`
+   * The commander alias for the command (initialism).
+   * @example
+   * alias: `an`
    */
   alias: string
 
@@ -178,7 +189,7 @@ export type OptionType = 'boolean' | 'string' | 'number'
 export interface ArgumentDetails<Args extends Obj = any>
   extends Type<'argument'> {
   /**
-   * Id of the argument. (camelCase)
+   * Id of the argument. (camelCase).
    * @example `numberValues`
    */
   id: StringKeyof<Args>
@@ -201,7 +212,7 @@ export interface ArgumentDetails<Args extends Obj = any>
   type?: ArgumentType
 
   /**
-   * The commander name for the argument. (kebab-case)
+   * The commander name for the argument. (kebab-case).
    * @example `number-values`
    */
   name: string
@@ -221,7 +232,7 @@ export interface ArgumentDetails<Args extends Obj = any>
 
   /**
    * Predefined argument choices.
-   * - if the argument is variadic it can select multiple values
+   * - if the argument is variadic it can select multiple values.
    */
   choices?: ChoiceDetails[]
 }
@@ -231,7 +242,7 @@ export interface ArgumentDetails<Args extends Obj = any>
  */
 export interface OptionDetails<Opts extends Obj = any> extends Type<'option'> {
   /**
-   * Id of the option. (camelCase)
+   * Id of the option. (camelCase).
    * @example `noDecimals`
    */
   id: StringKeyof<Opts>
@@ -254,20 +265,20 @@ export interface OptionDetails<Opts extends Obj = any> extends Type<'option'> {
   type?: OptionType
 
   /**
-   * The commander name for the option. (--kebab-case)
+   * The commander name for the option. (--kebab-case).
    * @example `--some-values`
    */
   name: FlagOption
 
   /**
-   * The commander alias for the option. (-initialism)
+   * The commander alias for the option. (-initialism).
    * @example `-sv`
    */
   alias: FlagOptionAlias
 
   /**
    * Is a watch flag.
-   * - this option signals an unending script
+   * - This option signals an unending script.
    */
   watchMode?: boolean
 
@@ -280,7 +291,7 @@ export interface OptionDetails<Opts extends Obj = any> extends Type<'option'> {
 
   /**
    * Predefined option choices.
-   * - if the argument is variadic it can select multiple values
+   * - If the argument is variadic it can select multiple values.
    */
   choices?: ChoiceDetails[]
 }
@@ -316,7 +327,7 @@ export interface CommandContext {
    * Contains:
    * - logger
    * - progress bar
-   * - report renderer
+   * - report renderer.
    */
   reporter: CliReporter
 
@@ -331,7 +342,7 @@ export interface CommandContext {
   fileManager: FileManagerInstance
 
   /**
-   * Theme of the CLI
+   * Theme of the CLI.
    */
   theme: CliTheme
 }
@@ -380,13 +391,13 @@ export type CliScript<
 }) => () => Promise<void>
 
 /**
- * The commander name for the option. (--kebab-case)
+ * The commander name for the option. (--kebab-case).
  * @example `--some-values`
  */
 export type FlagOption = `--${string}`
 
 /**
- * The commander alias for the option. (-initialism)
+ * The commander alias for the option. (-initialism).
  * @example `-sv`
  */
 export type FlagOptionAlias = `-${string}`

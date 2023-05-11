@@ -2,6 +2,9 @@ import { FileBuilderFactoryArgs } from './builders/_type_'
 import { RawFileContentBuilderFactory } from './builders/raw/_type_'
 import { TsFileContentBuilderFactory } from './builders/ts/_type_'
 
+/**
+ * Utilities for creating a file.
+ */
 export interface FileBuilderInstance {
   /**
    * General purpose, bare bones file builder.
@@ -15,7 +18,7 @@ export interface FileBuilderInstance {
 }
 
 /**
- * Supported file builders
+ * Supported file builders.
  */
 export type FileBuilders = (
   props?: FileBuilderFactoryArgs,

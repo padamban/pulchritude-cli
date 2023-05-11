@@ -1,12 +1,17 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import { ErrorInfo } from '../error'
+import { FileManagerInstance } from '../file-manager'
 import { ProgressBar } from '../progress'
 import { Obj } from '../utils'
 
+/**
+ * Status of the section.
+ */
 export type ReportStatus = 'ERROR' | 'WARNING' | 'OK' | 'SKIPPED' | 'NONE'
 
 /**
  * Report section entry types.
- * - TODO: revise available entries
+ * - TODO: revise available entries.
  */
 export type ReportEntry =
   | {
@@ -66,25 +71,84 @@ export type ReportEntry =
       text: string
     }
 
+/**
+ * The report can be of these types.
+ */
 export type FileReportType = 'json' | 'md'
+
+/**
+ * The report can displayed in this kind of non-file based mediums.
+ */
 export type NonFileReportType = 'console'
+
+/**
+ * Report can be logged in these kind of formats.
+ */
 export type ReportType = FileReportType | NonFileReportType
 
+/**
+ * Section of the report.
+ */
 export interface ReportSection {
+  /**
+   * ID of the section.
+   */
   id: string
+
+  /**
+   * Title of the section.
+   */
   title: string
+
+  /**
+   * Short description of the section.
+   */
   description: string
+
+  /**
+   * Short description of the section.
+   */
   status: ReportStatus
+
+  /**
+   * Temporal metrics of the section.
+   */
   timer: {
+    /**
+     * The section creation time.
+     */
     start: number
+
+    /**
+     * The section end time.
+     */
     end: number
+
+    /**
+     * The section was executed in this amount of data.
+     */
     duration: number
   }
+
+  /**
+   * Argument values of the executed script.
+   */
   arguments: Obj | undefined
+
+  /**
+   * Option values of the executed script.
+   */
   options: Obj | undefined
+
+  /**
+   * Content entries of the section.
+   */
   content: ReportEntry[]
 }
 
+/**
+ * Section details.
+ */
 export interface ReportSetupSection {
   procedure?: {
     title: string
@@ -93,7 +157,14 @@ export interface ReportSetupSection {
     args: Obj
   }
 }
+
+/**
+ * Full report object.
+ */
 export interface Report {
+  /**
+   * General info of the report.
+   */
   detail: CliReportDetail
 
   /**
@@ -114,7 +185,7 @@ export interface CliReporterConfig {
 
 /**
  * Log section information.
- * - TODO: revise available functions
+ * - TODO: revise available functions.
  */
 export interface CliReportLogger {
   title: (title: string) => CliReportLogger
@@ -140,18 +211,41 @@ export interface CliReportLogger {
   consoleOutput: (output: unknown) => CliReportLogger
 }
 
+/**
+ * Report info.
+ */
 export interface CliReportDetail {
+  /**
+   * The CLI has started at this moment.
+   */
   initAt: number
+
+  /**
+   * The CLI script executions has started at this moment.
+   */
   startedAt?: number
+
+  /**
+   * The CLI script executions has started at this moment.
+   */
   finishedAt?: number
+
+  /**
+   * Report file links.
+   */
   outputFileLinks: Partial<Record<FileReportType, string>>
+
+  /**
+   * Commands that we can copy and paste into the terminal,
+   * in order to rerun the just executed scripts.
+   */
   terminalCommands: string[]
 }
 
 export interface CliReporter {
   /**
    * Add setup information.
-   * - e.g.: what were the script arguments
+   * - e.g.: what were the script arguments.
    */
   setSetupDetails: (setup: Report['setup']) => void
 
@@ -168,7 +262,7 @@ export interface CliReporter {
 
   /**
    * Terminate section.
-   * - calculates the execution time
+   * - calculates the execution time.
    */
   endSection: () => void
 
@@ -220,18 +314,19 @@ export interface CliReporter {
   args?: ReporterArgs
 }
 
-export type ReportOutput = 'console' | 'md' | 'json'
-
 export interface ReporterArgs {
   /**
    * Disable the progress bar.
    */
   disableProgressBar?: boolean
 
+  /**
+   * Current working directory.
+   */
   cwd: string
 
   /**
-   * TODO
+   * Config of the renderer.
    */
   rendererConfig: Pick<
     ReportRendererConfig,
@@ -242,10 +337,15 @@ export interface ReporterArgs {
 export interface ReportRendererConfig {
   report: Report
   cwd: string
-  // fileManager: ReturnType<CliFileManager>
   output: ReportType[]
   outputFolderPath: string
   terminal: {
     frameWidth: number
   }
+}
+
+export interface ReportRendererArgs {
+  filePath: string
+  report: Report
+  fileManager: FileManagerInstance
 }

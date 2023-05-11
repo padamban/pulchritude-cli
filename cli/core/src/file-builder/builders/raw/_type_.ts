@@ -1,28 +1,32 @@
-import { BuiltInParserName } from 'prettier'
-
-import { FileBuilderFactory } from '../_type_'
+import { FileBuilderFactory, GenericFileContentBuilder } from '../_type_'
 
 /**
  * Chainable file content builder utility.
- *
- * @example
- * const file: ChainableRawWriter = ...
- *
- * file
- *   .addLine('Hello')
- *   .newLine()
  */
 export interface ChainableRawWriter {
+  /**
+   * Add a line of content.
+   * @param text
+   * @returns
+   */
   addLine: (text: string) => ChainableRawWriter
+  /**
+   * Add a number of new lines to the content.
+   * @param nl
+   * @returns
+   */
   newLine: (nl?: number) => ChainableRawWriter
 }
 
-export interface RawFileContentBuilder {
-  write: ChainableRawWriter
-  isEmpty: () => boolean
-  compileContent: (parser?: BuiltInParserName) => Promise<string>
-}
+/**
+ * File content builder instance.
+ */
+export type RawFileContentBuilder =
+  GenericFileContentBuilder<ChainableRawWriter>
 
+/**
+ * File content builder instance factory.
+ */
 export type RawFileContentBuilderFactory = FileBuilderFactory<
   () => RawFileContentBuilder
 >

@@ -5,9 +5,11 @@ import path from 'path'
 import { FileManager, ListOptions } from './_type_'
 
 /**
- * Create/read/list files.
+ * CRUD utility for the file system.
  */
-const FILE_MANAGER: FileManager = ({ cwd }) => {
+const FILE_MANAGER: FileManager = args => {
+  const { cwd } = args
+
   function ensureDir(dirPath: string) {
     const { dir } = path.parse(dirPath)
 

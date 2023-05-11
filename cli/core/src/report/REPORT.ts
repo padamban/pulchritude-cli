@@ -14,7 +14,7 @@ import { RENDER_REPORT } from './renderer/RENDER_REPORT'
  * Creates a reporter utility that collects execution data.
  * - helps to log info about each command
  * - creates report file and terminal log
- * - a portion of its logger functionality is passed on to each script in the context
+ * - a portion of its logger functionality is passed on to each script in the context.
  */
 export const REPORTER = (args?: ReporterArgs): CliReporter => {
   const { disableProgressBar, rendererConfig, cwd } = args ?? {}

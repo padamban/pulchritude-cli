@@ -10,7 +10,7 @@ import {
 /**
  * Has chainable utility functions for creating some file content.
  */
-export const createRawFile: RawFileContentBuilderFactory = props => () => {
+export const createRawFile: RawFileContentBuilderFactory = args => () => {
   const lines: string[] = []
 
   const options: RawFileContentBuilder = {
@@ -22,7 +22,7 @@ export const createRawFile: RawFileContentBuilderFactory = props => () => {
         return await tryToFormatWithPrettier({
           input: content,
           parser,
-          onError: props?.onError,
+          onError: args?.onError,
         })
       }
       return content
@@ -33,7 +33,8 @@ export const createRawFile: RawFileContentBuilderFactory = props => () => {
 }
 
 /**
- * Create the chainable utility.
+ * Create the chainable utility that adds lines to the input array.
+ * @param lines Mutable array holding the content lines.
  */
 const addChainableOptions = (lines: string[]) => {
   const options: ChainableRawWriter = {
