@@ -1,5 +1,11 @@
 # @pulchritude-cli/cli
 
+## 0.4.4
+
+### Patch Changes
+
+- 45f466e: Restored validation
+
 ## 0.4.3
 
 ### Patch Changes
