@@ -7,8 +7,8 @@ module.exports = {
     exclude: {
       path: 'node_modules',
     },
-    // reaches: '^cli/core/src/command/_type_.ts',
-    tsPreCompilationDeps: true,
+    // reaches: '^cli/core/src/command/cli/utils/get-commander-tag.ts',
+    tsPreCompilationDeps: false,
     enhancedResolveOptions: {
       exportsFields: ['exports'],
       conditionNames: ['import', 'require', 'node', 'default'],

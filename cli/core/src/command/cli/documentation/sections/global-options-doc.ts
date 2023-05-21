@@ -1,6 +1,6 @@
 import { CliTheme } from '../../../../theme'
 import { OptionDetails } from '../../../_type_'
-import { ComposeTag } from './utils/compose-tag'
+import { ComposeTag } from './utils'
 
 interface Args {
   addLine: (str: string) => void

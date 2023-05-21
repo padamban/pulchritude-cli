@@ -1,8 +1,10 @@
 import { CliTheme } from '../../../../theme'
 import { ChoiceDetails, CliSetupDetails } from '../../../_type_'
-import { ComposeTag } from './utils/compose-tag'
-import { CommanderDescription } from './utils/get-description'
-import { getFeatureColumnDetails } from './utils/get-feature-column-details'
+import {
+  CommanderDescription,
+  ComposeTag,
+  getFeatureColumnDetails,
+} from './utils'
 
 interface Args {
   addLine: (str: string) => void

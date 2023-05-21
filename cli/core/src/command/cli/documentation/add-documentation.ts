@@ -2,7 +2,7 @@ import commander from 'commander'
 
 import { CliSetupDetails, GlobalOptions } from '../../_type_'
 import { GLOBAL_OPTIONS } from '../../global-options'
-import { CommanderTag } from '../utils/get-commander-tag'
+import { CommanderTag } from '../utils'
 import { addAvailableFeaturesDocumentation } from './sections/available-features-doc'
 import { addCommonDocumentation } from './sections/common-doc'
 import { addGlobalOptionsDoc } from './sections/global-options-doc'
