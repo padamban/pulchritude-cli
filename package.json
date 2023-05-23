@@ -13,6 +13,8 @@
     "dev": "turbo run dev",
     "cli:s": "tsx ./cli/cli/src/run/run-now.ts",
     "cli:d": "node ./cli/cli/dist/run/run-now.js",
+    "cna:s": "tsx ./cli/create-new-app/src/run/run-now.ts",
+    "cna:d": "node ./cli/create-new-app/dist/run/run-now.js",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "turbo run lint",

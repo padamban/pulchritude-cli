@@ -23,10 +23,8 @@ import { TEMPLATES } from '../templates'
 const RUN = async () => {
   const width = 70
 
-  const theme = THEME(t => ({
-    color: {
-      program: t.color.program.underline.red,
-    },
+  const theme = THEME(() => ({
+    color: {},
   }))
 
   displayBanner({ width })

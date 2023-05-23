@@ -1,3 +1,4 @@
+import { SingleOrArray } from '../../dist'
 import { FileBuilderInstance } from '../file-builder/_type_'
 import { FileManagerInstance } from '../file-manager'
 import { SubProgressBar } from '../progress'
@@ -231,6 +232,16 @@ export interface ArgumentDetails<Args extends Obj = any>
   variadic?: boolean
 
   /**
+   * Example value.
+   */
+  example?: string
+
+  /**
+   * Default parameter value.
+   */
+  defaultValue?: SingleOrArray<boolean | number | string>
+
+  /**
    * Predefined argument choices.
    * - if the argument is variadic it can select multiple values.
    */
@@ -290,6 +301,16 @@ export interface OptionDetails<Opts extends Obj = any> extends Type<'option'> {
   variadic?: boolean
 
   /**
+   * Example value.
+   */
+  example?: string
+
+  /**
+   * Default parameter value.
+   */
+  defaultValue?: SingleOrArray<boolean | number | string>
+
+  /**
    * Predefined option choices.
    * - If the argument is variadic it can select multiple values.
    */
@@ -303,7 +324,7 @@ export interface ChoiceDetails {
   /**
    * Display name for the choices.
    */
-  name: string
+  name?: string
 
   /**
    * Value of the choice.

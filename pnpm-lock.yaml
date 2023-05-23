@@ -46,6 +46,7 @@ importers:
     specifiers:
       '@types/cli-progress': 3.11.0
       '@types/glob': 8.1.0
+      '@types/mustache': 4.2.2
       '@types/prettier': 2.7.2
       '@types/prompts': 2.4.2
       bundle-require: 4.0.1
@@ -54,6 +55,7 @@ importers:
       commander: 10.0.0
       glob: 10.0.0
       joycon: 3.1.1
+      mustache: 4.2.0
       prettier: 2.8.4
       prompts: 2.4.2
     dependencies:
@@ -66,10 +68,18 @@ importers:
       commander: 10.0.0
       glob: 10.0.0
       joycon: 3.1.1
+      mustache: 4.2.0
       prettier: 2.8.4
       prompts: 2.4.2
     devDependencies:
+      '@types/mustache': 4.2.2
       '@types/prompts': 2.4.2
+
+  cli/create-new-app:
+    specifiers:
+      '@pulchritude-cli/core': workspace:*
+    dependencies:
+      '@pulchritude-cli/core': link:../core
 
   configs/eslint:
     specifiers:
@@ -3598,6 +3608,10 @@ packages:
 
   /@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
+    dev: true
+
+  /@types/mustache/4.2.2:
+    resolution: {integrity: sha512-MUSpfpW0yZbTgjekDbH0shMYBUD+X/uJJJMm9LXN1d5yjl5lCY1vN/eWKD6D1tOtjA6206K0zcIPnUaFMurdNA==}
     dev: true
 
   /@types/node/12.20.55:
@@ -7912,6 +7926,11 @@ packages:
     dependencies:
       dns-packet: 5.6.0
       thunky: 1.1.0
+    dev: false
+
+  /mustache/4.2.0:
+    resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
+    hasBin: true
     dev: false
 
   /mz/2.7.0:

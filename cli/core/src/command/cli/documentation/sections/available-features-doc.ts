@@ -1,5 +1,10 @@
 import { CliTheme } from '../../../../theme'
-import { ChoiceDetails, CliSetupDetails } from '../../../_type_'
+import {
+  ArgumentDetails,
+  ChoiceDetails,
+  CliSetupDetails,
+  OptionDetails,
+} from '../../../_type_'
 import {
   CommanderDescription,
   ComposeTag,
@@ -63,6 +68,13 @@ function addAvailableFeaturesDocumentation(args: Args) {
           indent: cellLength + 6,
           theme,
         })
+
+        addParameterInfo({
+          addLine: _,
+          indent: cellLength + 6,
+          parameter: arg,
+          theme,
+        })
       })
 
       c.options?.forEach(opt => {
@@ -76,6 +88,13 @@ function addAvailableFeaturesDocumentation(args: Args) {
           addLine: _,
           choices: opt.choices,
           indent: cellLength + 6,
+          theme,
+        })
+
+        addParameterInfo({
+          addLine: _,
+          indent: cellLength + 6,
+          parameter: opt,
           theme,
         })
       })
@@ -103,14 +122,48 @@ function addChoices(args: {
       return longest
     }, 0) ?? 0
 
+  if (args.choices?.length) {
+    args.addLine(`${' '.repeat(args.indent)}Choices:`)
+  }
+
   args.choices?.forEach(val => {
     const rawValue = `"${val.value}"`
     const value = rawValue
       .padEnd(longestValue + 2)
       .replace(rawValue, color.important(rawValue))
 
-    args.addLine(`${' '.repeat(args.indent)}${value}  ${color.gray(val.name)}`)
+    args.addLine(
+      `${' '.repeat(args.indent)}  ${value}  ${color.gray(val.name)}`,
+    )
   })
+}
+
+/**
+ * List parameter info.
+ */
+function addParameterInfo(args: {
+  parameter: ArgumentDetails | OptionDetails
+  indent: number
+  addLine: (str: string) => void
+  theme: CliTheme
+}) {
+  const { color } = args.theme
+
+  if (args.parameter.example) {
+    args.addLine(
+      `${' '.repeat(args.indent)}${color.gray(
+        'Example:',
+      )}       ${color.important(args.parameter.example)}`,
+    )
+  }
+
+  if (args.parameter.defaultValue) {
+    args.addLine(
+      `${' '.repeat(args.indent)}${color.gray(
+        'Default value:',
+      )} ${color.important(args.parameter.defaultValue)}`,
+    )
+  }
 }
 
 export { addAvailableFeaturesDocumentation }

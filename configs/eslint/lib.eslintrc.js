@@ -70,5 +70,5 @@ module.exports = {
     ],
   },
   overrides: [],
-  ignorePatterns: ['node_modules', 'dist', '.coverage'],
+  ignorePatterns: ['node_modules', 'dist', '.coverage', '**/templates/*'],
 }

@@ -1,8 +1,9 @@
 dist
 .coverage
-**/.cli-repport
+**/.cli-report
 **/dist
 pnpm-lock.yaml
 docs/.docusaurus
 docs/build
 dependency-graph.*
+**/templates
