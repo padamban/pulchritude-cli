@@ -1,0 +1,23 @@
+{
+  "name": "@pulchritude-cli/create-new-app",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "module": "none",
+  "bin": {
+    "create-new-app": "bin/create-new-app.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsup src/** --format cjs,esm --dts",
+    "build:tsc": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@pulchritude-cli/core": "workspace:*"
+  }
+}

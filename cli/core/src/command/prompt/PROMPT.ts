@@ -70,7 +70,7 @@ async function PROMPT(args: PromptArgs): Promise<PromptRetval> {
       console.log('')
     }
 
-    fixParameterValues({
+    const fixed = fixParameterValues({
       command,
       argumentValues: argumentResponse,
       optionValues: optionResponse,
@@ -78,8 +78,8 @@ async function PROMPT(args: PromptArgs): Promise<PromptRetval> {
 
     commandsToRun.set(command.id, {
       command,
-      argumentResponse,
-      optionResponse,
+      argumentResponse: fixed.argumentValues,
+      optionResponse: fixed.optionValues,
       watchMode: isWatchMode({ command, options: optionResponse }),
     })
   }

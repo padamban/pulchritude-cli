@@ -21,9 +21,18 @@ function getParameterPrompt(args: Args): PromptObject {
     message,
     type: resolvePromptType(parameter),
     choices: parameter.choices?.map(c => ({
-      title: c.name,
+      title: c.name ?? '' + c.value,
       value: c.value,
+      selected:
+        parameter.variadic && Array.isArray(parameter.defaultValue)
+          ? parameter.defaultValue.includes(c.value)
+          : parameter.defaultValue === c.value,
     })),
+    initial: parameter.choices
+      ? undefined
+      : Array.isArray(parameter.defaultValue)
+      ? undefined
+      : parameter.defaultValue,
     instructions: false,
     validate: value => {
       if (parameter.variadic && parameter.type === 'number') {

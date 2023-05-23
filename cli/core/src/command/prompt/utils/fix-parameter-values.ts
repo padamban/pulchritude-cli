@@ -1,5 +1,6 @@
 import { Obj } from '../../../utils'
 import { CommandDetails } from '../../_type_'
+import { addDefaultParameterValues } from './add-default-parameter-values'
 import { fixParameterValue } from './fix-parameter-value'
 
 interface Args {
@@ -17,10 +18,12 @@ interface Retval {
  * Ensure that the parameter (argument or option) values are of the correct type.
  */
 function fixParameterValues(args: Args): Retval {
-  const { command, argumentValues, optionValues } = args
+  const { command } = args
 
-  let fixedArgumentValues = argumentValues
-  let fixedOptionValues = optionValues
+  const { argumentValues, optionValues } = addDefaultParameterValues(args)
+
+  let fixedArgumentValues = { ...argumentValues }
+  let fixedOptionValues = { ...optionValues }
 
   Object.entries(argumentValues).forEach(([id, value]) => {
     const argument = command?.arguments?.find(arg => arg.id === id)
